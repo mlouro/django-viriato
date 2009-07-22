@@ -1,0 +1,47 @@
+{% extends "projects/milestone/base_detail.html" %}
+{% load i18n %}
+
+{% block breadcrumbs_inner %}{% trans "Create a milestone" %}{% endblock %}
+
+{% block content %}
+{% if milestone.id %}
+<form class="form" action="{% url projects.views.milestone.save project.id, milestone.id %}" method="post">
+{% else %}
+<form class="form" action="{% url projects.views.milestone.save project.id %}" method="post">
+{% endif %}
+    <input type="hidden" name="id" value="{{ milestone.id }}" />
+    <p class="field">
+        <label>Title</label>
+        {{ form.title }}
+    </p>
+    {{ form.title.errors }}
+
+    <p class="field">
+        <label>{% trans "End date" %} <span class="light"></span></label>
+        {{ form.end_date }}
+    </p>
+    {{ form.end_date.errors }}
+
+    {% if milestone.id %}
+    <p class="field">
+        <label>
+            {{ form.completed }}
+            Completed
+        </label>
+    </p>
+    {{ form.completed.errors }}
+    {% endif %}
+
+    <p class="submit">
+        {% if milestone %}
+        <input type="submit" value="{% trans "Save milestone" %}" />
+        {% else %}
+        <input type="submit" value="{% trans "Create milestone" %}" />
+        {% endif %}
+        <a href="javascript:history.back()">{% trans "Cancel" %}</a>
+    </p>
+
+</form>
+{% endblock %}
+
+

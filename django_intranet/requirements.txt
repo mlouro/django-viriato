@@ -1,0 +1,22 @@
+# TODOS
+# 1. Create bootstrap file to install manual stuff
+# install python_openid: pip install python_openid
+
+# Django
+-e svn+http://code.djangoproject.com/svn/django/trunk/#egg=django-trunk
+
+# user stuff
+-e git://github.com/ericflo/django-avatar.git@bf25a07009b0d7a1eba51dbe71dc0bc4bbf2c11c#egg=django-avatar
+-e git://github.com/jtauber/django-notification.git@e04fdc9420306826b1b80623dfcad819813dc082#egg=django-notification
+-e hg+http://bitbucket.org/ubernostrum/django-registration/#egg=django-registration
+django-authopenid==1.0
+-e svn+http://django-tagging.googlecode.com/svn/trunk/#egg=django-tagging
+-e git://github.com/jtauber/django-mailer.git@22739b42f613c84da3f59ef7586a8e02d8662403#egg=django-mailer
+-e svn+http://django-pagination.googlecode.com/svn/trunk/#egg=django-pagination
+-e git://github.com/brosner/django-timezones.git@4f3efc183850469cdb744308ed3676d947f37ba0#egg=django-timezones
+
+#-e git://github.com/thauber/django-schedule.git@e7259336f2541c1ed5f3fecd94e9393d01adcdbd#egg=django-schedule
+django-debug-toolbar==0.7.0
+
+-e git://github.com/django-extensions/django-extensions.git@309f9b61f09a6273ff78e93b98a0d9008a9f77a2#egg=django-extensions
+pygraphviz

@@ -1,0 +1,37 @@
+{% extends "projects/milestone/base.html" %}
+{% load i18n %}
+
+{% block breadcrumbs_inner %}{% trans "Milestones" %}{% endblock %}
+
+{% block content %}
+<div id="milestones">
+
+    {% if late_list %}
+    <div class="milist late">
+        <h2>Late</h2>
+        {% for milestone in late_list %}
+        {% include 'projects/milestone/_list_detail.html' %}
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    {% if upcoming_list %}
+    <div class="milist upcoming">
+        <h2>Upcoming</h2>
+        {% for milestone in upcoming_list %}
+        {% include 'projects/milestone/_list_detail.html' %}
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    {% if completed_list %}
+    <div class="milist completed">
+        <h2>Completed</h2>
+        {% for milestone in completed_list %}
+        {% include 'projects/milestone/_list_detail.html' %}
+        {% endfor %}
+    </div>
+    {% endif %}
+
+</div>
+{% endblock content %}

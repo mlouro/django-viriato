@@ -1,0 +1,49 @@
+9
+
+dir
+490
+https://django-newsroom.googlecode.com/svn/branches/pinax/newsroom_project/media/images
+https://django-newsroom.googlecode.com/svn
+
+
+
+2009-05-03T19:11:04.083827Z
+371
+mlouro
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+8e7a9df6-a9d9-11dd-9f94-e5dfbee8a4f1
+
+tmp
+dir
+
+ajax
+dir
+
+widgets
+dir
+
+common
+dir
+
+stories
+dir
+
+tables
+dir
+
+icons
+dir
+

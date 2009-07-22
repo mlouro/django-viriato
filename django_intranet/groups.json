@@ -1,0 +1,1 @@
+[{"pk": 1, "model": "auth.group", "fields": {"name": "project_manager", "permissions": [103, 77, 85, 81, 100, 70, 74, 97, 89, 93, 104, 78, 86, 82, 101, 71, 75, 98, 90, 94, 105, 79, 87, 83, 102, 72, 76, 99, 91, 95, 80, 106, 88, 84, 73, 92, 96]}}, {"pk": 2, "model": "auth.group", "fields": {"name": "internal_developer", "permissions": [103, 85, 89, 93, 106, 88, 84, 73, 92, 96]}}]

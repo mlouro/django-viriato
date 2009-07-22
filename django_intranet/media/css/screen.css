@@ -1,0 +1,224 @@
+
+/* Project reset
+----------------------------------------------- */
+a { color: #09458A; }
+
+h1 { font-size: 22px; }
+h2 { font-size: 19px; }
+h3 { font-size: 17px; }
+h5 { font-size: 15px; }
+
+
+
+/* global classes
+----------------------------------------------- */
+.clearfix { overflow: auto; width: auto; }
+.hidden { display: none; }
+.alrt { text-align: right; }
+.alct { text-align: center; }
+
+
+
+/* app based classes
+----------------------------------------------- */
+.home  #main_nav_home { background-color: #DDD; color: #3D4B52; }
+.container { padding: 0 20px 0 40px; }
+
+
+/* Header / navigation
+----------------------------------------------- */
+#header { background-color: #0389BA; font-family: sans-serif; }
+    #header a { text-decoration: none; }
+
+    #aux_nav { padding: 5px 0; text-align: right; color: #00ABDA; }
+        #aux_nav span { margin: 0 7px; color: #FFF; font-weight: bold; }
+        #aux_nav a { margin: 0 7px; color: #7CD2EA; }
+        #aux_nav a:hover { text-decoration: underline; }
+
+    #main_nav { padding: 5px 0 0; }
+        #main_nav li { float: left; }
+        #main_nav a { display: block; padding: 8px 15px 7px 17px; margin-right: 4px; background-color: #0E9ED2; color: #FFF;
+            border: 1px solid #2DABD8; border-right-color: #0080AA; border-bottom-color: #048FC2; font-weight: bold; }
+        #main_nav a:hover { background-color: #00ABDA; }
+        #main_nav a.active { background-color: #F5F5F5; border-color: #F5F5F5; color: #048FC2; }
+        #main_nav a.inactive { background-color: transparent; border-color: transparent; }
+
+    #secondary_nav { padding: 12px 0 10px; background-color: #F5F5F5; border-bottom: 1px solid #CCC; }
+        #secondary_nav a { padding: 0 0 10px 0; }
+        #secondary_nav a { float: left; padding: 4px 10px; margin-right: 10px ; color: #048FC2; background-color: #DDD;
+                            text-decoration: none; -moz-border-radius: 5px; font-size: 1.1em; }
+        #secondary_nav a.active { background-color: #048FC2; color: #FFF; }
+
+
+/* Content
+----------------------------------------------- */
+#content_id { background-color: #D1EDFF; color: #0389BA; border-bottom: 1px solid #C4DFEF; }
+    #content_id h1 { float: left; padding: 0 35px 3px 0; line-height: 42px; font-size: 26px; }
+
+    #content_id_links li { float: left; margin-right: 10px; padding-top: 10px; }
+    #content_id_links li a { float: left; padding: 3px 7px 3px 22px; color: #026B91; text-decoration: none;  -moz-border-radius: 5px;
+        background: url(../images/icons/icon_object-tools_addlink.gif) no-repeat center left; }
+    #content_id_links li a.active { background-color: #048FC2; color: #FFF; }
+    #extra_content_id_search { float: right; padding: 9px 0; }
+        #extra_content_id_search .textbox { padding: 2px 4px; border: 1px solid #03ABE7; -moz-border-radius: 5px; }
+        #extra_content_id_search .submit { padding: 0px 4px;  }
+
+#content { float: left; width: 70%; margin: 20px 0; min-height: 200px; }
+
+#content_sidebar { float: right; width: 26%; padding: 1%; margin: 20px 0 20px; min-height: 200px; }
+#content_sidebar { background-color: #F9F9F9; }
+
+/* Footer
+----------------------------------------------- */
+#footer { color: #777; }
+
+
+
+/* Projects overview
+----------------------------------------------- */
+
+table.activity { width: 100%; }
+    table.activity td { padding: 6px 4px 8px; border-bottom: 1px solid #EFEFEF;
+            white-space: nowrap; }
+        table.activity .action {  }
+        table.activity .description { width: 100%; }
+        table.activity .name { border-right: 1px solid #EFEFEF; }
+
+.project_activity h3 { padding: 5px 10px; background: #EFEFEF; font-weight: normal; }
+.project_activity h3 a { text-decoration: none; color: #000; }
+
+
+/* Activities
+----------------------------------------------- */
+.activity .comment { background-color: #09458A; color: #FFF; padding: 3px 5px; }
+
+
+
+/* Milestones
+----------------------------------------------- */
+#milestones .milist         { padding-bottom: 25px; }
+    .milist h2              { padding-bottom: 2px; color: #FFF; padding: 2px 3px; }
+    .milist.late h2         { background-color:#CC0000; }
+    .milist.upcoming h2     { background-color: #FFCC00; }
+    .milist.completed h2    { background-color: #009900; }
+
+
+    .late .end_date      { color: #CC0000; font-weight:bold; }
+    .upcoming .end_date  { color: #CC9933; font-weight:bold; }
+    .completed .end_date { color: #009900; font-weight:bold; }
+
+    #milestones .milestone { position: relative; border-bottom: 1px solid #eeeeee; }
+        .milestone .milestone-details { position: relative; padding: 4px 0 4px 4px; }
+        .milestone .milestone-details .actions { top: auto; bottom: 0; }
+    .milestone .assignedTo { color: #999; }
+
+    .milestone h3 { padding: 2px 0; font-size: 1.4em; }
+    .milestone p { padding: 10px 0; font-size: 1.2em; }
+
+    .mile-item-list li { padding: 1px 0; margin-left: 20px; list-style-type: disc; color: #888; font-size: 0.8em;  }
+    .mile-item-list a { color: #888; font-size: 1.2em;  }
+
+    .milestone .actions { position: absolute; top: 0; right: 15px; padding: 5px 0 5px 5px; font-size: 1.2em; }
+    .milestone .actions span { margin: 0 2px; }
+    .milestone .actions a:hover { color: #000; }
+
+
+/* Messages
+----------------------------------------------- */
+
+#messages h2 { padding: 10px 0 3px; font-size: 1.6em; }
+    #messages h2 a { color: #222; }
+#messages .message { max-width: 800px; }
+#messages .author { padding: 0 0 10px; color: #999; }
+#messages .text { padding: 0 0 30px; color: #222; }
+
+#messages .comments { }
+
+
+/* Tasks
+----------------------------------------------- */
+
+
+#tasks .milestone { padding-bottom: 30px; }
+#tasks h2 { font-size: 1.6em; border-bottom: 1px solid #EFEFEF; }
+
+.task_list ul { border-top: 1px solid #EFEFEF;  }
+    .task_list ul.initial-node { margin-top: 15px; }
+    .task_list .task-row { position: relative; padding: 7px 3px 7px 25px; background: #F9F9F9 url(../images/projects/task/bullet_red.gif) no-repeat center left; border: 1px solid #EFEFEF; border-top: none; }
+        .task-row label { font-size: 1.2em; }
+            .task-row label strong { font-weight: bold; }
+            .task-row label em { font-style: italic; }
+        .task-row.complete label { text-decoration: line-through; }
+        .task-row.complete .time { display: none; }
+        .task-row .time, .task-row .owner { padding: 1px 3px; background: green; color: #FFF; font-size: 1.1em; }
+        .task-row .time_until { background: green; }
+        .task-row .time_since { background: red; }
+        .task-row .owner { background: #EDEDED; color: #666 }
+        .task-row .actions a { padding: 6px 3px; }
+
+        .task_list .actions { position: absolute; top: 0; right: 15px; padding: 5px 0 5px 5px; font-size: 1.2em; }
+        .task_list .actions span { margin: 0 2px; }
+        .task_list .actions a:hover { color: #000; }
+
+    .task_list .task-row.focused { background-color: #FFF9DF }
+
+    .task_list li ul { padding-left: 20px; border: none; }
+    .task_list li li { font-size: 1em; }
+
+.task_details { height: auto; overflow: hidden; margin-top: 10px; padding: 15px; background-color: #F9F9F9; border: 1px solid #EFEFEF; }
+    .task_details .actions { float: right; }
+    .task_details .details { float: left; }
+
+#content_sidebar .task_list .task-row { border: none; }
+
+
+/* Time
+----------------------------------------------- */
+
+.timetable { width: 100%; padding: 0; border-spacing: 0; }
+
+    .timetable .time-actions { text-align: right; }
+
+    .timetable thead th label { text-transform: uppercase; font-size: 1em; font-weight: normal; }
+    .timetable thead th { padding: 5px 10px; }
+        .timetable th.date { width: 220px }
+        .timetable th.time { width: 80px }
+
+    .timetable .entry-form td { padding: 10px; border-top: 1px solid #999; background: #EFEFEF; }
+    .timetable .entry-form #id_time { width: 60px; }
+    .timetable .entry-form #id_description { width: 300px; }
+    .timetable .entry-form .error input { border: 1px solid red; }
+
+    .timetable .entry-list td { padding: 4px 10px; background: #FFF; border-top: 1px solid #DDD; font-size: 1.1em; }
+        .timetable .entry-list td.date { font-size: 1.1em; }
+        .timetable .entry-list td.time { font-size: 1.3em; font-weight: bold; }
+
+
+    .timetable .time-total td { border-top: 3px solid #999; }
+        .timetable .time-total .total-label { text-align: right; }
+        .timetable .time-total td.time { font-size: 1.4em; }
+
+.btn-add-time { padding-left: 22px; background: url(../images/projects/time/time_add.png) no-repeat center left; }
+
+/* Forms
+----------------------------------------------- */
+.form div.form-row { padding: 3px 5px; }
+
+.form p, .form .form-row { padding: 2px 0; }
+.form p label, .form .form-row label { float: left; width: 100px; }
+.form p input, .form p textarea, .form .form-row input, .form .form-row textarea { border: 1px solid #CCC; padding: 4px 2px; }
+.form p.submit { padding: 15px 0 0 100px; }
+.form p.submit input { margin-right: 5px; }
+
+.inline_form { }
+    .inline_form label { float: left; width: 80px; }
+    .inline_form .submit-row { padding: 10px 0 0 85px; }
+
+
+
+
+
+
+
+/* old css
+----------------------------------------------- */
