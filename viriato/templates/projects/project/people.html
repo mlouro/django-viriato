@@ -1,0 +1,32 @@
+{% extends "projects/base_detail.html" %}
+{% load i18n %}
+{% load navigation_tags %}
+{% load smart_if %}
+
+{% block content_id_links %}
+    {% url projects.views.project.membership_add project.id as membership_add_url %}
+
+    {% get_link_if_allowed membership_add_url "Add Member" "projects.add_membership" %}
+{% endblock %}
+
+{% block content %}
+
+<ul>
+{% for member in members %}
+<li>
+    <form action="{% url projects.views.project.membership_change project.id, member.id %}" method="post">
+        <label> {{ member }}
+        <select name="role">
+            <option value="">---------</option>
+            {% for role in roles %}
+            <option value="{{ role.id }}" {% if role == member.role %}selected="selected"{% endif %}>{{ role }}</option>
+            {% endfor %}
+        </select>
+        </label>
+        <input type="submit" value="Save" />
+    </form>
+</li>
+{% endfor %}
+</ul>
+
+{% endblock %}

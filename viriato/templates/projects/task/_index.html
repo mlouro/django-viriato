@@ -1,0 +1,66 @@
+{% extends "projects/task/base.html" %}
+{% load i18n %}
+{% load recurse %}
+
+{% block breadcrumbs_inner %}{% trans "Tasks" %}{% endblock %}
+
+{% block content %}
+<div id="tasks">
+
+    {% if milestones %}
+        {% for milestone in milestones %}
+        <h2>{{ milestone }}</h2>
+
+            {% if milestone.get_base_tasks %}
+                <ul>
+                    {% recurse task.children with milestone.get_base_tasks as task %}
+                        {% loop %}
+                        <li>
+                            <h3>{{ task }}</h3>
+                            <div class="actions hidden">
+                                <span><a href="/task/save/{{ task.id }}/" class="edit">view</a>, </span>
+                                <span><a href="{% url projects.views.task.save project.id, task.id %}" class="edit">edit</a>,  </span>
+                                <span><a href="" class="delete">delete</a> </span>
+                            </div>
+                        </li>
+                        {% endloop %}
+                    {% endrecurse %}
+                </ul>
+            {% else %}
+                <p>There are no tasks in this milestone</p>
+            {% endif %}
+
+        {% endfor %}
+    {% else %}
+    <p>Please create at least one milestone first</p>
+    {% endif %}
+
+    {% if late_list %}
+    <div class="milist late">
+        <h2>Late</h2>
+        {% for task in late_list %}
+        {% include 'projects/task/_list_detail.html' %}
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    {% if upcoming_list %}
+    <div class="milist upcoming">
+        <h2>Upcoming</h2>
+        {% for task in upcoming_list %}
+        {% include 'projects/task/_list_detail.html' %}
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    {% if completed_list %}
+    <div class="milist completed">
+        <h2>Completed</h2>
+        {% for task in completed_list %}
+        {% include 'projects/task/_list_detail.html' %}
+        {% endfor %}
+    </div>
+    {% endif %}
+
+</div>
+{% endblock content %}

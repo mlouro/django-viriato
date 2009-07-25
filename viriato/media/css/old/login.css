@@ -1,0 +1,46 @@
+/* general */
+* { padding: 0; margin: 0; }
+body { background-color: #80B83C; text-align: center; font: 62.5% lucida grande,verdana, Arial, "Trebuchet MS", Trebuchet, Helvetica, Arial, sans-serif }
+img { border: none; vertical-align: middle; }
+/* headers */
+h1 { font-size: 2.2em; }
+h1 a { color: #000; text-decoration: none; }
+h3 { color: #046380; }
+h2 a { color: #046380; }
+dl { font-size: 1.2em; }
+dl dt { padding-top: 5px; }
+dl dd { padding: 2px 0; }
+/* lists */
+li { list-style: none; }
+fieldset { border: none; }
+legend { font-size: 1.3em; font-weight: bold; }
+
+/* text */
+p { font-size: 1.2em; }
+a { color: #0033CC;  }
+a:hover { text-decoration: none; }
+.acenter { text-align: center; }
+.fleft { float: left; }
+.error { color: red; }
+
+/* forms */
+input, textarea { padding: 3px; font-family: Arial, "Trebuchet MS", Trebuchet, Verdana, Helvetica, Arial, sans-serif; font-size: 1.2em; vertical-align: middle; }
+input[type=text], input[type=password] { background-color: #FFF; -moz-border-radius: 5px; }
+select option { padding: 3px; }
+.label { float: left; width: 50px; padding: 4px 2px 0 0; text-align: right; }
+.field input, .field textarea { padding: 3px; border: 1px solid #D6D6D6; border-top-color: #939393; border-left-color: #939393; }
+.checkbox { font-size: 0.8em; vertical-align: middle; }
+
+.clearboth { clear: both; }
+
+/* base */
+
+#container { text-align: center; }
+    #login { width: 350px; padding: 10px; margin: 50px auto; border: 10px solid #326342; text-align: left;
+             background-color: #EFEFEF;  }
+        #login fieldset p { padding: 4px 0; }
+        #login legend { font-size: 1.6em; }
+        #login input.login, #login input.openid { width: 270px; }
+        #login label { font-weight: bold; }
+    #fopenid { border-top: 1px dashed #999999; }
+

@@ -1,0 +1,46 @@
+{% extends "projects/time/base.html" %}
+{% load i18n %}
+
+{% block breadcrumbs_inner %}{% trans "Time" %}{% endblock %}
+
+
+{% block content %}
+<form method="post">
+{{ form.errors }}
+<table class="timetable">
+    <thead>
+        <tr>
+        {% for field in form %}
+            <th class="{{ field.label|lower }}">{{ field.label_tag }}</th>
+        {% endfor %}
+            <th class="time-actions"></th>
+        </tr>
+    </thead>
+    <tbody class="entry-form">
+        <tr>
+        {% for field in form %}
+            <td {% if field.errors %}class="error"{% endif %}>{{ field }}</td>
+        {% endfor %}
+            <td class="time-actions"><input type="submit" value="Add to log" /></td>
+        </tr>
+    </tbody>
+    <tbody class="entry-list">
+        {% for time in time_list %}
+        <tr>
+            <td class="date">{{ time.date }}</td>
+            <td class="person">{{ time.person }}</td>
+            <td class="time">{{ time.time }}</td>
+            <td class="description">{{ time.description }}</td>
+            <td class="billable">{{ time.billable }}</td>
+            <td class="time-actions"></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+    <tbody class="entry-list time-total">
+        <td></td>
+        <td class="total-label">TOTAL:</td>
+        <td class="time" colspan="4">{% if total_time.time__sum %}{{ total_time.time__sum }} hour{{total_time.time__sum|pluralize }}{% else %}0 hours{% endif %}</td>
+    </tbody>
+</table>
+</form>
+{% endblock content %}

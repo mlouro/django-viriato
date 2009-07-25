@@ -1,0 +1,84 @@
+#milestones .milist         { padding-bottom: 25px; }
+        .milist h2              { padding-bottom: 2px; color: #FFF; padding: 2px 3px; }
+        .milist.late h2         { background-color:#CC0000; }
+        .milist.upcoming h2     { background-color: #FFCC00; }
+        .milist.completed h2    { background-color: #009900; }
+
+
+        .late .end_date      { color: #CC0000; font-weight:bold; }
+        .upcoming .end_date  { color: #CC9933; font-weight:bold; }
+        .completed .end_date { color: #009900; font-weight:bold; }
+
+        #milestones .milestone { position: relative; border-bottom: 1px solid #eeeeee; }
+            .milestone .milestone-details { position: relative; padding: 4px 0 4px 4px; }
+            .milestone .milestone-details .actions { top: auto; bottom: 0; }
+        .milestone .assignedTo { color: #999; }
+
+        .milestone h3 { padding: 2px 0; font-size: 1.4em; }
+        .milestone p { padding: 10px 0; font-size: 1.2em; }
+
+        .mile-item-list li { padding: 1px 0; margin-left: 20px; list-style-type: disc; color: #888; font-size: 0.8em;  }
+        .mile-item-list a { color: #888; font-size: 1.2em;  }
+
+
+/* messages */
+
+#messages h2 { padding: 10px 0 3px; font-size: 1.6em; }
+    #messages h2 a { color: #222; }
+#messages .message { max-width: 800px; }
+#messages .author { padding: 0 0 10px; color: #999; }
+#messages .text { padding: 0 0 30px; color: #222; }
+
+#messages .comments { }
+#messages .message { font-size: 1.2em; }
+
+/* Milestones */
+
+
+#tasks .milestone { padding-bottom: 30px; }
+#tasks h2 { font-size: 1.6em; border-bottom: 1px solid #EFEFEF; }
+
+.task_list ul { border-top: 1px solid #EFEFEF;  }
+    .task_list ul.initial-node { margin-top: 15px; }
+    .task_list .task-row { position: relative; padding: 7px 3px 7px 25px; background: #F9F9F9 url(../images/project/task/bullet_red.gif) no-repeat center left; border: 1px solid #EFEFEF; border-top: none; }
+        .task-row label { font-size: 1.2em; }
+        .task-row.complete label { text-decoration: line-through; }
+        .task-row.complete .time { display: none; }
+        .task-row .time, .task-row .owner { padding: 1px 3px; background: green; color: #FFF; font-size: 1.1em; }
+        .task-row .time_until { background: green; }
+        .task-row .time_since { background: red; }
+        .task-row .owner { background: #EDEDED; color: #666 }
+
+        .task-row .actions a { padding: 6px 3px; }
+
+    .task_list .task-row.focused { background-color: #FFF9DF }
+
+    .task_list li ul { padding-left: 20px; border: none; }
+    .task_list li li { font-size: 1em; }
+
+
+
+/* time */
+
+.timetable { width: 100%; padding: 0; border-spacing: 0; }
+
+    .timetable .time-actions { text-align: right; }
+
+    .timetable thead th label { text-transform: uppercase; font-size: 1em; font-weight: normal; }
+    .timetable thead th { padding: 5px 10px; }
+        .timetable th.date { width: 220px }
+        .timetable th.time { width: 80px }
+
+    .timetable .entry-form td { padding: 10px; border-top: 1px solid #999; background: #EFEFEF; }
+    .timetable .entry-form #id_time { width: 60px; }
+    .timetable .entry-form #id_description { width: 300px; }
+    .timetable .entry-form .error input { border: 1px solid red; }
+
+    .timetable .entry-list td { padding: 4px 10px; background: #FFF; border-top: 1px solid #DDD; font-size: 1.1em; }
+        .timetable .entry-list td.date { font-size: 1.1em; }
+        .timetable .entry-list td.time { font-size: 1.3em; font-weight: bold; }
+
+
+    .timetable .time-total td { border-top: 3px solid #999; }
+        .timetable .time-total .total-label { text-align: right; }
+        .timetable .time-total td.time { font-size: 1.4em; }

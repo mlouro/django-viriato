@@ -1,0 +1,23 @@
+{% extends "projects/task/base_detail.html" %}
+{% load i18n %}
+
+{% block breadcrumbs_inner %}{% trans "Delete" %}{% endblock %}
+
+{% block content %}
+<form class="form" action="{% url projects.task.views.delete project.id, object.id %}" method="post">
+    <input type="hidden" name="task_id" value="{{ object.id }}" />
+    <p>Are you sure you want to delete task <strong>{{ object }}</strong></p>
+
+    <p class="submit">
+        {% if task %}
+        <input type="submit" value="{% trans "Delete task" %}" />
+        {% else %}
+        <input type="submit" value="{% trans "Delete task" %}" />
+        {% endif %}
+        <a href="javascript:history.back()">{% trans "Cancel" %}</a>
+    </p>
+
+</form>
+{% endblock %}
+
+

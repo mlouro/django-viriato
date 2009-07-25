@@ -1,0 +1,32 @@
+
+.stories-list-link { font-size: 1.2em; height: 43px; }
+    .stories-list-link a { padding: 3px 5px;  }
+    .stories-list-link a:hover { background: #596E78; -moz-border-radius: 4px; text-decoration: none; color: #FFF }
+
+
+.headline-options { font-size: 0.7em; font-weight: normal; }
+    .headline-options a { text-decoration: underline; color: #14456E; }
+        .headline-options a:hover { text-decoration: none; }
+
+.tab_stories .navbutton { background: #DDD; color: #3D4B52; border-bottom-color: #DDD; }
+.tab_stories .navbutton:hover { background-color: #DDD; }
+
+
+.edit-story-tabs { background: #E3EDF1; padding: 5px; -moz-border-radius: 5px; }
+    .tab-links a { float: left; margin-right: 10px; padding: 8px; color: #14456E; font-weight: bold; text-decoration: none; text-transform: uppercase; }
+    .tab-links a.active { background: #FFF; -moz-border-radius: 5px; -moz-border-radius-bottomleft: 0; -moz-border-radius-bottomright: 0;  }
+.tab-contents { padding: 10px; background: #FFF; -moz-border-radius: 5px; -moz-border-radius-topleft: 0; }
+
+
+.thickwindow { padding: 10px; background: #F5F5F5 url(../images/stories/thickwindow-bg.gif) repeat-x; border: 1px solid #CCC; -moz-border-radius: 7px; }
+    .thickwindow h2 { padding: 10px 0; }
+
+    #TB_closeAjaxWindow { clear: both; padding-top: 20px; text-align: right; }
+
+    #lb-block-save { float: left; padding: 6px 30px; background-color: #555; color: #FFF; text-decoration: none; -moz-border-radius: 10px; }
+    #TB_window #lb-block-save:visited { color: #FFF; }
+    #TB_window #lb-block-save:hover { background-color: #777; }
+
+.list-page-templates { padding: 0 0 20px; }
+.list-page-templates .page-template { float: left; width: 45%; padding-bottom: 10px;  }
+.list-page-templates img { float: left; margin-right: 10px; }

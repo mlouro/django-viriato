@@ -1,0 +1,72 @@
+{% extends "projects/task/base_detail.html" %}
+{% load i18n %}
+
+{% block content %}
+{% if task.id %}
+<form class="form" action="{% url projects.views.task.save project.id, task.id %}" method="post">
+{% else %}
+<form class="form" action="{% url projects.views.task.save project.id %}{% if parent %}?parent={{ parent.id }}{% endif %}" method="post">
+{% endif %}
+    <input type="hidden" name="id" value="{{ task.id }}" />
+    <input type="hidden" name="parent_id" value="{{ parent.id }}" />
+
+
+    {{ form.errors }}
+
+    <p>
+        {{ form.name.label_tag }}
+        {{ form.name }}
+    </p>
+    <p>
+        {{ form.description.label_tag }}
+        {{ form.description }}
+    </p>
+    <p>
+        {{ form.owner.label_tag }}
+        {{ form.owner }}
+    </p>
+
+    {% if task.id %}
+        <input type="hidden" name="milestone" id="id_milestone" value="{{ task.milestone.id  }}" />
+    {% else %}
+        {% if not parent %}
+            <p>
+                <label for="id_milestone">{{ form.milestone.label }}:</label>
+                {{ form.milestone }}
+            </p>
+        {% else %}
+            <input type="hidden" name="milestone" id="id_milestone" value="{{ parent.milestone.id  }}" />
+        {% endif %}
+    {% endif %}
+
+
+    <p>
+        {{ form.start_date.label_tag }}
+        {{ form.start_date }}
+    </p>
+    <p>
+        {{ form.end_date.label_tag }}
+        {{ form.end_date }}
+    </p>
+    <p>
+        {{ form.estimated_duration.label_tag }}
+        {{ form.estimated_duration }}
+    </p>
+    <p>
+        {{ form.complete.label_tag }}
+        {{ form.complete }}
+    </p>
+
+    <p class="submit">
+        {% if task %}
+        <input type="submit" value="{% trans "Save task" %}" />
+        {% else %}
+        <input type="submit" value="{% trans "Create task" %}" />
+        {% endif %}
+        <a href="javascript:history.back()">{% trans "Cancel" %}</a>
+    </p>
+
+</form>
+{% endblock %}
+
+
