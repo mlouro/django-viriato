@@ -12,7 +12,7 @@ from datetime import datetime
 # decorators
 from django.contrib.auth.decorators import login_required
 from projects.decorators import user_in_project
-from decorators import permission_required_with_403
+from core.decorators import permission_required_with_403
 # shortcuts
 from render_project_shortcut import render_project
 

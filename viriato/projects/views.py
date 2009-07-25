@@ -4,7 +4,7 @@ from django.http import HttpResponseRedirect
 from django.template import RequestContext
 from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required, permission_required
-from decorators import permission_required_with_403
+from core.decorators import permission_required_with_403
 
 @permission_required_with_403('sites.can_add_site')
 def dashboard(request):

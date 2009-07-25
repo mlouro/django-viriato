@@ -17,8 +17,6 @@ urlpatterns = patterns('',
     (r'^projects/', include('projects.urls')),
     #(r'^issues/',   include('issue.urls')),
 
-    url(r'^show_url_patterns/', 'common.views.show_url_patterns'),
-
     (r'^$',         include('core.urls')),
 )
 
