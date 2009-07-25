@@ -1,8 +1,8 @@
-INSTALATION (via console)
+INSTALL INSTRUCTIONS (command line)
 
 virtualenv viriatoapp --no-site-packages
 cd viriatoapp
 mkdir src
-git clone .... src/viriato-trunk
+git clone git://github.com/mlouro/viriato.git src/viriato src/viriato-trunk
 pip install -E . -r src/viriato/requirements.txt
 ln -s src/viriato-trunk/viriato viriato_project
