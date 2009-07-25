@@ -1,1 +1,0 @@
-[{"pk": 1, "model": "projects.role", "fields": {"group": 1, "name": "Project Manager", "summary": ""}}, {"pk": 2, "model": "projects.role", "fields": {"group": 2, "name": "Internal Developer", "summary": "Same as external developer, but can use time tracking"}}]

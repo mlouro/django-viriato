@@ -1,6 +1,0 @@
-{% extends "projects/message/base.html" %}
-{% load i18n %}
-
-{% block breadcrumbs %}
-{{ block.super }} <a href="{% url projects.message.views.index project.id %}" title="{% trans "Messages" %}">{% trans "Messages" %}</a> »
-{% endblock %}

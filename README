@@ -1,1 +1,8 @@
-# documentar as versões de desenvolvimento
+INSTALATION (via console)
+
+virtualenv viriatoapp --no-site-packages
+cd viriatoapp
+mkdir src
+git clone .... src/viriato-trunk
+pip install -E . -r src/viriato/requirements.txt
+ln -s src/viriato-trunk/viriato viriato_project
