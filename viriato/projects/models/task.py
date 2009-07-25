@@ -72,6 +72,8 @@ class Task(models.Model):
                     hours   = float(m.group(1))
                     minutes = float(m.group(2)) / 60
                     self.estimated_duration = hours + round(minutes,2)
+        else:
+            self.estimated_duration = 0
 
         super(Task, self).save(force_insert, force_update)
 
