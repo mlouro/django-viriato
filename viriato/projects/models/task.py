@@ -111,7 +111,6 @@ class Task(models.Model):
     def get_times(self):
         time = 0
         time_sum = self.times.all().aggregate(Sum('time'))
-        #print time_sum
         if time_sum['time__sum']:
             time = time_sum['time__sum']
         return time
@@ -177,9 +176,6 @@ class Task(models.Model):
         if self.end_date:
             date_now = datetime.date(datetime.now())
             date_diff = (self.end_date - date_now)
-            #date_diff = date_diff.seconds
-            #print date_diff.seconds
-            #print date_diff.days
 
         html += '<li class="task-li"><div class="task-row %s">' % (complete)
         html += '<label for="complete-%s"> ' % (self.id)

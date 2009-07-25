@@ -25,7 +25,6 @@ def user_in_project(view):
                 if membership.role.group:
                     request.user.groups.add(membership.role.group)
 
-                print request.user.get_group_permissions()
         except ObjectDoesNotExist:
             resp = render_to_response('403.html', context_instance=RequestContext(request))
             resp.status_code = 403

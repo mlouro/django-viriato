@@ -26,7 +26,6 @@ def index(request):
     Lists all projects where user is Member
     """
 
-    print request
     if request.user.is_superuser:
         return object_list(request,queryset=Project.objects.all())
 
