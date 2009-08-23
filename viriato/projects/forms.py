@@ -43,7 +43,7 @@ class TaskForm(forms.ModelForm):
 
     class Meta:
         model = Task
-        exclude = ('assignor','project','parent')
+        exclude = ('assignor', 'project', 'parent', 'path', 'depth', 'numchild', )
 
 
 class TimeForm(forms.ModelForm):

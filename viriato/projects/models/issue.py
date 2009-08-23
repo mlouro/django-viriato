@@ -4,21 +4,23 @@ from django.contrib import admin
 from django.contrib.auth.models import User
 from project import Project
 from milestone import Milestone
+from task import Task
+
 
 # Issue Type
 # (bug, feature, none, etc...)
-class Type(models.Model):
+class IssueCategory(models.Model):
     title    = models.CharField(max_length=200)
 
     class Meta:
-        app_label = 'project'
+        app_label = 'projects'
 
     def __unicode__(self):
         return self.title
 
 # Issue Status
 # (completed, pending, none, etc...)
-class Status(models.Model):
+class IssueStatus(models.Model):
     title    = models.CharField(max_length=200)
 
     class Meta:
@@ -29,7 +31,7 @@ class Status(models.Model):
 
 # Issue Priority
 # (high, regular, low, very low, none. etc...)
-class Priority(models.Model):
+class IssuePriority(models.Model):
     title    = models.CharField(max_length=200)
     value    = models.IntegerField()
 
@@ -39,15 +41,17 @@ class Priority(models.Model):
     def __unicode__(self):
         return self.title
 
+
 # Issue
 class Issue(models.Model):
     title     = models.CharField(max_length=200)
     summary   = models.TextField()
     project   = models.ForeignKey(Project)
-    type      = models.ForeignKey(Type)
-    status    = models.ForeignKey(Status)
-    priority  = models.ForeignKey(Priority, blank=True, )
+    category  = models.ForeignKey(IssueCategory)
+    status    = models.ForeignKey(IssueStatus)
+    priority  = models.ForeignKey(IssuePriority, blank=True, )
     milestone = models.ForeignKey(Milestone, blank=True, )
+    task      = models.ForeignKey(Task, blank=True, )
     owner     = models.ForeignKey(User)
     private   = models.BooleanField()
 
@@ -62,4 +66,35 @@ class Issue(models.Model):
 
     def __unicode__(self):
         return self.nome
+
+
+class IssueChange(models.Model):
+    issue   = models.ForeignKey(Issue, related_name="changes")
+    user    = models.ForeignKey(User)
+    comment = models.TextField()
+    created = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        app_label = 'projects'
+
+    def __unicode__(self):
+        return self.title
+
+
+class IssueChangeItem(models.Model):
+    issue_change  = models.ForeignKey(IssueChange, related_name="changes")
+    option        = models.CharField(max_length=200)
+    inital_value  = models.CharField(blank=True, max_length=200)
+    change_value  = models.CharField(blank=True, max_length=200)
+
+    class Meta:
+        app_label = 'projects'
+
+    def __unicode__(self):
+        if self.inital_value and self.change_value:
+            return '%s changed from %s to %s' % (self.option, self.inital_value or None, self.change_value or None)
+        return 'changed %s' % (self.option)
+
+
+
 

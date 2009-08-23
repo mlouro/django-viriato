@@ -20,3 +20,6 @@ django-debug-toolbar==0.7.0
 
 -e git://github.com/django-extensions/django-extensions.git@309f9b61f09a6273ff78e93b98a0d9008a9f77a2#egg=django-extensions
 #pygraphviz
+
+
+-e svn+http://django-treebeard.googlecode.com/svn/trunk#egg=django-treebeard

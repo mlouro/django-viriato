@@ -29,7 +29,10 @@
     {% get_link_if_allowed task_index_url "Tasks" "projects.view_task" %}
     <!--{% get_link_if_allowed issue_index_url "Tasks" "projects.view_issue" %}-->
     <!--<a href="">Files</a>-->
+    {% get_link_if_allowed project_dashboard_url "Issues" %}
+    {% get_link_if_allowed project_dashboard_url "Code Browser" %}
     {% get_link_if_allowed time_index_url "Time" "projects.view_time" %}
+    {% get_link_if_allowed project_dashboard_url "Files" %}
 
     {# get project manager links #}
     <li><span style="float: left; padding-left: 30px;">&nbsp;</span></li>
