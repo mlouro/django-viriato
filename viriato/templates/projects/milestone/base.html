@@ -1,13 +1,10 @@
 {% extends "projects/base_detail.html" %}
-{% load i18n %}
-{% load navigation_tags %}
+{% load i18n navigation_tags %}
 
 {% block extrajs %}
 {{ block.super }}
 <script type="text/javascript" src="{{ MEDIA_URL }}js/projects/milestone.js"></script>
 {% endblock %}
-
-{% block milestone_active %}active{% endblock %}
 
 {% block content_id_links %}
     {% url projects.views.milestone.save project.id as milestone_add_url %}

@@ -1,0 +1,12 @@
+{% extends "projects/base_detail.html" %}
+{% load i18n navigation_tags %}
+
+{% block extrajs %}
+{{ block.super }}
+<script src="{{ MEDIA_URL }}js/projects/issue.js"></script>
+{% endblock %}
+
+{% block content_id_links %}
+    {% url projects.views.issue.save project.id as issue_add_url %}
+    {% get_link_if_allowed issue_add_url "Add Issue" "projects.add_issue" %}
+{% endblock %}

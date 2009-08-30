@@ -1,0 +1,35 @@
+{% extends "projects/issue/base.html" %}
+{% load i18n %}
+
+{% block breadcrumbs_inner %}{% trans "Issue" %}{% endblock %}
+
+
+{% block content %}
+<form method="post">
+{{ form.errors }}
+<table class="issuetable">
+    <thead>
+        <tr>
+            <th>Type</th>
+            <th>Status</th>
+            <th>Priority</th>
+            <th>Subject</th>
+            <th>Assigned To</th>
+            <th>Updated</th>
+        </tr>
+    </thead>
+    <tbody class="entry-list">
+        {% for issue in issue_list %}
+        <tr>
+            <td class="type">{{ issue.category }}</td>
+            <td class="status">{{ issue.status }}</td>
+            <td class="priority">{{ issue.priority }}</td>
+            <td class="subject"><a href="">{{ issue.title }}</a></td>
+            <td class="assigned_to">{{ issue.owner }}</td>
+            <td class="updated">{{ issue.modified }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+</form>
+{% endblock content %}

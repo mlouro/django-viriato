@@ -54,6 +54,7 @@ def detail(request, project_id, task_id):
     return render_project(request, project_id, t, response_vars)
 
 
+@permission_required_with_403("projects.add_task")
 def delete(request,project_id,task_id):
 
     project = Project.objects.get(id=project_id)

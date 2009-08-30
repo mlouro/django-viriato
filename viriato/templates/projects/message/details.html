@@ -5,25 +5,17 @@
 
 {% block content %}
 <div id="messages">
-    <div class="message">
-        <h2><a href="{{ message.get_absolute_url }}">{{ message.title }}</a></h2>
-        <p class="author">Posted by {{ message.user }} on {{ message.created|date:"F d, Y, h:iA" }}</p>
-        <div class="text">{{ message.message|linebreaksbr }}</div>
-    </div>
-    <div class="ml_comment_list">
+    {% include "projects/message/_message.html" %}
+    <div class="comments">
     {% for comment in comments %}
-        <div class="ml_comment">
-            <div class="ml_comment_user"><strong>{{ comment.user }}</strong> on {{ message.created|date:"F d, Y, h:iA" }}</div>
-            {{ comment }}
-        </div>
+        {% include "projects/message/_comment.html" %}
     {% endfor %}
     </div>
-    <div class="inline-form ml_comment_form">
+    <div class="inline-form comment_form">
         <form class="form" action="" method="POST">
-            {% for field in comment_form %}
-            {% include "projects/includes/inline-form-row.html" %}
-            {% endfor %}
-            <p class="submit"><input type="submit" name="submit" class="submit-post" value="Submit"></p>
+            <p><strong>Leave a comment...</strong></p>
+            {{ comment_form.comment }}
+            <p><input type="submit" name="submit" class="submit-post" value="Add this comment"></p>
         </form>
     </div>
 </div>

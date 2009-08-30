@@ -26,7 +26,8 @@ class Task(models.Model):
     complete    = models.BooleanField(default=False)
     start_date  = models.DateField(null=True, blank=True)
     end_date    = models.DateField(null=True, blank=True)
-    estimated_duration = models.FloatField(null=True, blank=True)
+    estimated_duration  = models.FloatField(null=True, blank=True)
+    billed_duration     = models.FloatField(null=True, blank=True)
 
     times = generic.GenericRelation(Time)
 

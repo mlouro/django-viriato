@@ -1,0 +1,32 @@
+{% extends "projects/issue/base_detail.html" %}
+{% load i18n %}
+
+{% block breadcrumbs_inner %}
+{% if issue.id %}
+{% trans "Edit" %}
+{% else %}
+{% trans "New" %}
+{% endif %}
+
+{% endblock %}
+
+{% block content %}
+<form class="form" action="" method="post">
+    <input type="hidden" name="id" value="{{ issue.id }}" />
+
+    {{ form.errors }}
+
+    {% for field in form %}
+        {% include "projects/includes/inline-form-row.html" %}
+    {% endfor %}
+
+
+    <p class="submit">
+        <input type="submit" value="{% trans "Save issue" %}" />
+        <a href="javascript:history.back()">{% trans "Cancel" %}</a>
+    </p>
+
+</form>
+{% endblock %}
+
+

@@ -5,17 +5,19 @@ from django.contrib.contenttypes import generic
 from django.contrib.auth.models import User
 from datetime import datetime
 from project import Project
+from milestone import Milestone
 from core.models import Comment, File
 
 class Message(models.Model):
-    title = models.CharField(max_length=200)
-    message = models.TextField()
-    created = models.DateTimeField(default=datetime.now)
-    user = models.ForeignKey(User,related_name="user")
-    project = models.ForeignKey(Project)
-    private   = models.BooleanField()
+    title       = models.CharField(max_length=200)
+    message     = models.TextField()
+    created     = models.DateTimeField(default=datetime.now)
+    user        = models.ForeignKey(User,related_name="user")
+    project     = models.ForeignKey(Project)
+    private     = models.BooleanField()
 
-    comments = generic.GenericRelation(Comment)
+    milestone   = models.ForeignKey(Milestone, null=True, blank=True)
+    comments    = generic.GenericRelation(Comment)
 
     created = models.DateTimeField(blank=False, auto_now_add=True)
     modified = models.DateTimeField(blank=False, auto_now=True)

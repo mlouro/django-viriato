@@ -5,6 +5,7 @@ from models.milestone import Milestone
 from models.project import Project, Membership
 from models.task import Task
 from models.time import Time
+from models.issue import Issue
 
 
 class MessageForm(forms.ModelForm):
@@ -28,6 +29,22 @@ class MembershipForm(forms.ModelForm):
     class Meta:
         model = Membership
         exclude = ('project', )
+
+
+class IssueForm(forms.ModelForm):
+
+    def __init__(self, *args, **kwargs):
+
+        if kwargs.has_key('project'):
+            super(IssueForm, self).__init__(*args)
+            self.fields['milestone'].queryset = Milestone.objects.filter(completed=False, project=kwargs['project'])
+        else:
+            super(IssueForm, self).__init__(*args,**kwargs)
+
+    class Meta:
+        model = Issue
+        exclude = ('project', 'task')
+
 
 class TaskForm(forms.ModelForm):
 

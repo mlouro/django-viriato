@@ -41,6 +41,14 @@ urlpatterns += patterns('projects.views.time',
     url(r'(?P<project_id>\d+)/time/$', 'index', name="time_index"),
 )
 
+# issue views
+urlpatterns += patterns('projects.views.issue',
+    url(r'(?P<project_id>\d+)/issue/save/$', 'save', name='issue_add'),
+    url(r'(?P<project_id>\d+)/issue/save/(?P<issue_id>[0-9]+)/$', 'save', name='issue_edit'),
+    url(r'(?P<project_id>\d+)/issue/delete/(?P<issue_id>[0-9]+)/$', 'delete', name='issue_delete'),
+    url(r'(?P<project_id>\d+)/issue/$', 'index', name="issue_index"),
+)
+
 # project views
 #urlpatterns += patterns('projects.views.project',
     #url(r'(?P<project_id>\d+)/$', 'dashboard', name="project_dashboard"),

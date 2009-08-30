@@ -8,17 +8,9 @@
 <form class="form" action="{% url projects.views.message.save project.id %}" method="post">
 {% endif %}
     <input type="hidden" name="id" value="{{ message.id }}" />
-    <p class="field">
-        <label>Title</label>
-        {{ form.title }}
-    </p>
-    {{ form.title.errors }}
-
-    <p class="field">
-        <label>Message</label>
-            {{ form.message }}
-    </p>
-    {{ form.message.errors }}
+    {% for field in form %}
+    {% include "projects/includes/inline-form-row.html" %}
+    {% endfor %}
 
     <p class="submit">
         {% if message %}

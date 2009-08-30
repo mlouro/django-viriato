@@ -15,7 +15,6 @@ urlpatterns = patterns('',
     # apps
     #(r'^calendar/', include('schedule.urls')),
     (r'^projects/', include('projects.urls')),
-    (r'^tree/', include('tbexample.urls')),
     #(r'^issues/',   include('issue.urls')),
 
     (r'^$',         include('core.urls')),

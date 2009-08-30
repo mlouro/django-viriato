@@ -87,11 +87,8 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.admindocs',
     'django_authopenid',
-    'treebeard',
-    'avatar',
     'core',
     'projects',
-    'tbexample',
 
 )
 

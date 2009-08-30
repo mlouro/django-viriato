@@ -45,14 +45,14 @@ class IssuePriority(models.Model):
 # Issue
 class Issue(models.Model):
     title     = models.CharField(max_length=200)
-    summary   = models.TextField()
+    summary   = models.TextField(blank=True)
     project   = models.ForeignKey(Project)
-    category  = models.ForeignKey(IssueCategory)
+    category  = models.ForeignKey(IssueCategory, blank=True, null=True)
     status    = models.ForeignKey(IssueStatus)
-    priority  = models.ForeignKey(IssuePriority, blank=True, )
-    milestone = models.ForeignKey(Milestone, blank=True, )
-    task      = models.ForeignKey(Task, blank=True, )
-    owner     = models.ForeignKey(User)
+    priority  = models.ForeignKey(IssuePriority)
+    milestone = models.ForeignKey(Milestone, blank=True, null=True)
+    task      = models.ForeignKey(Task, blank=True, null=True)
+    owner     = models.ForeignKey(User, blank=True, null=True)
     private   = models.BooleanField()
 
     created = models.DateTimeField(blank=False, auto_now_add=True)

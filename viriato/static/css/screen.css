@@ -8,6 +8,8 @@ h2 { font-size: 19px; }
 h3 { font-size: 17px; }
 h5 { font-size: 15px; }
 
+strong { font-weight: bold; }
+
 
 
 /* global classes
@@ -126,13 +128,21 @@ table.activity { width: 100%; }
 /* Messages
 ----------------------------------------------- */
 
-#messages h2 { padding: 10px 0 3px; font-size: 1.6em; }
+#messages h2 { padding: 10px 0 3px; font-size: 1.6em; border-top: 1px solid #CCC; }
     #messages h2 a { color: #222; }
-#messages .message { max-width: 800px; }
+#messages .message { max-width: 800px; padding-bottom: 20px; }
+    #messages .first h2 { border-top: none; }
 #messages .author { padding: 0 0 10px; color: #999; }
 #messages .text { padding: 0 0 30px; color: #222; }
 
-#messages .comments { }
+
+
+/* Comments
+----------------------------------------------- */
+
+.comments .comment { padding: 5px 0; border-top: 1px solid #DDD; }
+.comment_form { margin-top: 10px; padding: 10px 0; border-top: 1px solid #DDD; }
+    .comment_form p { padding: 5px 0; }
 
 
 /* Tasks
@@ -202,7 +212,7 @@ table.activity { width: 100%; }
 
 /* Forms
 ----------------------------------------------- */
-.form div.form-row { padding: 3px 5px; }
+.form div.form-row { height: 1%; overflow: hidden; clear: both; padding: 3px 5px; }
 
 .form p, .form .form-row { padding: 2px 0; }
 .form p label, .form .form-row label { float: left; width: 100px; }
@@ -216,7 +226,33 @@ table.activity { width: 100%; }
 
 
 
+/* Issue
+----------------------------------------------- */
 
+.issuetable { width: 100%; padding: 0; border-spacing: 0; }
+
+    .issuetable .time-actions { text-align: right; }
+
+    .issuetable thead th { font-size: 1.1em; font-weight: bold; }
+    .issuetable thead th { padding: 8px 10px; }
+        .issuetable th.date { width: 220px }
+        .issuetable th.time { width: 80px }
+
+    .issuetable .entry-form td { padding: 10px; border-top: 1px solid #999; background: #EFEFEF; }
+    .issuetable .entry-form #id_time { width: 60px; }
+    .issuetable .entry-form #id_description { width: 300px; }
+    .issuetable .entry-form .error input { border: 1px solid red; }
+
+    .issuetable .entry-list td { padding: 4px 10px; background: #FFF; border-top: 1px solid #DDD; font-size: 1.1em; }
+        .issuetable .entry-list td.date { font-size: 1.1em; }
+        .issuetable .entry-list td.time { font-size: 1.3em; font-weight: bold; }
+
+
+    .issuetable .time-total td { border-top: 3px solid #999; }
+        .issuetable .time-total .total-label { text-align: right; }
+        .issuetable .time-total td.time { font-size: 1.4em; }
+
+.btn-add-time { padding-left: 22px; background: url(../images/projects/time/time_add.png) no-repeat center left; }
 
 
 

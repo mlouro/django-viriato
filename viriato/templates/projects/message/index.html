@@ -4,11 +4,7 @@
 {% block content %}
 <div id="messages">
     {% for message in messages %}
-    <div class="message">
-        <h2><a href="{{ message.get_absolute_url }}">{{ message.title }}</a></h2>
-        <div class="text">{{ message.message|linebreaksbr }}</div>
-        <div class="ml_comment_count"> Posted by {{ message.user }} on {{ message.created|date:"F d, Y, h:iA" }} | <a href="{{ message.get_absolute_url }}" title="comment{{ message.get_comment_count|pluralize }}">{{ message.get_comment_count }} comment{{ message.get_comment_count|pluralize }}</a></div>
-    </div>
+    {% include "projects/message/_message.html" %}
     {% endfor %}
 </div>
 {% endblock %}
