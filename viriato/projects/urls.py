@@ -56,6 +56,13 @@ urlpatterns += patterns('projects.views.issue',
     #url(r'$', 'index', name="project_index"),
 #)
 
+urlpatterns += patterns('django_vcs.views',
+    url('^(?P<project_id>\d+)/browser/$', 'repo_list', name='repo_list'),
+    url('^(?P<project_id>\d+)/browser/(?P<slug>[\w-]+)/$', 'recent_commits', name='recent_commits'),
+    url('^(?P<project_id>\d+)/browser/(?P<slug>[\w-]+)/browser/(?P<path>.*)$', 'code_browser', name='code_browser'),
+    url('^(?P<project_id>\d+)/browser/(?P<slug>[\w-]+)/commit/(?P<commit_id>.*)/$', 'commit_detail', name='commit_detail'),
+)
+
 urlpatterns += patterns('projects.views.project',
     url(r'(?P<project_id>\d+)/dashboard/$', 'dashboard', name="project_dashboard"),
     url(r'(?P<project_id>\d+)/people/$', 'people', name="project_people"),

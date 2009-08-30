@@ -47,7 +47,7 @@ class Issue(models.Model):
     title     = models.CharField(max_length=200)
     summary   = models.TextField(blank=True)
     project   = models.ForeignKey(Project)
-    category  = models.ForeignKey(IssueCategory, blank=True, null=True)
+    category  = models.ForeignKey(IssueCategory)
     status    = models.ForeignKey(IssueStatus)
     priority  = models.ForeignKey(IssuePriority)
     milestone = models.ForeignKey(Milestone, blank=True, null=True)

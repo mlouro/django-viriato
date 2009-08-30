@@ -24,7 +24,7 @@
             <td class="type">{{ issue.category }}</td>
             <td class="status">{{ issue.status }}</td>
             <td class="priority">{{ issue.priority }}</td>
-            <td class="subject"><a href="">{{ issue.title }}</a></td>
+            <td class="subject"><a href="{% url issue_edit project.id issue.id %}">{{ issue.title }}</a></td>
             <td class="assigned_to">{{ issue.owner }}</td>
             <td class="updated">{{ issue.modified }}</td>
         </tr>

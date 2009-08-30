@@ -21,6 +21,7 @@
     {% url projects.views.milestone.index project.id as milestone_index_url %}
     {% url projects.views.task.index project.id as task_index_url %}
     {% url projects.views.issue.index project.id as issue_index_url %}
+    {% url repo_list project.id as repo_index_url %}
     {% url projects.views.time.index project.id as time_index_url %}
 
     {% get_link_if_allowed project_dashboard_url "Dashboard" %}
@@ -29,7 +30,7 @@
     {% get_link_if_allowed task_index_url "Tasks" "projects.view_task" %}
     {% get_link_if_allowed issue_index_url "Issues" "projects.view_issue" %}
     <!--<a href="">Files</a>-->
-    {% get_link_if_allowed project_dashboard_url "Code Browser" %}
+    {% get_link_if_allowed repo_index_url "Code Browser" %}
     {% get_link_if_allowed time_index_url "Time" "projects.view_time" %}
     {% get_link_if_allowed project_dashboard_url "Files" %}
 

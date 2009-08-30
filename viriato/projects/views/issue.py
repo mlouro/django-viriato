@@ -50,17 +50,9 @@ def save(request, project_id, issue_id=False):
     if issue_id:
         issue = Issue.objects.get(id=issue_id)
         form = IssueForm(instance=issue)
-        parent = issue.parent
     else:
         issue = Issue()
         form = IssueForm()
-
-    if request.POST.has_key('task_id') and request.POST['task_id']:
-        task = Task.objects.get(id=request.POST['task_id'])
-    else:
-        if request.GET.has_key('task') and request.GET['task']:
-            task = Task.objects.get(id=request.GET['task'])
-
 
     if request.method == 'POST':
 
@@ -74,7 +66,6 @@ def save(request, project_id, issue_id=False):
                 issue = form.save(commit=False)
                 issue.project = project
 
-            issue.content_object  = task
             issue.person = request.user
             issue.save()
 

@@ -1,0 +1,48 @@
+{% extends "django_vcs/base.html" %}
+
+{% load backstage %}
+
+{% block title %}
+    {{ path }} in {{ repo.name }}
+{% endblock %}
+
+{% block page_title %}
+    Contents of {{ path|urlize_path:repo|safe }}
+{% endblock %}
+
+{% block content %}
+    <table>
+        <thead>
+            <tr>
+                <th></th>
+                <th>File/Folder</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for path, folder in folders %}
+                <tr class="folder">
+                    <td class="icon">
+                        <img src="{{ MEDIA_URL }}media/img/folder.png" />
+                    </td>
+                    <td>
+                        <a href="{% url code_browser project_id=project.id slug=repo.slug path=path %}/">
+                            {{ folder }}/
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+            {% for path, file in files %}
+                <tr class="icon">
+                    <td>
+                        <img src="{{ MEDIA_URL }}media/img/file.png" />
+                    </td>
+                    <td>
+                        <a href="{% url code_browser project_id=project.id slug=repo.slug path=path %}">
+                            {{ file }}
+                        </a>
+                    </td>
+                </li>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends "django_vcs/base.html" %}
+
+{% load udiff %}
+
+{% block title %}
+    Details about commit {{ commit.commit_id }} on {{ repo.name }}
+{% endblock %}
+
+{% block extra_head %}
+    <link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}media/css/diff.css" media="screen" />
+{% endblock %}
+
+{% block page_title %}
+    Details about commit {{ commit.commit_id }} on {{ repo.name }}
+{% endblock %}
+
+{% block content %}
+    <table>
+        <tr>
+            <th>Commited by: </th>
+            <td>{{ commit.author }}</td>
+        </tr>
+        <tr>
+            <th>Commited at: </th>
+            <td>{{ commit.time }}</td>
+        </tr>
+        <tr>
+            <th>Commit message: </th>
+            <td>{{ commit.message|linebreaksbr }}</td>
+        </tr>
+        <tr>
+            <th>Affected files: </th>
+            <td>
+                <ul>
+                    {% for file in commit.files %}
+                        <li>
+                            <a href="{% url code_browser project_id=project.id slug=repo.slug path=file %}?rev={{ commit.commit_id }}">
+                                {{ file }}
+                            <a/>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </td>
+        </tr>
+    </table>
+    {{ commit.diff|render_diff }}
+{% endblock %}

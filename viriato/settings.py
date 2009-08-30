@@ -89,6 +89,7 @@ INSTALLED_APPS = (
     'django_authopenid',
     'core',
     'projects',
+    'django_vcs',
 
 )
 
