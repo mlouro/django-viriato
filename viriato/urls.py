@@ -18,9 +18,9 @@ urlpatterns = patterns('',
     (r'^invoice/contract/', include('contract.urls')),
     (r'^invoice/company/', include('company.urls')),
     (r'^invoice/receipt/', include('receipt.urls')),
+    #(r'^issues/',   include('issue.urls')),
 
-
-
+    (r'^newsletter/', include('newsletter.urls')),
     (r'^$',         include('core.urls')),
 )
 
