@@ -2,16 +2,15 @@
 import os
 from settings import *
 
-
 ADMINS = (
-    ('Marco Louro', 'mlouro@gmail.com'),
+    ('', ''),
 )
 
 DEBUG = True
 LOCAL_DEV = True
 
-DATABASE_ENGINE     = ''
-DATABASE_NAME       = ''
+DATABASE_ENGINE     = 'sqlite3'
+DATABASE_NAME       = 'dev.db'
 DATABASE_USER       = ''
 DATABASE_PASSWORD   = ''
 DATABASE_HOST       = ''
@@ -20,7 +19,7 @@ DATABASE_PORT       = ''
 INTERNAL_IPS = ('127.0.0.1',)
 
 
-DEBUG_TOOLBAR_CONFIG = { 'INTERCEPT_REDIRECTS' : False }
+#DEBUG_TOOLBAR_CONFIG = { 'INTERCEPT_REDIRECTS' : False }
 
-INSTALLED_APPS += ('debug_toolbar', )
+#INSTALLED_APPS += ('debug_toolbar', )
 #MIDDLEWARE_CLASSES += ('debug_toolbar.middleware.DebugToolbarMiddleware',)
