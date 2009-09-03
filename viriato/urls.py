@@ -15,7 +15,8 @@ urlpatterns = patterns('',
     #(r'^calendar/', include('schedule.urls')),
     (r'^projects/', include('projects.urls')),
     #(r'^issues/',   include('issue.urls')),
-
+    (r'^newsletter/', include('newsletter.urls')),
+    
     (r'^$',         include('core.urls')),
 )
 

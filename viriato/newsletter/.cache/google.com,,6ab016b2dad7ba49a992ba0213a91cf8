@@ -1,0 +1,20 @@
+status: 301
+content-length: 219
+via: 1.1 VFRONTISA, 1.1 RIPSBACKISA
+proxy-connection: Keep-Alive
+expires: Sat, 04 Apr 2009 20:41:58 GMT
+server: gws
+connection: Keep-Alive
+location: http://www.google.com/
+cache-control: public, max-age=2592000
+date: Thu, 05 Mar 2009 20:41:58 GMT
+-x-permanent-redirect-url: http://www.google.com/
+content-type: text/html; charset=UTF-8
+content-location: http://google.com/
+
+<HTML><HEAD><meta http-equiv="content-type" content="text/html;charset=utf-8">
+<TITLE>301 Moved</TITLE></HEAD><BODY>
+<H1>301 Moved</H1>
+The document has moved
+<A HREF="http://www.google.com/">here</A>.
+</BODY></HTML>

@@ -9,6 +9,8 @@ django
 python_openid
 django_registration
 django-authopenid
+lxml
+httplib2
 
 # code browser
 pygments
