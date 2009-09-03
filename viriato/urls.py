@@ -14,7 +14,12 @@ urlpatterns = patterns('',
     # apps
     #(r'^calendar/', include('schedule.urls')),
     (r'^projects/', include('projects.urls')),
-    #(r'^issues/',   include('issue.urls')),
+
+    (r'^invoice/contract/', include('contract.urls')),
+    (r'^invoice/company/', include('company.urls')),
+    (r'^invoice/receipt/', include('receipt.urls')),
+
+
 
     (r'^$',         include('core.urls')),
 )

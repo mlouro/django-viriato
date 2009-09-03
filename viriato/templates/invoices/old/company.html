@@ -1,0 +1,132 @@
+{% extends 'invoice/base.html' %}
+{% load i18n %}
+
+{% block extra_head %}
+    {{ block.super }}
+    <link type="text/css" rel="Stylesheet" media="screen" href="{{ STATIC_URL }}css/invoices/invoices.css"/>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/invoices/company.js"></script>
+{% endblock extra_head %}
+
+{% block breadcrumbs %}
+    {{ block.super }} » <span class="active">{% trans 'Company' %}</span>
+{% endblock %}
+
+{% block content-data %}
+    <form action="/company/" method="POST" id="form_company">
+    
+        <h2 class="headline">{% trans 'Legal Information' %}</h2>
+        <p><label for="title">{% trans 'Title' %} {{ form.title }}</label></p>
+        <p>{{ form.title.errors }}</p>
+        <p><label for="legal_name">{% trans 'Legal Name' %} {{ form.legal_name }}</label></p>
+        <p>{{ form.legal_name.errors }}</p>
+        <p><label for="nif">{% trans 'Nif' %} {{ form.nif }}</label></p>
+        <p>{{ form.nif.errors }}</p>
+        <p><label for="tax">{% trans 'Tax' %} {{ form.tax }}</label></p>
+        <p>{{ form.tax.errors }}</p>
+        <p><label for="retention">{% trans 'Retention' %} {{ form.retention }}</label></p>
+        <p>{{ form.retention.errors }}</p>
+        <p><label for="bill_name">{% trans 'Name for Bills' %} {{ form.bill_name }}</label></p>
+        <p>{{ form.bill_name.errors }}</p>
+        
+        <h2 class="headline">{% trans 'Contact information' %} <small>(<a id="show_contact_information">show</a>)</small></h2>
+        <div id="contact_information" class="hidden">
+            <fieldset class="formset">
+                <h3>{% trans 'Email addresses' %}</h3>
+                {{ formsets.email_formset.management_form }}
+                {% for form in formsets.email_formset.forms %}
+                    <div>
+                        {{ form.id }}
+                        {{ form.address }}
+                        {{ form.contact_type }}
+                        {{ form.DELETE }}
+                    </div>
+                    {{ form.address.errors }}
+                    {{ form.contact_type.errors }}
+                {% endfor %}
+            </fieldset>
+
+            <fieldset class="formset">
+                <h3>{% trans 'Phone numbers' %}</h3>
+                {{ formsets.phone_formset.management_form }}
+                {% for form in formsets.phone_formset.forms %}
+                    <div>
+                        {{ form.number }}
+                        {{ form.phone_type }}
+                        {{ form.DELETE }}
+                    </div>
+                    {{ form.address.errors }}
+                    {{ form.phone_type.errors }}
+                {% endfor %}
+            </fieldset>
+
+            <fieldset class="formset">
+                <h3>{% trans 'Instant Messaging' %}</h3>
+                {{ formsets.im_formset.management_form }}
+                {% for form in formsets.im_formset.forms %}
+                    <div>
+                        {{ form.email }}
+                        {{ form.contact_type }}
+                        {{ form.DELETE }}
+                    </div>
+                    {{ form.address.errors }}
+                    {{ form.contact_type.errors }}
+                {% endfor %}
+            </fieldset>
+
+            <fieldset class="formset">
+                <h3>Websites</h3>
+                {{ formsets.website_formset.management_form }}
+                {% for form in formsets.website_formset.forms %}
+                    <div>
+                        {{ form.url }}
+                        {{ form.contact_type }}
+                        {{ form.DELETE }}
+                    </div>
+                    {{ form.address.errors }}
+                    {{ form.contact_type.errors }}
+                {% endfor %}
+            </fieldset>
+
+            <fieldset class="formset">
+                <h3>{% trans 'Addresses' %}</h3>
+                {{ formsets.address_formset.management_form }}
+                {% for form in formsets.address_formset.forms %}
+                    <div>
+                        {{ form.street }}
+                        {{ form.contact_type }}
+                        {{ form.DELETE }}
+                    </div>
+                    <div>
+                        {{ form.city }}
+                        {{ form.state }}
+                    </div>
+                    <div>
+                        {{ form.zipcode }}
+                        {{ form.country }}
+                    </div>
+                    {{ form.address.errors }}
+                    {{ form.contact_type.errors }}
+                {% endfor %}
+            </fieldset>
+        </div>
+
+        <h2 class="headline">{% trans 'Extra information' %} <small>(<a id="show_extra_information">show</a>)</small></h2>
+        <div id="extra_information" class="hidden">
+            <fieldset class="formset">
+                <div>
+                    <label>Photo</label>
+                    {{ form.photo }}
+                    {{ form.photo.errors }}
+                </div>
+            </fieldset>
+        </div>       
+        <p id="buttons">
+            <input type="submit" value="{% trans 'Save' %}"/>
+        </p>
+    </form>
+    
+{% endblock content-data %}
+
+{% block content_action %}
+    <p><a class="navbutton" href="/company/billconfiguration/">{% trans 'Bill States Configuration'%}</a></p>
+{% endblock content_action %}

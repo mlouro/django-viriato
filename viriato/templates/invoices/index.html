@@ -1,0 +1,47 @@
+{% extends 'invoice/base.html' %}
+{% load i18n %}
+
+{% block extra_head %}
+    {{ block.super }}
+    <link type="text/css" rel="Stylesheet" media="screen" href="{{ STATIC_URL }}css/invoices/index.css"/>
+{% endblock extra_head %}
+
+{% block breadcrumbs %}
+
+{% endblock %}
+
+{% block content-data %}
+    {% if bills %}
+        <table class="stripes" id="list_table" style="width:100%">
+            <tr>
+                <th class="center">{% trans "Select" %}</th>
+                <th class="center">{% trans "Bill nr." %}</th>
+                <th class="center">{% trans "Client" %}</th>
+                <th class="center">{% trans "Description" %}</th>
+                <th class="center">{% trans "Emission Date" %}</th>
+                <th class="center">{% trans "Total" %}</th>
+                <th class="center">{% trans "Payed" %}</th>
+                <th class="center">{% trans "Status" %}</th>
+                <th class="center">{% trans "Sent" %}</th>
+                <th class="center">{% trans "Edit" %}</th>
+            </tr>
+        
+        {% for bill in bills %}
+            <tr>
+                <td><input type="checkbox"/></td>
+            </tr>
+        {% endfor %}
+        </table>
+    {% else %}
+        {% trans "There aren't emitted bills" %}
+    {% endif %}
+{% endblock content-data %}
+
+{% block content_action %}
+
+    <p><a class="navbutton" href="">{% trans "Send Bills" %}</a></p>
+    <p><a class="navbutton" href="">{% trans "Send Receipts" %}</a></p>
+{% endblock content_action %}
+
+
+

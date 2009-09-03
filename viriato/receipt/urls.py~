@@ -1,0 +1,10 @@
+# -*- coding: utf-8 -*-
+#Receipt
+from django.conf.urls.defaults import *
+
+urlpatterns = patterns('',
+    (r'^$', 'contract.views.contract'),
+    (r'^(?P<object_id>\d+)/$', 'contract.views.contract'),
+    (r'^project_ajax/$', 'contract.views.project_ajax'),
+    (r'^milestone_ajax/$', 'contract.views.milestone_ajax'),
+)

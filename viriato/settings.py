@@ -90,7 +90,10 @@ INSTALLED_APPS = (
     'core',
     'projects',
     'django_vcs',
-
+    'contact',
+    'contract',
+    'receipt',
+    'company'
 )
 
 try:

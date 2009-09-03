@@ -1,0 +1,207 @@
+# -*- coding: utf-8 -*-
+# Receipt
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render_to_response
+from django.http import HttpResponse
+from django.template import RequestContext
+import datetime
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render_to_response, redirect
+from django.http import HttpResponse
+from django.template import RequestContext
+import datetime
+from company.models import MyCompany
+
+from receipt.models import *
+from receipt.forms import *
+
+
+def index(request):
+    receipts = Receipt.objects.all()
+    return render_to_response ("invoice/index.html",
+                                {'receipts': receipts, },
+                                context_instance=RequestContext(request)
+                            )
+
+#@login_required
+def receipt(request, object_id=0):
+
+    try:
+        my_company = MyCompany.objects.get(pk=1)
+        tax = my_company.tax
+        retention = my_company.retention
+    except:
+        tax = 0
+        retention = 0
+
+    if request.method == "POST":
+
+        if object_id:
+            receipt = Receipt.objects.get(pk=object_id)
+            template_to_go = "edit_receipt.html"
+        else:
+            receipt = Receipt()
+            template_to_go = "new_receipt.html"
+
+        receipt_form = ReceiptForm(request.POST, prefix="con", instance=receipt)
+        formset = receipt_formset(request.POST, request.FILES, instance=receipt, prefix="details")
+
+        if receipt_form.is_valid():
+
+            if formset.is_valid():
+                new_receipt = receipt_form.save()
+                formset.save()
+                new_receipt.calculate() #Total's calculation
+            else:
+                print formset.errors
+                return render_to_response ("invoice/" + template_to_go,
+                                                                    {
+                                                                        'formset': formset,
+                                                                        'receipt_form': receipt_form,
+                                                                        'tax': tax,
+                                                                        'retention': retention,
+                                                                    },
+                                                                    context_instance=RequestContext(request)
+                                            )
+        else:
+            return render_to_response ("invoice/" + template_to_go,
+                                    {
+                                        'formset': formset,
+                                        'receipt_form': receipt_form,
+                                        'tax': tax,
+                                        'retention': retention,
+                                    },
+                                    context_instance=RequestContext(request)
+        )
+
+
+        #return HttpResponseRedirect('/invoice/contracts')#Atention: New destination needed
+        return redirect (receipt)
+
+
+    elif object_id:
+        receipt = Receipt.objects.get(pk=object_id)
+        receipt_form = ReceiptForm(instance=receipt, prefix="con")
+        formset = receipt_formset(instance=receipt, prefix="details")
+
+        return render_to_response ("invoice/edit_receipt.html",
+                                    {
+                                        'receipt_form': receipt_form,
+                                        'formset': formset,
+                                        'tax': tax,
+                                        'retention': retention,
+                                    },
+                                    context_instance=RequestContext(request)
+                                )
+
+    else:
+        receipt_form = ReceiptForm(prefix='con')
+        formset = receipt_formset(instance=Receipt(), prefix="details")
+
+        return render_to_response ("invoice/new_receipt.html",
+                                    {
+                                        'receipt_form': receipt_form,
+                                        'formset': formset,
+                                        'tax': tax,
+                                        'retention': retention,
+                                    },
+                                    context_instance=RequestContext(request)
+                                )
+
+
+def project_ajax(request):
+    """
+        Ajax Request to be used in Project's project
+        If it's possible to relate projects with companys, should be used a filter to get the results from Project
+    """
+    company_id = request.POST['company_id']
+    if company_id:
+        #If there is a project_id then insert a filter
+        data = serializers.serialize('json', Project.objects.all(), ensure_ascii=False)
+    else:
+        data = serializers.serialize('json', Project.objects.all(), ensure_ascii=False)
+    return HttpResponse(data, mimetype='text/javascript')
+
+
+def milestone_ajax(request):
+    """
+        Ajax Request to be used in Project's project
+        If it's possible to relate projects with companys, should be used a filter to get the results from Project
+    """
+    project_id = request.POST['project_id']
+    data = serializers.serialize('json', Milestone.objects.filter(project=project_id), ensure_ascii=False)
+    return HttpResponse(data, mimetype='text/javascript')
+
+
+#@login_required
+#def receipt(request, receipt_id=0):
+
+    #receipt_details_formset = inlineformset_factory(Receipt, ReceiptDetails, extra=1)
+
+    #if request.method == "POST":
+
+        #if receipt_id:
+            #receipt = Receipt.objects.get(pk=receipt_id)
+            #template_to_go = "editreceipt.html"
+        #else:
+            #receipt = Receipt()
+            #template_to_go = "newreceipt.html"
+
+        #receipt_form = ReceiptForm(request.POST, prefix="rec", instance=receipt)
+        #formset = receipt_details_formset(request.POST, request.FILES, instance=receipt, prefix="details")
+
+        #if receipt_form.is_valid():
+            #new_receipt = receipt_form.save()
+
+            #if formset.is_valid():
+                #formset.save()
+                #new_receipt.calculate() #Total's calculation
+            #else:
+                ##formset = receipt_details_formset(request.POST, request.FILES, instance=receipt, prefix="details")
+                #return render_to_response ("invoice/" + template_to_go,
+                                                                    #{
+                                                                        ##'receipt': receipt,
+                                                                        #'formset': formset,
+                                                                        #'receipt_form': receipt_form,
+                                                                    #},
+                                                                    #context_instance=RequestContext(request)
+                                            #)
+        #else:
+            ##formset = receipt_details_formset(request.POST, request.FILES, instance=receipt, prefix="details")
+            #return render_to_response ("invoice/" + template_to_go,
+                                    #{
+                                        ##'receipt': receipt,
+                                        #'formset': formset,
+                                        #'receipt_form': receipt_form,
+                                    #},
+                                    #context_instance=RequestContext(request)
+        #)
+
+
+        #return HttpResponseRedirect('/invoice/receipts')
+
+
+    #elif receipt_id:
+        #receipt = Receipt.objects.get(pk=receipt_id)
+        #receipt_form = ReceiptForm(instance=receipt, prefix="rec")
+        #formset = receipt_details_formset(instance=receipt, prefix="details")
+
+        #return render_to_response ("invoice/editreceipt.html",
+                                    #{
+                                        #'receipt_form': receipt_form,
+                                        #'formset': formset,
+                                    #},
+                                    #context_instance=RequestContext(request)
+                                #)
+
+    #else:
+        #receipt_form = ReceiptForm(prefix='rec')
+        #formset = receipt_details_formset(instance=Receipt(), prefix="details")
+
+        #return render_to_response ("invoice/newreceipt.html",
+                                    #{
+                                        #'receipt_form': receipt_form,
+                                        #'formset': formset,
+                                    #},
+                                    #context_instance=RequestContext(request)
+                                #)

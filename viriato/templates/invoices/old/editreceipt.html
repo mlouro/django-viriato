@@ -1,0 +1,69 @@
+{% extends 'invoice/receipts_index.html' %}
+{% load i18n %}
+
+{% block extra_head %}
+    <link type="text/css" rel="Stylesheet" media="screen" href="{{ STATIC_URL }}css/invoices/receipts.css"/>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/invoices/receipts.js"></script>
+    {% endblock extra_head %}
+    
+{% block breadcrumbs %}
+    {{ block.super }} » <span class="active">{% trans 'New Receipt' %}</span>
+{% endblock %}
+
+{% block content-data %}
+    <form method="POST" action="{{ receipt.get_absolute_url }}">
+        {{ formset.management_form }}
+        
+        <div id="receipt">
+            <h3>Receipt Information</h3>
+            <p><label for="description">Receipt description {{ receipt_form.description }}</label></p>
+            <p>{{ receipt_form.description.errors }}</p>
+            <p><label for="emission_date">Emission Date {{ receipt_form.emission_date }}</label></p>
+            <p>{{ receipt_form.emission_date.errors }}</p>
+            <p><label for="company">Company {{ receipt_form.company }}</label><a href=""><img title="{% trans 'Add New Company' %}" 
+                                    src="{{ STATIC_URL }}images/invoices/add.png"></a></p>
+            <p>{{ receipt_form.company.errors }}</p>
+        </div>
+        
+        <div id="bill_details">
+            <table class="stripes" id="table_details">
+                <tr>
+                    <th class="select">{% trans "Delete" %}</th>
+                    <th class="bill">{% trans "Bill" %}</th>
+                    <th class="description">{% trans "Description" %}</th>
+                    <th class="value">{% trans "Value" %}</th>
+                    <th class="payed">{% trans "Payed" %}</th>
+                    <th class="to_pay">{% trans "To Pay" %}</th>
+                </tr>                            
+            
+                {% for form in formset.forms %}
+                    {{ form.id }}
+                    <tr>
+                        <td class="select">{{ form.DELETE }}</td>
+                        <td class="bill">{{ form.bill }}</td>
+                        <td class="description lock">{{ form.description }}<br/>{{ form.description.errors }}</td>                            
+                        <td class="value lock">{{ form.value }}<br/>{{ form.value.errors }}</td>
+                        <td class="payed lock">{{ form.payed }}<br/>{{ form.payed.errors }}</td>
+                        <td class="to_pay">{{ form.to_pay }}<br/>{{ form.to_pay.errors }}</td>
+                    </tr>               
+                {% endfor %}            
+            </table>
+        </div>
+            
+        <div id="receipt_finals">               
+            <p><label for="total_receipt_value">Total </label>{{ receipt_form.total_receipt_value}}</p>
+            <p>{{ receipt_form.total_receipt_value.errors }}</p>        
+        </div>
+        
+        <span class="submit">
+            <input id="submit" type="submit" value="{% trans 'Save' %}"/>
+        </span>     
+           
+    </form>
+
+
+{% endblock content-data %}
+
+{% block content_action %}
+        
+{% endblock content_action %}

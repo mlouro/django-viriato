@@ -1,0 +1,52 @@
+{% extends 'invoice/base.html' %}
+{% load i18n %}
+
+{% block extra_head %}
+    {{ block.super }}
+    <link type="text/css" rel="Stylesheet" media="screen" href="{{ STATIC_URL }}css/invoices/index.css"/>
+{% endblock extra_head %}
+
+{% block breadcrumbs %}
+    <a href="{% url invoice.views.receipts %}" title="{% trans "Receipts" %}">{% trans "Receipts" %}</a>
+{% endblock %}
+
+{% block content-data %}
+    {% if receipts %}
+        <table class="stripes" id="list_table" style="width:100%">
+            <tr>
+                <th class="center">{% trans "Select" %}</th>
+                <th class="center">{% trans "Receipt nr." %}</th>
+                <th class="center">{% trans "Client" %}</th>
+                <th class="center">{% trans "Description" %}</th>
+                <th class="center">{% trans "Emission Date" %}</th>
+                <th class="center">{% trans "Total" %}</th>
+                <th class="center">{% trans "Edit" %}</th>
+            </tr>
+           
+            {% for receipt in receipts %}
+                <tr>
+                    <td class="center"><input type="checkbox"/></td>
+                    <td class="center"><a href="{{ receipt.get_absolute_url }}">{{ receipt.id }}</a></td>
+                    <td><a href="{{ receipt.get_absolute_url }}">{{ receipt.company }}</a></td>
+                    <td><a href="{{ receipt.get_absolute_url }}">{{ receipt.description }}</a></td>
+                    <td class="right"><a href="{{ receipt.get_absolute_url }}">{{ receipt.emission_date }}</a></td>
+                    <td class="right"><a href="{{ receipt.get_absolute_url }}">{{ receipt.total_receipt_value }}</a></td>
+                    <td class="center"><a href="{{ receipt.get_absolute_url }}">{% trans "Edit" %}</a></td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        {% trans "There aren't emitted receipts" %}
+    {% endif %}
+{% endblock content-data %}
+
+{% block content_action %}
+    <p><a class="navbutton" href="{% url invoice.views.bill %}">{% trans "New Bill" %}</a></p>
+    <p><a class="navbutton" href="{% url invoice.views.receipt %}">{% trans "New Receipt" %}</a></p>
+    <p><a class="navbutton" href="">{% trans "Send Bills" %}</a></p>
+    <p><a class="navbutton" href="">{% trans "Send Receipts" %}</a></p>
+{% endblock content_action %}
+
+
+
+

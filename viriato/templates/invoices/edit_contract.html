@@ -1,0 +1,38 @@
+{% extends 'invoices/new_contract.html' %}
+{% load i18n %}
+
+{% block extra_head %}
+    {{ block.super }}
+    <script>
+        $(document).ready(function(){ $('.new').html(''); });
+    </script>
+{% endblock extra_head %}
+
+{% block breadcrumbs %}
+    {{ block.super }} <span class="edit active"> » {% trans 'Edit Contract' %}</span>
+{% endblock %}
+
+{% block content-data %}
+    {{ block.super }}
+{% endblock content-data %}
+
+{% block content_data_form %}
+    <form name="myForm" id="myForm" method="POST" action="{{ contract.get_absolute_url }}">
+{% endblock content_data_form %}
+
+{% block content_data_submit %}
+    <a onclick="save();" class="navbutton">{% trans 'Save' %}</a>
+{% endblock content_data_submit %}
+
+{% block content_action %}
+
+    <p><a onclick="hello()" class="navbutton" >{% trans "Send Bills" %}</a></p>
+    <p><a class="navbutton" href="">{% trans "Send Receipts" %}</a></p>
+    {% if PROJECT %}
+        <p><a id="importMilestones" class="navbutton">{% trans "Import Milestones" %}</a></p>
+    {% endif %}
+    <a class="basic" href="#">Demo</a>
+{% endblock content_action %}
+
+
+

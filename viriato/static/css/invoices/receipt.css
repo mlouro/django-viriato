@@ -1,0 +1,53 @@
+#contracts{
+    display: none;
+}
+
+#have_contract #content{
+    height: 300px;
+    overflow: auto;
+}
+#have_contract #content select{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+#have_contract #content p{
+    margin-left: 30px;
+}
+
+#have_contract #content table{
+    margin-left: 50px;
+    margin-right: 50px;
+}
+
+#have_contract #content table th{
+    text-align: center;
+}
+
+#have_contract #content table tr{
+    height: 20px;
+}
+
+#have_contract #content table .select{
+    width: 150px;
+}
+
+#have_contract #content table .title{
+    width: 550px;
+}
+
+.hidden{
+    display: none;
+}
+
+#avaiable{
+    display:none;
+}
+
+#tooltip{
+    position: absolute;
+    width: 200px;
+    height: 20px;
+    display: none;
+    background: #FF0000;
+}

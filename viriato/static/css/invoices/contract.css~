@@ -1,0 +1,30 @@
+
+#approved{
+    text-align:right;
+    margin-right:20px;
+}
+
+#milestones{
+    height:200px;
+    overflow:auto;
+    padding:20px;
+}
+
+#milestones table{
+    margin-left:100px;
+}
+
+#milestones th{
+    width:100px;
+}
+
+#milestones .select{
+    text-align: center;
+}
+
+#milestones .title{
+    width:300px;
+}
+
+
+

@@ -1,0 +1,72 @@
+{% extends 'invoice/bills_index.html' %}
+{% load i18n %}
+
+{% block breadcrumbs %}
+    {{ block.super }} » <span class="active">{% trans 'New Bill' %}</span>
+{% endblock %}
+
+{% block content-data %}
+    <div id="hidden_information">
+        <input id="hidden_tax" type="hidden" value="{{ tax }}"/>
+        <input id="hidden_retention" type="hidden" value="{{ retention }}"/>
+    </div>
+
+    <form method="POST" action="/invoice/newbill/">
+        {{ bill_details_formset.management_form }}
+        
+        <div id="bill">
+            <h3>Bill Information</h3>
+            <p><label for="bill_description">Bill description {{ bill_form.bill_description }}</label></p>
+            <p>{{ bill_form.bill_description.errors }}</p>
+            <p><label for="company">Company {{ bill_form.company }}</label><a href=""><img title="{% trans 'Add New Company' %}" 
+                                    src="{{ STATIC_URL }}images/invoices/add.png"></a></p>
+            <p>{{ bill_form.company.errors }}</p>
+            <p><label for="project">Project  {{ bill_form.project }}</label><a href=""><img title="{% trans 'Add New Project' %}" 
+                                    src="{{ STATIC_URL }}images/invoices/add.png"></a></p>
+            <p>{{ bill_form.project.errors }}</p>
+            {{ bill_form.sent }}
+        </div>
+        
+        <div id="bill_details">
+            <table class="stripes" id="table_details">
+                <tr>
+                    <th>{% trans "Delete" %}</th>
+                    <th>{% trans "Description" %}</th>
+                    <th>{% trans "Unity cost" %}</th>
+                    <th>{% trans "Quantity" %}</th>                
+                    <th>{% trans "Discount (%)" %}</th>
+                    <th class="taxes">{% trans "Tax (%)" %}</th>
+                    <th class="taxes">{% trans "Retention (%)" %}</th>
+                </tr>                            
+                
+                {% for form in bill_details_formset.forms %}
+                    {{ form.id }}
+                    <tr>
+                        <td class="select">{{ form.DELETE }}</td>
+                        <td class="description">{{ form.description }}<br/>{{ form.description.errors }}</td>
+                        <td class="unity_cost">{{ form.unity_cost }}<br/>{{ form.unity_cost.errors }}</td>                        
+                        <td class="quantity">{{ form.quantity }}<br/>{{ form.quantity.errors }}</td>                    
+                        <td class="discount">{{ form.discount }}<br/>{{ form.discount.errors }}</td>
+                        <td class="taxes">{{ form.tax }}<br/>{{ form.tax.errors }}</td>                        
+                        <td class="taxes">{{ form.retention }}<br/>{{ form.retention.errors }}</td>                        
+                    </tr>               
+                {% endfor %}           
+            </table>
+        </div>
+        <span class="submit">
+            <input id="submit" type="submit" value="{% trans 'Save' %}"/>
+            <input id="send" type="submit" value="{% trans 'Send' %}"/>
+        </span>
+    </form>
+{% endblock content-data %}
+
+{% block content_action %}
+    <p><a class="navbutton" onclick='add_new_row("True","table_details")' style="text-decoration:underline; cursor:pointer">
+        {% trans 'Add New Line'%}</a></p>
+    <p><a class="navbutton" onclick='remove_rows("table_details")' style="text-decoration:underline; cursor:pointer">
+        {% trans 'Remove Selected Rows'%}</a></p>
+    
+    <p><a title="{% trans 'Change Taxes Values' %}" class="navbutton" id="change">{% trans 'Change Taxes Values' %}</a></p>
+    
+    
+{% endblock content_action %}

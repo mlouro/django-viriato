@@ -1,0 +1,42 @@
+{% extends 'invoice/company.html' %}
+{% load i18n %}
+
+{% block breadcrumbs %}
+    {{ block.super }} » <span class="active">{% trans 'Bills Configuration' %}</span>
+{% endblock %}
+
+{% block content-data %}
+    <div id="billconfiguration">
+        <form action="/company/billconfiguration/" method="POST" id="form_billconfiguration">
+        
+            <h2 class="headline">{% trans 'Bill States Configuration' %}</h2>
+        
+                <fieldset class="formset">
+                    <h3>{% trans 'States' %}</h3>
+                    {{ formset.management_form }}
+                    <table class="stripes" id="table_details">
+                        <tr>
+                            <th>{% trans "Description" %}</th>
+                            <th>{% trans "Default" %}</th>
+                        </tr>
+                        {% for form in formset.forms %}
+                        <tr>
+                            <td>{{ form.description }}<br/>{{ form.description.errors }}</td>
+                            <td>{{ form.default }}<br/>{{ form.default.errors }}
+                    {{ form.id }}</td>
+                            
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </fieldset>
+            <p>
+                <input type="submit" value="{% trans 'Save' %}"/>
+            </p>   
+        </form>
+    </div>
+    
+{% endblock content-data %}
+
+{% block content_action %}
+
+{% endblock content_action %}
