@@ -6,11 +6,11 @@
 -e svn+http://code.djangoproject.com/svn/django/trunk/#egg=django-trunk
 
 # user stuff
+python_openid
 -e hg+http://bitbucket.org/ubernostrum/django-registration/#egg=django-registration
 django-authopenid==1.0
 
 # code browser
--e git://github.com/alex/django-vcs.git#egg=django_vcs
 pygments
 -e git://github.com/alex/pyvcs.git#egg=pyvcs
 -e git://github.com/jelmer/dulwich.git#egg=dulwich
