@@ -15,7 +15,7 @@
 {% endblock %}
 
 {% block content %}
-    <table>
+    <table class="committable">
         <tr>
             <th>Commited by: </th>
             <td>{{ commit.author }}</td>
@@ -36,7 +36,7 @@
                         <li>
                             <a href="{% url code_browser project_id=project.id slug=repo.slug path=file %}?rev={{ commit.commit_id }}">
                                 {{ file }}
-                            <a/>
+                            </a>
                         </li>
                     {% endfor %}
                 </ul>

@@ -256,5 +256,17 @@ table.activity { width: 100%; }
 
 
 
+
+/* Code Browser
+----------------------------------------------- */
+
+.committable { padding: 0; border-spacing: 0; }
+    .committable td, .committable th { padding: 3px 10px 3px 0; vertical-align: top; }
+    .committable ul { padding: 0 0 15px; }
+        .committable ul li { padding: 2px 0; }
+
+
+.diff-table .diff { margin-bottom: 20px; border: 1px solid #A7BEC4; border-bottom: none; }
+
 /* old css
 ----------------------------------------------- */

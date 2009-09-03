@@ -8,7 +8,15 @@
     <h1>
         Recent commits for {{ repo.name }}
     </h1>
-    <table>
+    <table class="issuetable">
+        <thead>
+        <tr>
+            <th>Commit</th>
+            <th>Author</th>
+            <th>Message</th>
+        </tr>
+        </thead>
+        <tbody class="entry-list">
         {% for commit in commits %}
             <tr>
                 <td>
@@ -27,5 +35,6 @@
                 </td>
             </tr>
         {% endfor %}
+        </tbody>
     </table>
 {% endblock %}

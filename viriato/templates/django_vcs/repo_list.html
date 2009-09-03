@@ -5,13 +5,16 @@
 {% block page_title %}Repositories{% endblock %}
 
 {% block content %}
-    <table>
+    <table class="issuetable">
+        <thead>
         <tr>
             <th>Name</th>
             <th>VCS</th>
             <th>Last Commit Date</th>
             <th>Last Commit Message</th>
         </tr>
+        </thead>
+        <tbody class="entry-list">
         {% for repo in repos %}
             <tr>
                 <td>
@@ -24,5 +27,6 @@
                 {% endwith %}
             </tr>
         {% endfor %}
+        </tbody>
     </table>
 {% endblock %}
