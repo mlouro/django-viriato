@@ -14,3 +14,4 @@ django-authopenid==1.0
 pygments
 -e git://github.com/alex/pyvcs.git#egg=pyvcs
 -e git://github.com/jelmer/dulwich.git#egg=dulwich
+-e git://github.com/mlouro/django-vcs.git#egg=django-vcs
