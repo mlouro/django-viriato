@@ -3,7 +3,7 @@
 from django.conf.urls.defaults import *
 
 urlpatterns = patterns('',
-    (r'^$', 'receipt.views.receipt'),
+    url(r'^$', 'receipt.views.receipt', name="receipt_index"),
     (r'^(?P<object_id>\d+)/$', 'receipt.views.receipt'),
     (r'^receipt_document/(?P<object_id>\d+)/$', 'receipt.views.receipt_document'),
 )

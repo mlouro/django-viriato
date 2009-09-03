@@ -43,6 +43,8 @@
                 {% url project_trashboard "bla" as project_trashboard_url %}
                 {% url issue_dashboard as issue_dashboard_url %}
 
+                {% url receipt_index as receipt_index_url %}
+
                 {% get_link_if_allowed home_url "Home" %}
                 <!--
                 {% get_link_if_allowed schedule_url "Calendar" %}
@@ -52,7 +54,7 @@
                 {% get_link_if_allowed schedule_url "Contacts" %}
                 {% get_link_if_allowed issue_dashboard_url "Helpdesk" %}
                 -->
-                {% get_link_if_allowed schedule_url "Invoices" %}
+                {% get_link_if_allowed receipt_index_url "Invoices" %}
                 <!--
                 {% get_link_if_allowed schedule_url "Wiki" %}
                 -->

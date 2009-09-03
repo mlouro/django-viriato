@@ -1,5 +1,5 @@
 {% extends 'invoice/base.html' %}
-{% load i18n %}
+{% load i18n navigation_tags %}
 
 {% block extra_head %}
     {{ block.super }}
@@ -31,11 +31,20 @@
 
 {% endblock extra_head %}
 
+
+{% block content_id_title %}<h1>Receipts</h1>{% endblock %}
+
+{% block content_id_links %}
+    {% url projects.views.project.add as project_add_url %}
+    {% get_link_if_allowed project_add_url "Add Project" "projects.add_project" %}
+{% endblock %}
+
+
 {% block breadcrumbs %}
     {{ block.super }} <span class="new active"> » {% trans 'New Receipt' %}</span>
 {% endblock %}
 
-{% block content-data %}
+{% block content %}
     <input type="hidden" value={{ tax }} id="tax"/>
     <input type="hidden" value={{ retention }} id="retention"/>
     <input type="hidden" value="{% trans 'Select an Item' %}" id="select_item"/>
@@ -204,7 +213,7 @@
     </div>
     <span id="tooltip"></span>
 
-{% endblock content-data %}
+{% endblock content %}
 
 {% block content_action %}
     <p><a onclick="javascript:$('tr:last input').css({backgroundColor: 'yellow', fontWeight: 'bolder'});
