@@ -1,0 +1,144 @@
+# -*- coding: utf-8 -*-
+from django.db import models
+from django.contrib.contenttypes.models import ContentType
+from django.contrib.contenttypes import generic
+#from note.models import Note
+#from log.models import Log
+
+CONTACT_TYPE_CHOICES = (
+    ('WK', 'Work'),
+    ('PS', 'Personal'),
+    ('OT', 'Other'),
+)
+
+ADDRESS_TYPE_CHOICES = (
+    ('WK', 'Work'),
+    ('HM', 'Home'),
+    ('OT', 'Other'),
+)
+
+PHONE_TYPE_CHOICES = (
+    ('HM', 'Work'),
+    ('WK', 'Mobile'),
+    ('FX', 'Fax'),
+    ('PG', 'Pager'),
+    ('HM', 'Home'),
+    ('PS', 'Personal'),
+    ('SK', 'Skype'),
+    ('OT', 'Other'),
+)
+
+
+class Address(models.Model):
+    street = models.CharField(blank=True, max_length=200)
+    city = models.CharField(max_length=200)
+    state = models.CharField(blank=True, max_length=200)
+    zipcode = models.CharField(blank=True, max_length=200)
+    country = models.CharField(blank=True, max_length=200)
+    contact_type = models.CharField(max_length=2, choices=CONTACT_TYPE_CHOICES)
+
+    content_type = models.ForeignKey(ContentType)
+    object_id = models.PositiveIntegerField()
+
+    def __unicode__(self):
+        return self.street
+
+
+class Email(models.Model):
+    address = models.EmailField(blank=True, max_length=200)
+    contact_type = models.CharField(max_length=2, choices=CONTACT_TYPE_CHOICES)
+
+    content_type = models.ForeignKey(ContentType)
+    object_id = models.PositiveIntegerField()
+    content_object = generic.GenericForeignKey("content_type", "object_id")
+
+    def __unicode__(self):
+        return self.address
+
+class Phone(models.Model):
+    number = models.CharField(blank=True, max_length=200)
+    phone_type = models.CharField(max_length=2, choices=PHONE_TYPE_CHOICES)
+
+    content_type = models.ForeignKey(ContentType)
+    object_id = models.PositiveIntegerField()
+    content_object = generic.GenericForeignKey("content_type", "object_id")
+
+    def __unicode__(self):
+        return self.number
+
+class Website(models.Model):
+    url = models.CharField(blank=True, max_length=200)
+    contact_type = models.CharField(max_length=2, choices=CONTACT_TYPE_CHOICES)
+
+    content_type = models.ForeignKey(ContentType)
+    object_id = models.PositiveIntegerField()
+    content_object = generic.GenericForeignKey("content_type", "object_id")
+
+    def __unicode__(self):
+        return self.url
+
+
+class InstantMessaging(models.Model):
+    email = models.CharField(blank=True, max_length=200)
+    im = models.CharField(blank=True, max_length=20)
+    contact_type = models.CharField(max_length=2, choices=CONTACT_TYPE_CHOICES)
+
+    content_type = models.ForeignKey(ContentType)
+    object_id = models.PositiveIntegerField()
+    content_object = generic.GenericForeignKey("content_type", "object_id")
+
+    def __unicode__(self):
+        return self.email
+
+
+class Contact(models.Model):
+    addresses = generic.GenericRelation(Address)
+    emails = generic.GenericRelation(Email)
+    phones = generic.GenericRelation(Phone)
+    websites = generic.GenericRelation(Website)
+    InstantMessagings = generic.GenericRelation(InstantMessaging)
+    photo = models.ImageField(blank=True, upload_to="fotos")
+    info = models.TextField(blank=True,)
+
+    def __unicode__(self):
+        return self.address
+
+class Person(Contact):
+    title = models.CharField(blank=True, max_length=10)
+    first_name = models.CharField(max_length=200)
+    last_name = models.CharField(blank=True, max_length=200)
+
+    def __unicode__(self):
+        return self.first_name
+
+    def get_absolute_url(self):
+        return "/contacts/person/" + str(self.id) + "/"
+
+    def get_edit_url(self):
+        return "/contacts/person/save/" + str(self.id) + "/"
+
+    def name(self):
+        return self.first_name + " " + self.last_name
+
+    def get_emails(self):
+        return self.emails.all()
+
+    def get_phones(self):
+        return self.phones.all()
+
+class Company(Contact):
+    title = models.CharField(max_length=200)
+    legal_name = models.CharField(blank=True, max_length=200)
+    employees = models.ManyToManyField(Person, through='Employee')
+    nif = models.CharField(blank=True, max_length=200)
+
+    def __unicode__(self):
+        return self.name
+
+class Employee(models.Model):
+    person = models.ForeignKey(Person)
+    company = models.ForeignKey(Company)
+    title = models.CharField(blank=True, max_length=200)
+
+    def __unicode__(self):
+        return self.title

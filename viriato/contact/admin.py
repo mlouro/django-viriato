@@ -1,0 +1,35 @@
+# -*- coding: utf-8 -*-
+from contact.models import Phone, Website, InstantMessaging, Email, Address, Person, Company
+from django.contrib import admin
+from django.contrib.contenttypes import generic
+
+
+class AddressInline(generic.GenericStackedInline):
+    model = Address
+    extra = 2
+
+class EmailInline(generic.GenericStackedInline):
+    model = Email
+    extra = 2
+
+class PhoneInline(generic.GenericStackedInline):
+    model = Phone
+    extra = 2
+
+class WebsiteInline(generic.GenericStackedInline):
+    model = Website
+    extra = 2
+
+class InstantMessagingInline(generic.GenericStackedInline):
+    model = InstantMessaging
+    extra = 2
+
+class PersonAdmin(admin.ModelAdmin):
+    inlines = [AddressInline, EmailInline, PhoneInline, WebsiteInline, InstantMessagingInline]
+
+admin.site.register(Person, PersonAdmin)
+
+class CompanyAdmin(admin.ModelAdmin):
+    inlines = [AddressInline, EmailInline, PhoneInline, WebsiteInline, InstantMessagingInline]
+
+admin.site.register(Company, CompanyAdmin)
