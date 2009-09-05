@@ -1,0 +1,42 @@
+{% extends "newsletter/base.html" %}
+{% load i18n %}
+
+
+{% block breadcrumbs %}
+    {{ block.super }}
+        {% if add %}
+            <span class="active">{%trans 'Add Subscriber' %}</span>
+        {% else %}
+            <span class="active">{%trans 'Edit Subscriber' %}</span>
+        {% endif %}
+{% endblock %}
+
+
+{% block content %}
+    <form class="form" action="{{ newsletter.get_edit_url }}" method="post">
+
+        <p class="field">
+            <label>Name</label>
+            {{ form.name }}
+        </p>
+        {{ form.name.errors }}
+
+        <p class="field">
+            <label> Email <span class="light">(Insert the Newsletter Url)</span></label>
+            {{ form.email }}
+        </p>
+        {{ form.email.errors }}
+
+        <p class="field">
+            <label>Group <span class="light">(Link User to Groups)</span></label>
+            {{ form.group }}
+        </p>
+        {{ form.group.errors }}
+
+        <p class="submit">
+            <input type="submit" value="Save Subscriber" />
+            <a href="javascript:history.back()">Cancel</a>
+        </p>
+
+    </form>
+{% endblock %}

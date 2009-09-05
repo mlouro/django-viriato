@@ -1,0 +1,47 @@
+{% extends "newsletter/base.html" %}
+{% load i18n %}
+
+{% block content_action %}
+    <p>
+        <a href="/newsletter/add-newsletter/" title="{% trans 'Add Newsletter' %}" class="navbutton">{% trans 'Add Newsletter' %}</a>
+    </p>
+    <p>
+        <a href="/newsletter/subscriber-create/" title="{% trans 'Add Subscriber' %}" class="navbutton">{% trans 'Add Subscriber' %}</a>
+    </p>
+    <p>
+        <a href="/newsletter/group-create/" title="{% trans 'Add Group' %}" class="navbutton">{% trans "Add Group" %}</a>
+    </p>
+{% endblock %}
+
+{% block breadcrumbs %}
+    {{ block.super }}
+{% endblock %}
+
+{% block content %}
+<div id ="newsletter-list">
+    <div class="newsletter">
+        <table id="list-table">
+        <thead>
+            <tr>
+                <th><input type="checkbox"/></th>
+                <th><h2 class="headline">{% trans 'Newsletter' %}</h2></th>
+                <th><h2 class="headline">{% trans 'Created' %}</h2></th>
+                <th><h2 class="headline">{% trans 'Viewed' %}</h2></th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for item in newsletter %}
+            <tr>
+                <td>
+                    <input type="checkbox"  class="select_all" value= {{item.id}} />
+                </td>
+                <td><a href="{{ item.get_absolute_url }}">{{ item.title }}</a></td>
+                <td>{{ item.created.date }}</p></td>
+                <td>{{ item.view_count }}</p></td>
+            </tr>
+        {% endfor %}
+        <tbody> 
+        </table>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,72 @@
+{% extends "newsletter/add.html" %}
+{% load i18n %}
+
+{% block content_action %}
+<p>
+    <a href="/newsletter/add-newsletter/" title="{% trans 'Add Newsletter' %}" class="navbutton">{% trans "Add Newsletter" %}</a>
+</p>
+<p>
+    <a href="/newsletter/subscriber-create/" title="{% trans 'Add Subcriber' %}" class="navbutton">{% trans "Add Subscriber" %}</a>
+</p>
+<p>
+    <a href="/newsletter/group-create/" title="{% trans 'Add Group' %}" class="navbutton">{% trans "Add Group" %}</a>
+</p>
+{% endblock %}
+
+{% block breadcrumbs %}
+    {{ block.super }}
+{% endblock %}
+
+
+{% block content %}
+
+<table id="subscriber_table">
+    
+<thead>
+    <tr >
+        <th>
+            <h2 class="headline"> {%trans "Groups" %}</h2>
+        </th>
+        <th>
+            <h2 class="headline">{%trans "Subscribers" %}</h2>
+        </th>
+    </tr>
+</thead>
+
+<tbody>
+<th>
+    <div id="groups">
+        {% for group in group_list %}
+            <div class="box">
+                <h3><a href="{{ group.get_subscribers_by_group_url}}">{{ group }}</a></h3> <!-- to fixe--->
+                <br class="clearboth" />
+            </div>
+        {% endfor %}
+    </div>
+</th>
+<th>
+    <div id="subscriber-list">
+        {% for subscriber in object_list %}
+        <div class="subscriber">
+            <h3><a href="{{ subscriber.get_edit_url }}">{{ subscriber }}</a></h3>
+            <table id="stripes">
+                <tr>
+                    <td>
+                        <p class="details"> E-mail : {{ subscriber.email }} </p>
+                        <!--<p class="details">{%trans "Groups : " %}</p>
+                        {% for group in subscriber.group.all %}
+                        <p class="gp">{{ group }}</p>
+                        {% endfor %}-->
+                    </td>
+                </tr>
+            </table>
+            <br class="clearboth" />
+        </div>
+        {% endfor %}
+    </div>
+</th>
+</tbody>
+        
+</table>
+
+{% endblock %}

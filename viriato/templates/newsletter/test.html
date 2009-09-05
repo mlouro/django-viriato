@@ -1,0 +1,53 @@
+{% extends "newsletter/base.html" %}
+{% load i18n %}
+
+{% block active_breadcrumb %} {{ newsletter.title }} {% endblock %}
+
+{% block content %}
+
+<h1>Newsletters</h1>
+
+<h2 class="headline">{{ newsletter.title }} <small>(<a href="{{ newsletter.get_edit_url }}">edit</a>)</small></h2>
+
+<div class="newsletter">
+    <!--<img src="{{ STATIC_URL }}/images/tmp/person.gif" style="float: left;" />-->
+    <p class="role" style="padding-top: 10px; font-size: 1.6em;">
+        <table width="600">
+            <tr>
+                <td><h3> URL : </h3></td>
+                <td><a href="{{ newsletter.url }}">{{ newsletter.url }}</a> </td>
+            </tr>
+            <tr>
+                <td><h3> Created : </h3></td>
+                <td> {{ newsletter.created.date }} </td>
+            </tr>
+            <tr>
+                <td><h3> Modifed : </h3></td>
+                <td> {{ newsletter.modified.date }} </td>
+            </tr>
+            <tr>
+                <td><h3> View count : </h3></td>
+                <td> {{ newsletter.view_count }} </td>
+            </tr>
+        </table>
+        <!--{{ newsletter.group }}-->
+        </p>
+    <br class="clearboth" />
+</div>
+<div>
+ <img src={{chartpath}} alt="Chart">
+
+
+
+</div>
+
+{% endblock %}
+
+
+{% block content_action %}
+
+    <p>
+        <a href="/newsletter/send-newsletter/{{newsletter.id}}" title="{% trans 'Send Newsletter' %}" class="navbutton">{% trans 'Send Newsletter' %}</a>
+    </p>
+
+{% endblock %}

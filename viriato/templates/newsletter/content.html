@@ -1,0 +1,102 @@
+{% extends "newsletter/base.html" %}
+{% load i18n %}
+
+{% block active_breadcrumb %} {{ newsletter.title }} {% endblock %}
+
+{% block content %}
+
+    <h1>Newsletters</h1>
+
+    <h2 class="headline">{{ newsletter.title }} <small>(<a href="{{ newsletter.get_edit_url }}">edit</a>)</small></h2>
+
+    <div class="newsletter">
+        <!--<img src="{{ STATIC_URL }}/images/tmp/person.gif" style="float: left;" />-->
+        <p class="role" style="padding-top: 10px; font-size: 1.6em;">
+            <table width="600">
+                <tr>
+                    <td><h3> URL : </h3></td>
+                    <td><a href="{{ newsletter.url }}">{{ newsletter.url }}</a> </td>
+                </tr>
+                <tr>
+                    <td><h3> Created : </h3></td>
+                    <td> {{ newsletter.created.date }} </td>
+                </tr>
+                <tr>
+                    <td><h3> Modifed : </h3></td>
+                    <td> {{ newsletter.modified.date }} </td>
+                </tr>
+                <tr>
+                    <td><h3> View count : </h3></td>
+                    <td> {{ newsletter.view_count }} </td>
+                </tr>
+            </table>
+            <!--{{ newsletter.group }}-->
+            </p>
+        <br class="clearboth" />
+    </div>
+    <div>
+     <img src={{chartpath}} alt="Chart">
+    </div>
+<!--
+    <h3 class="subheadline">Add a note about {{ newsletter.name }}</h3>
+    <form id="add-note" class="form add-note" method="post" action="/newsletter/person/{{ newsletter.id }}/addnote/">
+        <input type="hidden" name="entity_id" value="{{ newsletter.id }}" />
+        <p>
+            <textarea name="note"></textarea>
+        </p>
+        <p>
+            <input type="submit" value="Add this note" />
+        </p>
+    </form>
+
+    <h2 class="headline">Notes</h2>
+
+    <div class="notes">
+        <h3><a href="{{ person.get_absolute_url }}">{{ person.first_name }} {{ person.last_name }}</a></h3>
+        {% for note in notes %}
+        <div class="note">
+            <h3>{{ note.created|date:"l, F d, Y" }} <span class="byuser">at {{ note.created|date:"H:i" }} by {{ note.user }}</span></h3>
+            <div class="text">{{ note|linebreaksbr }}</div>
+        </div>
+        {% endfor %}
+
+        {% if not notes %}
+            <p class="text">There are no notes related to {{ newsletter.name }}</p>
+        {% endif %}
+        <br class="clearboth" />
+    </div>
+-->
+
+{% endblock %}
+
+
+{% block content_action %}
+ <!--   <p>
+        <a href="/newsletter/add-newsletter/" title="{% trans 'Add Newsletter' %}" class="navbutton">{% trans 'Add Newsletter' %}</a>
+    </p>-->
+    <p>
+        <a href="/newsletter/send-newsletter/{{newsletter.id}}" title="{% trans 'Send Newsletter' %}" class="navbutton">{% trans 'Send Newsletter' %}</a>
+    </p>
+<!--<br />
+<h2>{{ newsletter.name }}'s info</h2>
+<div class="details">
+    {% if newsletter.get_emails %}
+    <h3>E-mail addresses</h3>
+    <ul>
+        {% for item in newsletter.get_emails %}
+        <li>{{ item }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+    {% if newsletter.get_phones %}
+    <h3>Phone numbers</h3>
+    <ul>
+        {% for item in newsletter.get_phones %}
+        <li>{{ item }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+</div> -->
+{% endblock %}
