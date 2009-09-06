@@ -44,6 +44,7 @@
                 {% url issue_dashboard as issue_dashboard_url %}
 
                 {% url receipt_index as receipt_index_url %}
+                {% url newsletter_index as newsletter_index_url %}
 
                 {% get_link_if_allowed home_url "Home" %}
                 <!--
@@ -58,7 +59,7 @@
                 <!--
                 {% get_link_if_allowed schedule_url "Wiki" %}
                 -->
-                {% get_link_if_allowed schedule_url "Newsletters" %}
+                {% get_link_if_allowed newsletter_index_url "Newsletters" %}
             </ul>
         {% endif %}
         {% endblock %}

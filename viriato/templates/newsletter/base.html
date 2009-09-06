@@ -1,10 +1,21 @@
 {% extends "base.html" %}
+{% load i18n %}
+{% load navigation_tags %}
+
+{% block content_id_title %}<h1>Overview</h1>{% endblock %}
+
+{% block content_id_links %}
+    {% url projects.views.project.add as project_add_url %}
+    {% get_link_if_allowed project_add_url "Add Newsletter" "newsletters.newsletter_add" %}
+{% endblock %}
+
+
 {% block extra_head %}
 <link type="text/css" rel="Stylesheet" media="screen" href="{{ STATIC_URL }}css/newsletter.css"/>
 <script type="text/javascript" src="{{ STATIC_URL }}/js/common/forms.js"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}/js/newsletters/newsletters.js"></script>
 {% endblock %}
-{% load i18n %}
+
 
 {% block main_navigation %}
 <li><a href="/" class="navbutton">Overview</a></li>
