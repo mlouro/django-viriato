@@ -5,8 +5,12 @@
 {% block content_id_title %}<h1>Overview</h1>{% endblock %}
 
 {% block content_id_links %}
-    {% url projects.views.project.add as project_add_url %}
-    {% get_link_if_allowed project_add_url "Add Newsletter" "newsletters.newsletter_add" %}
+    {% url newsletter_add as newsletter_add_url %}
+    
+    {% get_link_if_allowed  newsletter_add_url "Add Newsletter" %}
+    {% get_link_if_allowed  newsletter_add_url "Add Group" %}
+    {% get_link_if_allowed  newsletter_add_url "Add Subscribers" %}
+    
 {% endblock %}
 
 
