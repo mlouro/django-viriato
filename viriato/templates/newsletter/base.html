@@ -2,6 +2,13 @@
 {% load i18n %}
 {% load navigation_tags %}
 
+{% block extra_head %}
+<link type="text/css" rel="Stylesheet" media="screen" href="{{ MEDIA_URL }}css/newsletters/index.css"/>
+<script type="text/javascript" src="{{ MEDIA_URL }}/js/common/forms.js"></script>
+<script type="text/javascript" src="{{ MEDIA_URL }}/js/newsletters/newsletters.js"></script>
+<script type="text/javascript" src="http://jqueryui.com/latest/jquery-1.3.2.js"></script>
+{% endblock %}
+
 {% block content_id_title %}<h1>Overview</h1>{% endblock %}
 
 {% block content_id_links %}
@@ -17,10 +24,5 @@
 {% endblock %}
 
 
-{% block extra_head %}
-<link type="text/css" rel="Stylesheet" media="screen" href="{{ MEDIA_URL }}css/newsletters/index.css"/>
-<script type="text/javascript" src="{{ MEDIA_URL }}/js/common/forms.js"></script>
-<script type="text/javascript" src="{{ MEDIA_URL }}/js/newsletters/newsletters.js"></script>
-{% endblock %}
 
 

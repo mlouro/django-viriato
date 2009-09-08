@@ -5,7 +5,7 @@ from django.views.generic import list_detail, date_based
 from django.views.generic.simple import direct_to_template
 from django.views.generic.create_update import create_object,update_object,delete_object
 
-"""Subscribers dict's"""
+#Subscribers dict's
 subscriber_create_dict = {
     'form_class': SubscriberForm,
     'post_save_redirect': '/newsletter/subscriber-list/',
@@ -19,7 +19,7 @@ subscriber_list_dict = {
 }
 
 
-"""Group Dict's"""
+#Group Dict's
 group_create_dict = {
     'form_class': GroupForm,
     'post_save_redirect':'/newsletter/subscriber-list/',
@@ -27,6 +27,7 @@ group_create_dict = {
 group_list_dict = {
     'queryset':Group.objects.all(),
     'template_name': 'newsletter/group_list.html',
+    'template_object_name' : "group", # default object
 }
 
 

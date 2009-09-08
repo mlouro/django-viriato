@@ -4,11 +4,11 @@
 
 {% block secondary_nav %}
     <ul>
-    <!--{% url newsletter_list as newsletter_list_url %}-->
+    {% url newsletter_list as newsletter_list_url %}
     {% url  group_list as group_list_url %}
     {% url  subscriber_list as subscriber_list_url %}
     
-    <!--{% get_link_if_allowed newsletter_list_url "Newsletters" %}-->
+    {% get_link_if_allowed newsletter_list_url "Dashboard" %}
     {% get_link_if_allowed group_list_url "Group List" %}
     {% get_link_if_allowed subscriber_list_url "Subscriber List" %}
     </ul>
