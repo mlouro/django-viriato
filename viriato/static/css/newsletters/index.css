@@ -1,50 +1,66 @@
 
-#list-table {vertical-align:bottom;}
-        #list-table th{padding: 0px 25px 0px 25px; }
-        #list-table td{padding: 0px 25px 0px 25px; }
-        /*#list-table {font-size:130%}*/
+/* Newsletters overview
+----------------------------------------------- */
 
-.odd {
-    background-color: #def; }
-.odd td {
-    border-bottom: 1px solid #cef; }
-.selectedRow {  
-        background-color: #92CC47;  
-        cursor: pointer;  
-}  
+table.activity { width: 100%; }
+    table.activity td { padding: 6px 4px 8px; border-bottom: 1px solid #EFEFEF;
+            white-space: nowrap; }
+        table.activity .action {  }
+        table.activity .description { width: 100%; }
+        table.activity .name { border-right: 1px solid #EFEFEF; }
 
-
-/*#newsletters .newsletter { position: relative; border-bottom: 1px solid #eeeeee; }*/
-        /*.newsletter h3 { float: left; padding-right: 10px; }*/
-        /*.newsletter h3 a {padding: 4px 0 3px; font-size: 1.3em}*/
-        /*.newsletter .details{font-size: 1.3em ; color: #999}*/
-
-h2.headline { padding: 0px 0 0; margin-bottom: 5px; font-size: 2.0em; color: #579733; border-bottom: 1px solid #EFEFEF;}
-
-#newsletters .newsletter{}
-        .newsletters h3 { padding: 2px 0; font-size: 1.8em; }
-        .newsletter a {padding: 4px 0 3px; font-size: 1.3em}
-        .newsletter list-table {}
-
-/*Subscribers*/
-
-#newsletters {}
-
-#subscribers .subscriber { position: relative; border-bottom: 1px solid #eeeeee; }
-        .subscriber h3 { float: left; padding-right: 10px; }
-        .subscriber h3 a {padding: 4px 0 3px; font-size: 1.3em; }
-        .subscriber .details{font-size: 1.3em ; color: #999}
-        .subscriber .gp {padding-left:25px; font-size: 1.1em ; color: #999}
+.newsletter_activity h3 { padding: 5px 10px; background: #EFEFEF; font-weight: normal; }
+.newsletter_activity h3 a { text-decoration: none; color: #000; }
 
 
-#subscriber-list {border-left:1px solid #CCCCCC;clear:both;padding:10px;}
-#subscriber-list .subscriber{border-bottom:1px solid #CCCCCC;clear:both;padding:5px 0 2px;}
-        .subscribers h3 { padding: 2px 0; font-size: 1.8em; }
 
 
-/*Groups*/
-#groups {}
-        /*box {border-bottom:1px solid #CCCCCC;clear:both; padding:0}*/
+/*#list-table {vertical-align:bottom;}*/
+        /*#list-table th{padding: 0px 25px 0px 25px; }*/
+        /*#list-table td{padding: 0px 25px 0px 25px; }*/
+        /*/*#list-table {font-size:130%}*/*/
 
-#subscriber_table  {width:100%;}
-        th {vertical-align:top;}
+/*.odd {*/
+    /*background-color: #def; }*/
+/*.odd td {*/
+    /*border-bottom: 1px solid #cef; }*/
+/*.selectedRow {  */
+        /*background-color: #92CC47;  */
+        /*cursor: pointer;  */
+/*}  */
+
+
+/*/*#newsletters .newsletter { position: relative; border-bottom: 1px solid #eeeeee; }*/*/
+        /*/*.newsletter h3 { float: left; padding-right: 10px; }*/*/
+        /*/*.newsletter h3 a {padding: 4px 0 3px; font-size: 1.3em}*/*/
+        /*/*.newsletter .details{font-size: 1.3em ; color: #999}*/*/
+
+/*h2.headline { padding: 0px 0 0; margin-bottom: 5px; font-size: 2.0em; color: #579733; border-bottom: 1px solid #EFEFEF;}*/
+
+/*#newsletters .newsletter{}*/
+        /*.newsletters h3 { padding: 2px 0; font-size: 1.8em; }*/
+        /*.newsletter a {padding: 4px 0 3px; font-size: 1.3em}*/
+        /*.newsletter list-table {}*/
+
+/*/*Subscribers*/*/
+
+/*#newsletters {}*/
+
+/*#subscribers .subscriber { position: relative; border-bottom: 1px solid #eeeeee; }*/
+        /*.subscriber h3 { float: left; padding-right: 10px; }*/
+        /*.subscriber h3 a {padding: 4px 0 3px; font-size: 1.3em; }*/
+        /*.subscriber .details{font-size: 1.3em ; color: #999}*/
+        /*.subscriber .gp {padding-left:25px; font-size: 1.1em ; color: #999}*/
+
+
+/*#subscriber-list {border-left:1px solid #CCCCCC;clear:both;padding:10px;}*/
+/*#subscriber-list .subscriber{border-bottom:1px solid #CCCCCC;clear:both;padding:5px 0 2px;}*/
+        /*.subscribers h3 { padding: 2px 0; font-size: 1.8em; }*/
+
+
+/*/*Groups*/*/
+/*#groups {}*/
+        /*/*box {border-bottom:1px solid #CCCCCC;clear:both; padding:0}*/*/
+
+/*#subscriber_table  {width:100%;}*/
+        /*th {vertical-align:top;}*/
