@@ -4,7 +4,7 @@ $(document).ready(function(){
             modal: true,
             overlay: 88,
             onHide: function(h) {
-                h.  w.fadeOut(888); // hide window
+                h.w.fadeOut(888); // hide window
                 h.o.remove(); // remove overlay
             },
         })

@@ -15,10 +15,11 @@ urlpatterns = patterns('',
     #(r'^calendar/', include('schedule.urls')),
     (r'^projects/', include('projects.urls')),
 
-    (r'^invoice/contract/', include('contract.urls')),
-    (r'^invoice/company/', include('company.urls')),
-    (r'^invoice/receipt/', include('receipt.urls')),
-    #(r'^issues/',   include('issue.urls')),
+
+    (r'^invoices/contract/', include('contract.urls')),
+    (r'^invoices/company/', include('company.urls')),
+    (r'^invoices/receipt/', include('receipt.urls')),
+
 
     (r'^newsletter/', include('newsletter.urls')),
     (r'^$',         include('core.urls')),

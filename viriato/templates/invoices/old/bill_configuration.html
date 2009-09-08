@@ -1,11 +1,11 @@
-{% extends 'invoice/company.html' %}
+{% extends '/invoices/company.html' %}
 {% load i18n %}
 
 {% block breadcrumbs %}
     {{ block.super }} » <span class="active">{% trans 'Bills Configuration' %}</span>
 {% endblock %}
 
-{% block content-data %}
+{% block content %}
     <div id="billconfiguration">
         <form action="/company/billconfiguration/" method="POST" id="form_billconfiguration">
         
@@ -35,7 +35,7 @@
         </form>
     </div>
     
-{% endblock content-data %}
+{% endblock content %}
 
 {% block content_action %}
 

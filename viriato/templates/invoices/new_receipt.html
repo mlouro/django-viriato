@@ -1,19 +1,19 @@
-{% extends 'invoice/base.html' %}
-{% load i18n navigation_tags %}
+{% extends 'invoices/base.html' %}
+{% load i18n %}
 
 {% block extra_head %}
     {{ block.super }}
-    <link type="text/css" rel="Stylesheet" media="screen" href="{{ STATIC_URL }}css/invoices/receipt.css"/>
+    <link type="text/css" rel="Stylesheet" media="screen" href="{{ MEDIA_URL }}css/invoices/receipt.css"/>
 
-    <script type="text/javascript" src="{{ STATIC_URL }}js/invoices/receipt.js"></script>
+    <script type="text/javascript" src="{{ MEDIA_URL }}js/invoices/receipt.js"></script>
 
-    <link type='text/css' href='{{ STATIC_URL }}css/invoices/basic.css' rel='stylesheet' media='screen' />
+    <link type='text/css' href='{{ MEDIA_URL }}css/invoices/basic.css' rel='stylesheet' media='screen' />
 
     <!--   For modal window   -->
-    <script src='{{ STATIC_URL }}js/invoices/jquery.simplemodal.js' type='text/javascript'></script>
-    <script src='{{ STATIC_URL }}js/invoices/jqModal.js' type='text/javascript'></script>
-    <link type="text/css" rel="Stylesheet" media="screen" href="{{ STATIC_URL }}css/invoices/modal.css"/>
-    <script type="text/javascript" src="{{ STATIC_URL }}js/invoices/new_receipt.js"></script>
+    <script src='{{ MEDIA_URL }}js/invoices/jquery.simplemodal.js' type='text/javascript'></script>
+    <script src='{{ MEDIA_URL }}js/invoices/jqModal.js' type='text/javascript'></script>
+    <link type="text/css" rel="Stylesheet" media="screen" href="{{ MEDIA_URL }}css/invoices/modal.css"/>
+    <script type="text/javascript" src="{{ MEDIA_URL }}js/invoices/new_receipt.js"></script>
 
 
     <script type="text/javascript">
@@ -32,17 +32,7 @@
 {% endblock extra_head %}
 
 
-{% block content_id_title %}<h1>Receipts</h1>{% endblock %}
 
-{% block content_id_links %}
-    {% url projects.views.project.add as project_add_url %}
-    {% get_link_if_allowed project_add_url "Add Project" "projects.add_project" %}
-{% endblock %}
-
-
-{% block breadcrumbs %}
-    {{ block.super }} <span class="new active"> » {% trans 'New Receipt' %}</span>
-{% endblock %}
 
 {% block content %}
     <input type="hidden" value={{ tax }} id="tax"/>
@@ -50,7 +40,7 @@
     <input type="hidden" value="{% trans 'Select an Item' %}" id="select_item"/>
 
     {% block content_data_form %}
-        <form name="myForm" id="myForm" method="POST" action="/invoice/receipt/">
+        <form name="myForm" id="myForm" method="POST" action="/invoices/receipt/">
     {% endblock content_data_form %}
 
         {{ formset.management_form }}
@@ -72,7 +62,7 @@
                 <tr>
                     <td><label for="company">{% trans 'Company' %} </label></td>
                     <td>
-                        {{ receipt_form.company }}<a href=""><img title="{% trans 'Add New Company' %}" src="{{ STATIC_URL }}images/invoices/add.png"></a>
+                        {{ receipt_form.company }}<a href=""><img title="{% trans 'Add New Company' %}" src="{{ MEDIA_URL }}images/invoices/add.png"></a>
                         <br/>
                         {{ receipt_form.company.errors }}
                     </td>
@@ -82,7 +72,7 @@
                     <tr>
                         <td><label for="project">{% trans 'Project' %} </label></td>
                         <td>
-                            {{ receipt_form.project }}<a href=""><img title="{% trans 'Add New Project' %}" src="{{ STATIC_URL }}images/invoices/add.png"></a>
+                            {{ receipt_form.project }}<a href=""><img title="{% trans 'Add New Project' %}" src="{{ MEDIA_URL }}images/invoices/add.png"></a>
                             <br/>
                             {{ receipt_form.project.errors }}
                         </td>
@@ -118,7 +108,7 @@
                         <td class="hidden">{{ form.total_payed }}</td>
                         <td id="hide_1" class="taxes hide_1 headers">{{ form.tax }}<br/>{{ form.tax.errors }}</td>
                         <td id="hide_1" class="taxes hide_1 headers">{{ form.retention }}<br/>{{ form.retention.errors }}</td>
-                        <td class="image"><img id="hide_button_1" width="28px" src="{{ STATIC_URL }}images/invoices/show.png"/></a></td>
+                        <td class="image"><img id="hide_button_1" width="28px" src="{{ MEDIA_URL }}images/invoices/show.png"/></a></td>
                     </tr>{% endfor %}
             </table>
             <p id="avaiable">{% trans 'Add another item:' %} <span id="for_avaiable_items"></span></p>
@@ -173,7 +163,7 @@
 
     <div class="jqmWindow" id="have_contract">
         <p id="close" >
-            <input class="jqmdX jqmClose" type="image" src="{{ STATIC_URL }}images/invoices/closeFocus.png"/>
+            <input class="jqmdX jqmClose" type="image" src="{{ MEDIA_URL }}images/invoices/closeFocus.png"/>
         </p>
         <div id="content">
             <hr></hr>

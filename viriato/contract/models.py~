@@ -31,7 +31,7 @@ class Contract(models.Model):
         #return "%s ->(%s pct)" % (self.payed, round((self.payed*100)/self.total_bill,2))
 
     def get_absolute_url(self):
-        return "/invoice/contract/" + str(self.id) + "/"
+        return "/invoices/contract/" + str(self.id) + "/"
 
     def __unicode__(self):
         return "%s %s %s" % ( self.id, self.description, self.company)

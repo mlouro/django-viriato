@@ -3,12 +3,12 @@
 
 {% block extra_head %}
     {{ block.super }}
-    <link type="text/css" rel="Stylesheet" media="screen" href="{{ STATIC_URL }}css/invoices/receipt.css"/>
+    <link type="text/css" rel="Stylesheet" media="screen" href="{{ MEDIA_URL }}css/invoices/receipt.css"/>
 
-    <script type="text/javascript" src="{{ STATIC_URL }}js/invoices/receipt.js"></script>
+    <script type="text/javascript" src="{{ MEDIA_URL }}js/invoices/receipt.js"></script>
 
-    <link type='text/css' href='{{ STATIC_URL }}css/invoices/basic.css' rel='stylesheet' media='screen' />
-    <script type="text/javascript" src="{{ STATIC_URL }}js/invoices/edit_receipt.js"></script>
+    <link type='text/css' href='{{ MEDIA_URL }}css/invoices/basic.css' rel='stylesheet' media='screen' />
+    <script type="text/javascript" src="{{ MEDIA_URL }}js/invoices/edit_receipt.js"></script>
 
 {% endblock extra_head %}
 
@@ -16,7 +16,7 @@
     {{ block.super }} <span class="new active"> » {% trans 'Edit Receipt' %}</span>
 {% endblock %}
 
-{% block content-data %}
+{% block content %}
     <script type="text/javascript">
         $(document).ready(function(){
             {% if receipt_is_not_editable %}
@@ -56,7 +56,7 @@
                 <tr>
                     <td><label for="company">{% trans 'Company' %} </label></td>
                     <td>
-                        {{ receipt_form.company }}<a href=""><img title="{% trans 'Add New Company' %}" src="{{ STATIC_URL }}images/invoices/add.png"></a>
+                        {{ receipt_form.company }}<a href=""><img title="{% trans 'Add New Company' %}" src="{{ MEDIA_URL }}images/invoices/add.png"></a>
                         <br/>
                         {{ receipt_form.company.errors }}
                     </td>
@@ -66,7 +66,7 @@
                     <tr>
                         <td><label for="project">{% trans 'Project' %} </label></td>
                         <td>
-                            {{ receipt_form.project }}<a href=""><img title="{% trans 'Add New Project' %}" src="{{ STATIC_URL }}images/invoices/add.png"></a>
+                            {{ receipt_form.project }}<a href=""><img title="{% trans 'Add New Project' %}" src="{{ MEDIA_URL }}images/invoices/add.png"></a>
                             <br/>
                             {{ receipt_form.project.errors }}
                         </td>
@@ -102,7 +102,7 @@
                         <td class="hidden">{{ form.total_payed }}</td>
                         <td id="hide_1" class="taxes hide_1 headers">{{ form.tax }}<br/>{{ form.tax.errors }}</td>
                         <td id="hide_1" class="taxes hide_1 headers">{{ form.retention }}<br/>{{ form.retention.errors }}</td>
-                        <td class="image"><img id="hide_button_1" width="28px" src="{{ STATIC_URL }}images/invoices/show.png"/></a></td>
+                        <td class="image"><img id="hide_button_1" width="28px" src="{{ MEDIA_URL }}images/invoices/show.png"/></a></td>
                     </tr>{% endfor %}
             </table>
             <p id="avaiable">{% trans 'Add another item:' %} <span id="for_avaiable_items"></span></p>
@@ -157,7 +157,7 @@
 
     <span id="tooltip"></span>
 
-{% endblock content-data %}
+{% endblock content %}
 
 {% block content_action %}
     <p><a class="navbutton" href="/invoices/receipt/receipt_document/{{ receipt.pk }}/">{% trans "Send Receipts" %}</a></p>

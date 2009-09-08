@@ -12,9 +12,9 @@
     {{ block.super }} <span class="edit active"> » {% trans 'Edit Contract' %}</span>
 {% endblock %}
 
-{% block content-data %}
+{% block content %}
     {{ block.super }}
-{% endblock content-data %}
+{% endblock content %}
 
 {% block content_data_form %}
     <form name="myForm" id="myForm" method="POST" action="{{ contract.get_absolute_url }}">

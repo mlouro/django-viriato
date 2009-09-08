@@ -67,7 +67,7 @@ function add_calculate_totals_event(table){
 }
 
 function get_companys(){
-    $.post("/invoice/company/company_ajax/",
+    $.post("/invoices/company/company_ajax/",
         {},
         function(data){
             select_box = '<select id="company_select_box">';
@@ -84,7 +84,7 @@ function get_companys(){
 }
 
 function get_projects(company_id){
-    $.post("/invoice/contract/project_ajax/",
+    $.post("/invoices/contract/project_ajax/",
         { company_id : company_id },
         function(data){
             select_box = '<select id="project_select_box">';
@@ -112,7 +112,7 @@ function add_ajax_event_to_project(){
 }
 
 function get_milestones(project_id){
-    $.post("/invoice/contract/milestone_ajax/",
+    $.post("/invoices/contract/milestone_ajax/",
         { project_id : project_id },
         function(data){
             result =

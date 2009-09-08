@@ -1,6 +1,0 @@
-/* comments */
-.ml_comment_list { font-size: 1.4em; }
-    .ml_comment_list .ml_comment { padding: 20px 0; border-top: 1px solid #CCC; }
-    .ml_comment_list .ml_comment_user { padding: 0 0 5px 0; }
-.ml_comment_form { margin-top: 10px; padding: 10px 0 0; border-top: 1px solid #CCC;  }
-.ml_comment_count { padding-bottom: 20px; }
