@@ -93,7 +93,7 @@ INSTALLED_APPS = (
     'contact',
     'contract',
     'receipt',
-    'company'
+    'company',
     'newsletter',
 )
 
