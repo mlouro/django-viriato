@@ -15,12 +15,15 @@ urlpatterns = patterns('',
     #(r'^calendar/', include('schedule.urls')),
     (r'^projects/', include('projects.urls')),
 
+<<<<<<< HEAD:viriato/urls.py
     (r'^invoices/contract/', include('contract.urls')),
     (r'^invoices/company/', include('company.urls')),
     (r'^invoices/receipt/', include('receipt.urls')),
+=======
 
+>>>>>>> ce083d75d5315dd37cb53495a0a2fb4fbd94d535:viriato/urls.py
 
-
+    (r'^newsletter/', include('newsletter.urls')),
     (r'^$',         include('core.urls')),
 )
 

@@ -94,6 +94,7 @@ INSTALLED_APPS = (
     'contract',
     'receipt',
     'company'
+    'newsletter',
 )
 
 try:
