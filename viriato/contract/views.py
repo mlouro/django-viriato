@@ -28,7 +28,7 @@ from projects.models.milestone import Milestone
 
 def index(request):
     receipts = Receipt.objects.all()
-    return render_to_response ("invoice/index.html",
+    return render_to_response ("/invoices/index.html",
                                 {'receipts': receipts, },
                                 context_instance=RequestContext(request)
                             )
@@ -68,7 +68,7 @@ def contract(request, object_id=0):
                 formset.save()
                 new_contract.calculate() #Total's calculation
             else:
-                return render_to_response ("invoice/" + template_to_go,
+                return render_to_response ("invoices/" + template_to_go,
                                                                     {
                                                                         'formset': formset,
                                                                         'contract_form': contract_form,
@@ -79,7 +79,7 @@ def contract(request, object_id=0):
                                                                     context_instance=RequestContext(request)
                                             )
         else:
-            return render_to_response ("invoice/" + template_to_go,
+            return render_to_response ("invoices/" + template_to_go,
                                     {
                                         'formset': formset,
                                         'contract_form': contract_form,
@@ -91,7 +91,7 @@ def contract(request, object_id=0):
         )
 
 
-        #return HttpResponseRedirect('/invoice/contracts')#Atention: New destination needed
+        #return HttpResponseRedirect('/invoices/contracts')#Atention: New destination needed
         return redirect (contract)
 
 
@@ -100,7 +100,7 @@ def contract(request, object_id=0):
         contract_form = ContractForm(instance=contract, prefix="con")
         formset = contract_details_formset(instance=contract, prefix="details")
 
-        return render_to_response ("invoice/edit_contract.html",
+        return render_to_response ("invoices/edit_contract.html",
                                     {
                                         'contract_form': contract_form,
                                         'formset': formset,
@@ -115,7 +115,7 @@ def contract(request, object_id=0):
         contract_form = ContractForm(prefix='con')
         formset = contract_details_formset(instance=Contract(), prefix="details")
 
-        return render_to_response ("invoice/new_contract.html",
+        return render_to_response ("invoices/new_contract.html",
                                     {
                                         'contract_form': contract_form,
                                         'formset': formset,

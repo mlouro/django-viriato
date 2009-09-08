@@ -30,7 +30,7 @@ class Receipt(models.Model):
 
 
     def get_absolute_url(self):
-        return "/invoice/receipt/%s/" % (self.id)
+        return "/invoices/receipt/%s/" % (self.id)
 
     def __unicode__(self):
         return "%s - %s %s" % ( self.id, self.description, self.company)

@@ -26,7 +26,7 @@ from contract.models import *
 
 def index(request):
     receipts = Receipt.objects.all()
-    return render_to_response ("invoice/index.html",
+    return render_to_response ("/invoices/index.html",
                                 {'receipts': receipts, },
                                 context_instance=RequestContext(request)
                             )
@@ -60,7 +60,7 @@ def receipt(request, object_id=0):
             new_receipt.calculate() #Total's calculation
         else:
             print receipt
-            return render_to_response ("invoice/" + template_to_go,
+            return render_to_response ("/invoices/" + template_to_go,
                                             {
                                                 'receipt': receipt,
                                                 'formset': formset,
@@ -80,7 +80,7 @@ def receipt(request, object_id=0):
         formset = receipt_formset(instance=receipt, prefix="details")
         not_editable = receipt.sent
 
-        return render_to_response ("invoice/edit_receipt.html",
+        return render_to_response ("invoices/edit_receipt.html",
                                     {
                                         'receipt': receipt,
                                         'receipt_form': receipt_form,
@@ -96,7 +96,7 @@ def receipt(request, object_id=0):
         receipt_form = ReceiptForm(prefix='con')
         formset = receipt_formset(instance=Receipt(), prefix="details")
 
-        return render_to_response ("invoice/new_receipt.html",
+        return render_to_response ("invoices/new_receipt.html",
                                     {
                                         'receipt_form': receipt_form,
                                         'formset': formset,

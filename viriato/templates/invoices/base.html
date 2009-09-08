@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load i18n navigation_tags %}
+
+{% block extra_head %}
+    {{ block.super }}
+    <link type="text/css" rel="Stylesheet" media="screen" href="{{ MEDIA_URL }}css/invoices/common.css"/>
+    <!-- For datePicker -->
+    <link type="text/css" href="http://jqueryui.com/latest/themes/base/ui.all.css" rel="stylesheet" />
+    <script type="text/javascript" src="{{ MEDIA_URL }}js/libs/invoices/jquery-1.3.2.js"></script>
+    <script type="text/javascript" src="{{ MEDIA_URL }}js/libs/invoices/ui.core.js"></script>
+    <script src="{{ MEDIA_URL }}js/libs/invoices/jquery.bgiframe.min.js" type="text/javascript"></script>
+
+    <script type="text/javascript" src="{{ MEDIA_URL }}js/invoices/common.js"></script>
+{% endblock extra_head %}
+
+{% block content_id_links %}
+    {% url contract.views.contract as contract_add_url %}
+    {% get_link_if_allowed contract_add_url "Add Contract" "contract.contract" %}
+
+    {% url receipt.views.receipt as receipt_add_url %}
+    {% get_link_if_allowed receipt_add_url "Add Receipt" "receipt.receipt" %}
+
+
+{% endblock %}
+
+

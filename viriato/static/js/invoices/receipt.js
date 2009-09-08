@@ -173,7 +173,7 @@ function create_new_dialog(){
 }
 
 function get_contracts(){
-    $.post("/invoice/contract/contracts_ajax/",
+    $.post("/invoices/contract/contracts_ajax/",
         {},
         function(data){
             result = '';
@@ -193,7 +193,7 @@ function get_contracts(){
 function get_contracts_details(contract_id){
     $('#contracts_table').show();
     $('#contracts_table tr:gt(1)').remove();
-    $.post("/invoice/contract/contract_details_ajax/",
+    $.post("/invoices/contract/contract_details_ajax/",
         {contract_id : contract_id},
         function(data){
             for (i in data){
@@ -237,7 +237,7 @@ function import_to_receipt(){
 }
 
 function get_contract_detail_line(selected_items){
-    $.post("/invoice/contract/contract_detail_line_ajax/",
+    $.post("/invoices/contract/contract_detail_line_ajax/",
         {selected_items : selected_items},
         function(data){
             for (i in data){
@@ -269,7 +269,7 @@ function get_contract_detail_line(selected_items){
 }
 
 function get_contract_inf(contract_id){
-    $.post("/invoice/contract/get_contract_inf/",
+    $.post("/invoices/contract/get_contract_inf/",
         {id : contract_id},
         function(data){
             $('#id_con-company')
@@ -304,7 +304,7 @@ function create_select_new_item(){
             existing_ids += '|';
     }
 
-    $.post("/invoice/contract/new_contract_items/",
+    $.post("/invoices/contract/new_contract_items/",
         {
             existing_ids : existing_ids,
             contract_id : $('#id_con-contract').val()

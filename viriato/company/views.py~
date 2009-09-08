@@ -41,7 +41,7 @@ def company(request):
                     formset_list[formset] = type(formset_list[formset])(instance=company)
                 else:
                     return render_to_response (
-                                    "invoice/company.html",
+                                    "/invoices/company.html",
                                     {
                                         "form": company_form,
                                         'formsets' : formset_list,
@@ -50,7 +50,7 @@ def company(request):
                                     )
 
             return render_to_response (
-                                        "invoice/company.html",
+                                        "/invoices/company.html",
                                         {
                                             "form": company_form,
                                             'formsets' : formset_list,
@@ -60,7 +60,7 @@ def company(request):
 
         else:
             return render_to_response (
-                                    "invoice/company.html",
+                                    "/invoices/company.html",
                                     {
                                         "form": company_form,
                                         'formsets' : formset_list,
@@ -76,7 +76,7 @@ def company(request):
 
         company_form = MyCompanyForm(instance=company)
         return render_to_response (
-                                    "invoice/company.html",
+                                    "/invoices/company.html",
                                     {
                                         "form": company_form,
                                         'formsets' : formset_list,

@@ -4,7 +4,7 @@ from django.conf.urls.defaults import *
 
 
 urlpatterns = patterns('',
-    (r'^$', 'contract.views.contract'),
+    url(r'^$', 'contract.views.contract', name="contract_index"),
     (r'^contracts_ajax/$', 'contract.views.contracts_ajax'),
     (r'^contract_details_ajax/$', 'contract.views.contract_details_ajax'),
     (r'^contract_detail_line_ajax/$', 'contract.views.contract_detail_line_ajax'),
