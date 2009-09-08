@@ -16,7 +16,7 @@ def index(request):
     and send the newsletter data to the template """
     newsletter_list = Newsletter.objects.all().order_by('-created')
 
-    return render_to_response('newsletter/index.html',
+    return render_to_response('newsletter/newsletter_list.html',
                               {'newsletter' : newsletter_list},
                               context_instance=RequestContext(request))
 
@@ -43,11 +43,11 @@ def add_newsletter(request):
             
             return HttpResponseRedirect('/newsletter/')
         else:
-            return render_to_response('newsletter/add.html',
+            return render_to_response('newsletter/newsletter_form.html',
                                     {'form' : formset},
                                     context_instance=RequestContext(request))
     else:
-        return render_to_response('newsletter/add.html',
+        return render_to_response('newsletter/newsletter_form.html',
                                 {'form'    : NewsletterForm(), 'add': True},
                                 context_instance=RequestContext(request))
 
@@ -65,12 +65,12 @@ def newsletter_edit(request, newsletter_id):
     else:
         #formset = BookInlineFormSet(instance=author)
         formset = NewsletterForm(instance=newsletter)
-    return render_to_response("newsletter/add.html", 
+    return render_to_response("newsletter/newsletter_form.html", 
                               {"form": formset, 'add':False},
                               context_instance=RequestContext(request))
 
 #----------------------------------------------------------------------
-def send_newsletter(request, newsletter_id):
+def newsletter_send(request, newsletter_id):
     #try:
         #newsletter = Newsletter.objects.get(id=newsletter_id)
     #except Newsletter.DoesNotExist:
@@ -80,7 +80,7 @@ def send_newsletter(request, newsletter_id):
     #sys.stderr.write(ROOT_DIR + '/sendmail_v0.1.py -n 1')
     #p = subprocess.Popen([sys.executable, ROOT_DIR + '/newsletters/sendmail_v0.1.py -n 1'], 
      #                               stdout=subprocess.PIPE, 
-      #                              stderr=subprocess.STDOUT)
+     #                               stderr=subprocess.STDOUT)
     #sys.executable("/home/coin/projects/newsletters-trunk/newsletters/sendmail_v0.1.py -n 1")
 
     #return HttpResponseRedirect('/newsletter/')
@@ -94,10 +94,10 @@ def send_newsletter(request, newsletter_id):
 def subscribers_by_group(request, object_id):
     """It sorts subscribers by group"""
     #look up the group
-    try:
-        grp = Group.objects.get(id=object_id)
-    except Group.DoesNotExist:
-        raise Http404
+    #ry:
+    grp = Group.objects.get(id=object_id)
+    #except Group.DoesNotExist:
+       #raise Http404
     
     return list_detail.object_list(
         request,

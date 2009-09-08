@@ -9,7 +9,7 @@ from django.views.generic.create_update import create_object,update_object,delet
 subscriber_create_dict = {
     'form_class': SubscriberForm,
     'post_save_redirect': '/newsletter/subscriber-list/',
-    }
+}
 subscriber_list_dict = {
     'queryset': Subscriber.objects.all(),
     #'date_field': 'created',
@@ -23,17 +23,17 @@ subscriber_list_dict = {
 group_create_dict = {
     'form_class': GroupForm,
     'post_save_redirect':'/newsletter/subscriber-list/',
-    }
+}
 group_list_dict = {
     'queryset':Group.objects.all(),
     'template_name': 'newsletter/group_list.html',
-    }
+}
 
 
 urlpatterns = patterns('newsletter.views',
     
     #Newsletters
-    url(r'^$', 'index', name='newsletter_index'),
+    url(r'^$', 'index', name='newsletter_list'),
     url(r'^add-newsletter/$', 'add_newsletter', name='newsletter_add'),
     url(r'^newsletter-edit/(?P<newsletter_id>\w+)/$', 'newsletter_edit', name='newsletter_edit'),
     url(r'^newsletter-content/(?P<newsletter_id>\w+)/$', 'newsletter_content', name = 'newsletter_content'),
@@ -53,6 +53,6 @@ urlpatterns = patterns('newsletter.views',
     url(r'^news/(?P<link_hash>\w+)/$', 'link_count', name='link_count'),
     url(r'^host', 'host', name='host'),
     #testing
-    url(r'^send-newsletter/$','send_newsletter', name='send_newsletter'),
+    url(r'^newsletter-send/(?P<object_id>\d+)/$','newsletter_send', name='newsletter_send'),
     url(r'^display_meta/$', 'display_meta', name='display_meta'),
 )
