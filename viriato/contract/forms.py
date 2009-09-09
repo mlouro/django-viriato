@@ -25,7 +25,7 @@ class ContractForm(ModelForm):
                 'total',
         )
 
-        if "django_project.project" in INSTALLED_APPS:
+        if "projects" in INSTALLED_APPS:
             fields = fields + ('project',)
 
 

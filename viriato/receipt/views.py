@@ -23,6 +23,13 @@ from receipt.models import *
 from receipt.forms import *
 from contract.models import *
 
+from settings import INSTALLED_APPS
+
+
+if 'projects' in INSTALLED_APPS:
+    project = True
+else:
+    project = False
 
 def index(request):
     receipts = Receipt.objects.all()
@@ -33,6 +40,8 @@ def index(request):
 
 #@login_required
 def receipt(request, object_id=0):
+
+    print project
 
     try:
         my_company = MyCompany.objects.get(pk=1)
@@ -68,6 +77,7 @@ def receipt(request, object_id=0):
                                                 'tax': tax,
                                                 'retention': retention,
                                                 'there_are_errors': True,
+                                                'PROJECT': project,
                                             },
                                             context_instance=RequestContext(request)
                     )
@@ -88,6 +98,7 @@ def receipt(request, object_id=0):
                                         'tax': tax,
                                         'retention': retention,
                                         'receipt_is_not_editable': not_editable,
+                                        'PROJECT': project,
                                     },
                                     context_instance=RequestContext(request)
                                 )
@@ -103,6 +114,7 @@ def receipt(request, object_id=0):
                                         'tax': tax,
                                         'retention': retention,
                                         'there_are_errors': False,
+                                        'PROJECT': project,
                                     },
                                     context_instance=RequestContext(request)
                                 )

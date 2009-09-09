@@ -24,6 +24,13 @@ from django.db.models import Sum
 
 #Corrigidos
 from projects.models.milestone import Milestone
+from settings import INSTALLED_APPS
+
+
+if 'projects' in INSTALLED_APPS:
+    project = True
+else:
+    project = False
 
 
 def index(request):
@@ -61,23 +68,11 @@ def contract(request, object_id=0):
             prefix = "details",
         )
 
-        if contract_form.is_valid():
+        if contract_form.is_valid() and formset.is_valid():
+            new_contract = contract_form.save()
+            formset.save()
+            new_contract.calculate() #Total's calculation
 
-            if formset.is_valid():
-                new_contract = contract_form.save()
-                formset.save()
-                new_contract.calculate() #Total's calculation
-            else:
-                return render_to_response ("invoices/" + template_to_go,
-                                                                    {
-                                                                        'formset': formset,
-                                                                        'contract_form': contract_form,
-                                                                        'tax': tax,
-                                                                        'retention': retention,
-                                                                        'contract': contract,
-                                                                    },
-                                                                    context_instance=RequestContext(request)
-                                            )
         else:
             return render_to_response ("invoices/" + template_to_go,
                                     {
@@ -86,6 +81,7 @@ def contract(request, object_id=0):
                                         'tax': tax,
                                         'retention': retention,
                                         'contract': contract,
+                                        'PROJECT': project,
                                     },
                                     context_instance=RequestContext(request)
         )
@@ -107,6 +103,7 @@ def contract(request, object_id=0):
                                         'tax': tax,
                                         'retention': retention,
                                         'contract': contract,
+                                        'PROJECT': project,
                                     },
                                     context_instance=RequestContext(request)
                                 )
@@ -121,6 +118,7 @@ def contract(request, object_id=0):
                                         'formset': formset,
                                         'tax': tax,
                                         'retention': retention,
+                                        'PROJECT': project,
                                     },
                                     context_instance=RequestContext(request)
                                 )

@@ -15,24 +15,20 @@
     <link type="text/css" rel="Stylesheet" media="screen" href="{{ MEDIA_URL }}css/invoices/modal.css"/>
     <script type="text/javascript" src="{{ MEDIA_URL }}js/invoices/new_receipt.js"></script>
 
-
-    <script type="text/javascript">
-        $(document).ready(function(){
-            {% if there_are_errors %}
-                if (!isNaN(parseInt($('#id_con-contract').val())))
-                    set_with_project_functions();
-                else
-                    set_without_project_functions();
-            {% else %}
-                $('#have_contract').jqmShow({autofire: true,});
-            {% endif %}
-        });
-    </script>
-
 {% endblock extra_head %}
 
+{% block jquery %}
+    {% if there_are_errors %}
+        if (!isNaN(parseInt($('#id_con-contract').val())))
+            set_with_project_functions();
+        else
+            set_without_project_functions();
+    {% else %}
+        $('#have_contract').jqmShow({autofire: true,});
+    {% endif %}
+{% endblock jquery %}
 
-
+{% block content_id_title %}<h1>{% trans 'Create a new Receipt' %}</h1>{% endblock %}
 
 {% block content %}
     <input type="hidden" value={{ tax }} id="tax"/>
@@ -202,14 +198,15 @@
         </div>
     </div>
     <span id="tooltip"></span>
-
+{{ PROJECT }}
 {% endblock content %}
 
-{% block content_action %}
+{% block content_sidebar %}
     <p><a onclick="javascript:$('tr:last input').css({backgroundColor: 'yellow', fontWeight: 'bolder'});
 " class="navbutton" >{% trans "Send Bills" %}</a></p>
     <p><a class="navbutton" href="">{% trans "Send Receipts" %}</a></p>
+
     {% if PROJECT %}
         <p><a id="importMilestones" class="navbutton">{% trans "Import Milestones" %}</a></p>
     {% endif %}
-{% endblock content_action %}
+{% endblock content_sidebar %}

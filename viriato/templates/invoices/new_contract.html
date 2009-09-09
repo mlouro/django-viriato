@@ -171,10 +171,10 @@
 
 {% endblock content %}
 
-{% block content_action %}
+{% block content_sidebar %}
     <p><a onclick="hello()" class="navbutton" >{% trans "Send Bills" %}</a></p>
     <p><a class="navbutton" href="">{% trans "Send Receipts" %}</a></p>
     {% if PROJECT %}
         <p><a id="importMilestones" class="navbutton">{% trans "Import Milestones" %}</a></p>
     {% endif %}
-{% endblock content_action %}
+{% endblock content_sidebar %}

@@ -6,8 +6,8 @@ from settings import INSTALLED_APPS
 from django.forms.models import inlineformset_factory
 from django import forms
 
-if 'django_project.project' in INSTALLED_APPS:
-    from django_project.project.models import Project
+if 'projects' in INSTALLED_APPS:
+    from projects.models.project import Project
 
 
 class ReceiptForm(ModelForm):
@@ -30,7 +30,7 @@ class ReceiptForm(ModelForm):
                 'total',
             )
 
-        if "django_project.project" in INSTALLED_APPS:
+        if "projects" in INSTALLED_APPS:
             fields = fields + ('project',)
 
 
