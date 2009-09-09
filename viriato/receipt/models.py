@@ -8,8 +8,8 @@ from contract.models import Contract, ContractDetails
 import datetime
 
 
-if "django_project.project" in INSTALLED_APPS:
-    from django_project.project.models import Project
+if "projects" in INSTALLED_APPS:
+    from projects.models.project import Project
 
 
 class Receipt(models.Model):
@@ -24,7 +24,7 @@ class Receipt(models.Model):
     sent = models.BooleanField(default=False)
     sent_date = models.DateField(blank=True, null=True)
 
-    if "django_project.project" in INSTALLED_APPS:
+    if "projects" in INSTALLED_APPS:
         project = models.ForeignKey(Project, blank=True, null=True)
     else:
         project = models.IntegerField(blank=True, null=True)
