@@ -27,8 +27,8 @@ def newsletter_content(request,newsletter_id):
     
     #l = Link.objects.get(newsletter=newsletter)
 
-    chartpath = '/s/%s'%(newsletter.chart_links()) 
-    
+    #chartpath = '/s/%s'%(newsletter.chart_links()) 
+    chartpath =""
     return render_to_response('newsletter/content.html',
                               {'newsletter' : newsletter,'chartpath':chartpath},
                               context_instance=RequestContext(request))
