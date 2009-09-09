@@ -2,14 +2,6 @@
 {% load i18n %}
 
 
-{% block breadcrumbs %}
-    {{ block.super }}
-        {% if add %}
-            <span class="active">Add Group</span>
-        {% else %}
-            <span class="active">Edit Group</span>
-        {% endif %}
-{% endblock %}
 
 
 {% block content %}

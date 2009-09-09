@@ -27,14 +27,13 @@ def newsletter_content(request,newsletter_id):
     
     #l = Link.objects.get(newsletter=newsletter)
 
-    #chartpath = '/s/%s'%(newsletter.chart_links()) 
-    chartpath =""
+
     return render_to_response('newsletter/content.html',
-                              {'newsletter' : newsletter,'chartpath':chartpath},
+                              {'newsletter' : newsletter},
                               context_instance=RequestContext(request))
 
 #----------------------------------------------------------------------
-def add_newsletter(request):
+def newsletter_add(request):
     if request.method == 'POST':
         formset = NewsletterForm(request.POST)
         print formset.errors
@@ -43,12 +42,12 @@ def add_newsletter(request):
             
             return HttpResponseRedirect('/newsletter/')
         else:
-            return render_to_response('newsletter/newsletter_form.html',
+            return render_to_response('newsletter/newsletter_add.html',
                                     {'form' : formset},
                                     context_instance=RequestContext(request))
     else:
-        return render_to_response('newsletter/newsletter_form.html',
-                                {'form'    : NewsletterForm(), 'add': True},
+        return render_to_response('newsletter/newsletter_add.html',
+                                {'form'    : NewsletterForm()},
                                 context_instance=RequestContext(request))
 
 #----------------------------------------------------------------------
@@ -65,8 +64,18 @@ def newsletter_edit(request, newsletter_id):
     else:
         #formset = BookInlineFormSet(instance=author)
         formset = NewsletterForm(instance=newsletter)
-    return render_to_response("newsletter/newsletter_form.html", 
-                              {"form": formset, 'add':False},
+    return render_to_response("newsletter/newsletter_edit.html", 
+                              {"form": formset},
+                              context_instance=RequestContext(request))
+
+#----------------------------------------------------------------------
+def newsletter_analytics(request,newsletter_id):
+    newsletter = get_object_or_404(Newsletter,id=newsletter_id)
+    
+    #l = Link.objects.get(newsletter=newsletter)
+
+    return render_to_response('newsletter/newsletter_analytics.html',
+                              {'newsletter' : newsletter,},
                               context_instance=RequestContext(request))
 
 #----------------------------------------------------------------------

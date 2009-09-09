@@ -1,7 +1,3 @@
-{% extends "newsletter/base.html" %}
-{% load i18n %}
-
-{% block content %}
 <form class="form" action="{{ newsletter.get_edit_url }}" method="post">
 
     <p class="field">
@@ -11,13 +7,13 @@
     {{ form.title.errors }}
 
     <p class="field">
-        <label> Url <span class="light">(Insert the Newsletter Url)</span></label>
+        <label> Url </span></label>
         {{ form.url }}
     </p>
     {{ form.url.errors }}
-
+    
     <p class="field">
-        <label>Group <span class="light">(Link group users)</span></label>
+        <label>Groups <span class="light">(Link group users)</span></label>
         {{ form.group }}
     </p>
     {{ form.group.errors }}
@@ -26,6 +22,5 @@
         <input type="submit" value="Save Newsletter" />
         <a href="javascript:history.back()">Cancel</a>
     </p>
-
+    
 </form>
-{% endblock %}

@@ -35,9 +35,10 @@ urlpatterns = patterns('newsletter.views',
     
     #Newsletters
     url(r'^$', 'index', name='newsletter_list'),
-    url(r'^add-newsletter/$', 'add_newsletter', name='newsletter_add'),
+    url(r'^newsletter-add/$', 'newsletter_add', name='newsletter_add'),
     url(r'^newsletter-edit/(?P<newsletter_id>\w+)/$', 'newsletter_edit', name='newsletter_edit'),
     url(r'^newsletter-content/(?P<newsletter_id>\w+)/$', 'newsletter_content', name = 'newsletter_content'),
+    url(r'^newsletter-analytics/(?P<newsletter_id>\w+)/$', 'newsletter_analytics', name = 'newsletter_analytics'),
     
     #Subscribers
     url(r'^subscriber-create/$', create_object, subscriber_create_dict, name='subscriber_create'),
