@@ -16,10 +16,17 @@ $(document).ready(function(){
 });
 
 function change_image(event){
+    local = $(button).attr("src").split('/');
+    new_local = "";
+    for (i=0;i<local.length-1;i++){
+        new_local += local[i];
+        if (i<local.length-1)
+            new_local += '/';
+    }
     if (event=="show")
-        $(button).attr("src","/s/static/images/invoices/show.png");
+        $(button).attr("src",new_local + "show.png");
     else
-        $(button).attr("src","/s/static/images/invoices/hide.png");
+        $(button).attr("src",new_local + "hide.png");
 }
 
 function copy_tax_and_retention_values(table){

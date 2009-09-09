@@ -6,8 +6,8 @@ from settings import INSTALLED_APPS
 from contact.models import Company
 import datetime
 
-if "django_project.project" in INSTALLED_APPS:
-    from django_project.project.models import Project
+if "projects" in INSTALLED_APPS:
+    from projects.models.project import Project
 
 
 class Contract(models.Model):
@@ -21,7 +21,7 @@ class Contract(models.Model):
     approved = models.BooleanField(default=False)
     finished = models.BooleanField(default=False)
 
-    if "django_project.project" in INSTALLED_APPS:
+    if "projects" in INSTALLED_APPS:
         project = models.ForeignKey(Project, blank=True, null=True)
     else:
         project = models.IntegerField(blank=True, null=True)

@@ -159,9 +159,9 @@
 
 {% endblock content %}
 
-{% block content_action %}
+{% block content_sidebar %}
     <p><a class="navbutton" href="/invoices/receipt/receipt_document/{{ receipt.pk }}/">{% trans "Send Receipts" %}</a></p>
     {% if PROJECT %}
         <p><a class="navbutton">{% trans "Import Milestones" %}</a></p>
     {% endif %}
-{% endblock content_action %}
+{% endblock content_sidebar %}

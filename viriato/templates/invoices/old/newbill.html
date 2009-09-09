@@ -60,7 +60,7 @@
     </form>
 {% endblock content %}
 
-{% block content_action %}
+{% block content_sidebar %}
     <p><a class="navbutton" onclick='add_new_row("True","table_details")' style="text-decoration:underline; cursor:pointer">
         {% trans 'Add New Line'%}</a></p>
     <p><a class="navbutton" onclick='remove_rows("table_details")' style="text-decoration:underline; cursor:pointer">
@@ -69,4 +69,4 @@
     <p><a title="{% trans 'Change Taxes Values' %}" class="navbutton" id="change">{% trans 'Change Taxes Values' %}</a></p>
     
     
-{% endblock content_action %}
+{% endblock content_sidebar %}

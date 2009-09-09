@@ -62,11 +62,11 @@
     </form>
 {% endblock content %}
 
-{% block content_action %}
+{% block content_sidebar %}
     <p><a title="{% trans 'Add New Line'%}" class="navbutton" onclick='add_new_row("True","table_details")'>{% trans 'Add New Line'%}</a></p>
     <p><a title="{% trans 'Remove Selected Rows'%}" class="navbutton" id="remove" onclick='aa()'>
     {% trans 'Remove Selected Rows'%}</a></p>
     <p><a title="{% trans 'Change Taxes Values' %}" class="navbutton" id="change">{% trans 'Change Taxes Values' %}</a></p>
     <p><a title="{% trans 'Save Bill' %}" class="navbutton" href="">{% trans "Save Bill" %}</a></p>
     <p><a title="{% trans 'Send Bill' %}" class="navbutton" href="">{% trans "Send Bill" %}</a></p>
-{% endblock content_action %}
+{% endblock content_sidebar %}
