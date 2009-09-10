@@ -1,28 +1,26 @@
 $(function () {
-    var d1 = [];
+
+    var options = {
+        bars: { show: true }
+    };
     
-    var d2 = [[0, 3], [4, 8], [8, 5], [9, 13]];
+    function onDataReceived(series) {
+        // we get all the data in one go, if we only got partial
+        // data, we could merge it with what we already got
+        data = [ series ];
+        
+        $.plot($("#placeholder"), data, options);
+    }
     
-    $.plot($("#placeholder"), [
-        {
-            data: d1,
-            lines: { show: false, fill: false }
-        },
-        {
-            data: d2,
-            bars: { show: true }
-        },
-        {
+    $.ajax({
+        url: "/static/json/newsletters/test.json",
+        method: 'GET',
+        dataType: 'json',
+        success: onDataReceived
+    });
 
-        },
-        {
-
-        },
-        {
-
-        }
-    ]);
 });
+
 
 
 $(function () {

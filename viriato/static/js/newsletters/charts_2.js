@@ -23,7 +23,7 @@ window.onload = function () {
         leftgutter = 30,
         bottomgutter = 20,
         topgutter = 25,
-        colorhue = .7 || Math.random(),
+        colorhue = .6 || Math.random(),
         color = "hsb(" + [colorhue, 1, .75] + ")",
         r = Raphael("holder_analytics", width, height),
         txt = {"font": '12px "Arial"', stroke: "none", fill: "#000"},
@@ -33,6 +33,7 @@ window.onload = function () {
         Y = (height - bottomgutter - topgutter) / data.length;
     r.path({stroke: "#036"}).moveTo(leftgutter, topgutter-20).lineTo(leftgutter, height-bottomgutter);
     r.path({stroke: "#036"}).moveTo(leftgutter, height-bottomgutter).lineTo(width, height-bottomgutter);
+    
     var frame = r.rect(10, 10, 50, 20, 5).attr({fill: "#888", stroke: "#474747", "stroke-width": 2}).hide(),
         is_label_visible = false,
         leave_timer,
@@ -49,7 +50,8 @@ window.onload = function () {
           bar = r.rect(x-50, y, X-20, data[i]/ max * (height - bottomgutter - topgutter)).attr({fill: color, stroke: color});   
            
             blanket.push(r.rect(x-50, 20, X-20, height - bottomgutter - topgutter).attr({stroke: "#fff", fill: "#000", opacity: 0}));
-      var rect = blanket[i];         
+            
+      var rect = blanket[i];
       (function (x, y, data, label, bar) {
             var timer, i = 0;
             $(rect.node).hover(function () {
@@ -66,7 +68,7 @@ window.onload = function () {
                 is_label_visible = true;
                 r.safari();
             }, function () {
-                    bar.attr({opacity: 1});   
+                    bar.attr({opacity: 1});
                 r.safari();
                 leave_timer = setTimeout(function () {
                     frame.hide();

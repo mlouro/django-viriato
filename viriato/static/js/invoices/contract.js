@@ -45,8 +45,6 @@ function totals(){
 
 
 
-
-
 function add_calculate_totals_event(table){
     table = '#' + table;
     $(table + ' tr:last td:eq(2) input').blur(function(){

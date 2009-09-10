@@ -72,7 +72,7 @@ $(function () {
                 // connected to a database, but in this case we only
                 // have static example files so we need to modify the
                 // URL
-                url: "data-eu-gdp-growth-" + iteration + ".json",
+                url: "/static/json/newsletters/data-eu-gdp-growth-" + iteration + ".json",
                 method: 'GET',
                 dataType: 'json',
                 success: onDataReceived
@@ -89,3 +89,8 @@ $(function () {
         setTimeout(fetchData, 1000);
     });
 });
+
+
+
+
+
