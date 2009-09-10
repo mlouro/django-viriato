@@ -15,6 +15,7 @@ window.onload = function () {
     $("#data_analytics tbody td").each(function () {
         data.push($(this).html());
     });
+    
    
     // Draw
     var width = 800

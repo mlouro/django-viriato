@@ -1,15 +1,18 @@
 $(function () {
-
+    
     var options = {
         bars: { show: true }
     };
+    
+    var data = [];
+    var placeholder = $("#placeholder");
     
     function onDataReceived(series) {
         // we get all the data in one go, if we only got partial
         // data, we could merge it with what we already got
         data = [ series ];
         
-        $.plot($("#placeholder"), data, options);
+        $.plot(placeholder, data, options);
     }
     
     $.ajax({

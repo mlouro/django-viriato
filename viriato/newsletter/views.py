@@ -28,7 +28,7 @@ def newsletter_content(request,newsletter_id):
     #l = Link.objects.get(newsletter=newsletter)
 
 
-    return render_to_response('newsletter/content.html',
+    return render_to_response('newsletter/newsletter_content.html',
                               {'newsletter' : newsletter},
                               context_instance=RequestContext(request))
 
@@ -151,10 +151,4 @@ def display_meta(request):
     for k, v in values:
         html.append('<tr><td>%s</td><td>%s</td></tr>' % (k, v))
     return HttpResponse('<table>%s</table>' % '\n'.join(html))
-
-def charts(request):
-
-    return render_to_response("newsletter/test.html",
-        context_instance=RequestContext(request))
-#----------------------------------------------------------------------
 
