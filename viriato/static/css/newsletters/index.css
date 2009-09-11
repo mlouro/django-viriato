@@ -12,6 +12,10 @@ table.activity { width: 100%; }
 .newsletter_activity h3 { padding: 5px 10px; background: #EFEFEF; font-weight: normal; }
 .newsletter_activity h3 a { text-decoration: none; color: #000; }
 
+/* Newsletters link edit
+----------------------------------------------- */
+
+div.links_edit {position: absolute; left: 410px; top: 100px; height: 400px; width: 500px; padding: 1em;}
 
 
 

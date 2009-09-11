@@ -55,7 +55,6 @@ def newsletter_edit(request, newsletter_id):
     newsletter = Newsletter.objects.get(id=newsletter_id)
     #BookInlineFormSet = inlineformset_factory(Author, Book)
     if request.method == "POST":
-        #formset = BookInlineFormSet(request.POST, request.FILES, instance=author)
         formset = NewsletterForm(request.POST, instance=newsletter) 
         if formset.is_valid():
             formset.save()
@@ -121,7 +120,6 @@ def link_count(request,link_hash):
     edit = True
     link = Link.objects.get(created_hash = link_hash)
     link.save(edit)
-    print link.link
     return HttpResponseRedirect(link.link)
 
 #----------------------------------------------------------------------
@@ -152,3 +150,21 @@ def display_meta(request):
         html.append('<tr><td>%s</td><td>%s</td></tr>' % (k, v))
     return HttpResponse('<table>%s</table>' % '\n'.join(html))
 
+#----------------------------------------------------------------------
+def link(request,object_id):
+    """testing"""
+    data = []
+    newsletter = Newsletter.objects.get(id=object_id)
+    data = newsletter.get_links()
+    print data
+
+    if request.method == "POST":
+        formset = NewsletterForm(request.POST, instance=newsletter) 
+        if formset.is_valid():
+            formset.save()
+            return HttpResponseRedirect('/newsletter/')
+    else:
+        formset = NewsletterForm(instance=newsletter)
+    return render_to_response("newsletter/newsletter_edit.html", 
+                              {"form": formset,"links":data},
+                              context_instance=RequestContext(request))

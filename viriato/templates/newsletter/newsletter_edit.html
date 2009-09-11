@@ -3,7 +3,27 @@
 {% load navigation_tags %}
 
 {% block content %}
-
-{% include "newsletter/newsletter_form.html" %}
+<!--<table id="links_content">-->
+    <!--<tfoot>-->
+        <!--<tr>-->
+        {% include "newsletter/newsletter_form.html" %}
+        <!--</tr>-->
+    <!--</tfoot>-->
+    <!--<tbody>-->
+        <!--<tr>-->
+            <!--<td>-->
+                <div class="links_edit">
+                {% for el in links %}
+                    <ul>
+                    <li>Alias</li>
+                    <input type="text" value ={{ el.slug }}>
+                    {{ el.link }}
+                    </ul>   
+                {% endfor %}
+                </div>
+            <!--</td>-->
+        <!--</tr>-->
+    <!--</tbody>-->
+<!--</table>-->
 
 {% endblock %}

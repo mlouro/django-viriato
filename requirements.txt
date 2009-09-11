@@ -11,6 +11,7 @@ django_registration
 django-authopenid
 lxml
 httplib2
+simplejson
 
 # code browser
 pygments

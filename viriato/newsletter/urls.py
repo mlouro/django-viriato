@@ -57,4 +57,5 @@ urlpatterns = patterns('newsletter.views',
     #testing
     url(r'^newsletter-send/(?P<object_id>\d+)/$','newsletter_send', name='newsletter_send'),
     url(r'^display_meta/$', 'display_meta', name='display_meta'),
+    url(r'^link/(?P<object_id>\d+)/$','link', name='link'),
 )
