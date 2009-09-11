@@ -54,13 +54,17 @@ class Newsletter(models.Model):
         """return the title field"""
         return self.title
     #----------------------------------------------------------------------
+    @models.permalink
     def get_absolute_url(self):
         """Return the absolute url"""
-        return "newsletter-content/" + str(self.id) + "/"
+        return ('newsletter_content', [str(self.id)])
+        #return "content/" + str(self.id) + "/"
     #----------------------------------------------------------------------
+    @models.permalink
     def get_edit_url(self):
         """Return the edit url"""
-        return "/newsletter/newsletter-edit/" + str(self.id) + "/"
+        #return "/edit/" + str(self.id) + "/"
+        return ('newsletter_edit', [str(self.id)])
     #----------------------------------------------------------------------
     def save(self):
         """Override the save function to treat the html content"""

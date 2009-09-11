@@ -35,27 +35,27 @@ urlpatterns = patterns('newsletter.views',
     
     #Newsletters
     url(r'^$', 'index', name='newsletter_list'),
-    url(r'^newsletter-add/$', 'newsletter_add', name='newsletter_add'),
-    url(r'^newsletter-edit/(?P<newsletter_id>\w+)/$', 'newsletter_edit', name='newsletter_edit'),
-    url(r'^newsletter-content/(?P<newsletter_id>\w+)/$', 'newsletter_content', name = 'newsletter_content'),
-    url(r'^newsletter-analytics/(?P<newsletter_id>\w+)/$', 'newsletter_analytics', name = 'newsletter_analytics'),
+    url(r'^add/$', 'newsletter_add', name='newsletter_add'),
+    url(r'^edit/(?P<newsletter_id>\w+)/$', 'newsletter_edit', name='newsletter_edit'),
+    url(r'^content/(?P<newsletter_id>\w+)/$', 'newsletter_content', name = 'newsletter_content'),
+    url(r'^analytics/(?P<newsletter_id>\w+)/$', 'newsletter_analytics', name = 'newsletter_analytics'),
     
     #Subscribers
-    url(r'^subscriber-create/$', create_object, subscriber_create_dict, name='subscriber_create'),
-    url(r'^subscriber-list/$', list_detail.object_list, subscriber_list_dict, name='subscriber_list'),
-    url(r'^subscriber-update/(?P<object_id>\d+)/$', update_object, subscriber_create_dict, name='subscriber_update'),
-    url(r'^subscriber-delete/(?P<object_id>\d+)/$', delete_object, subscriber_create_dict, name='subscriber_delete'),
-    url(r'^subscribers-by-group/(?P<object_id>\d+)/$', 'subscribers_by_group', name='subscriber_by_group'), # with a generic view in view.py
+    url(r'^subscriber/create/$', create_object, subscriber_create_dict, name='subscriber_create'),
+    url(r'^subscriber/list/$', list_detail.object_list, subscriber_list_dict, name='subscriber_list'),
+    url(r'^subscriber/update/(?P<object_id>\d+)/$', update_object, subscriber_create_dict, name='subscriber_update'),
+    url(r'^subscriber/delete/(?P<object_id>\d+)/$', delete_object, subscriber_create_dict, name='subscriber_delete'),
+    url(r'^subscribers/by-group/(?P<object_id>\d+)/$', 'subscribers_by_group', name='subscriber_by_group'), # with a generic view in view.py
     
     #Groups
-    url(r'^group-create/$', create_object, group_create_dict, name='group_create'),
-    url(r'^group-list/$', list_detail.object_list, group_list_dict, name='group_list'),
+    url(r'^group/create/$', create_object, group_create_dict, name='group_create'),
+    url(r'^group/list/$', list_detail.object_list, group_list_dict, name='group_list'),
     
     #Extra
     url(r'^news/(?P<link_hash>\w+)/$', 'link_count', name='link_count'),
     url(r'^host', 'host', name='host'),
     #testing
-    url(r'^newsletter-send/(?P<object_id>\d+)/$','newsletter_send', name='newsletter_send'),
+    url(r'^send/(?P<object_id>\d+)/$','newsletter_send', name='newsletter_send'),
     url(r'^display_meta/$', 'display_meta', name='display_meta'),
     url(r'^link/(?P<object_id>\d+)/$','link', name='link'),
 )
