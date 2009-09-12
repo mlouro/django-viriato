@@ -2,45 +2,60 @@
 {% load i18n %}
 {% load navigation_tags %}
 
+{% block content_id_title %}<h1> Groups</h1>{% endblock %}
 
-{% block secondary_nav %}
-    <ul>
-    {% url newsletter_list as newsletter_list_url %}
-    {% url  group_list as group_list_url %}
-    {% url  subscriber_list as subscriber_list_url %}
-    
-    {% get_link_if_allowed newsletter_list_url "Dashboard" %}
-    {% get_link_if_allowed group_list_url "Group List" %}
-    {% get_link_if_allowed subscriber_list_url "Subscriber List" %}
-    </ul>
-{% endblock %}
 
 {% block content %}
+    <!--{% for item in object_list %}-->
+            <!--<td><a href="{{ item.get_edit_url }}">{{ item.name }}</a></td>-->
+            <!--<td>{{ item.created.date }}</p></td>-->
+    <!--{% endfor %}-->
+<!--<div id ="group-activity">-->
+    <!--<table class="activity">-->
+    <!--<thead>-->
+        <!--<tr>-->
+            <!--<th><input type="checkbox"/></th>-->
+            <!--<th><h2 class="headline">{% trans 'Group' %}</h2></th>-->
+            <!--<th><h2 class="headline">{% trans 'Created' %}</h2></th>-->
+            <!--<th><h2 class="headline">{% trans 'Followers' %}</h2></th>-->
+        <!--</tr>-->
+    <!--</thead>-->
+    <!--<tbody>-->
+    <!--{% for item in group %}-->
+        <!--<tr>-->
+            <!--<td>-->
+                <!--<input type="checkbox"  class="select_all" value= {{item.id}} />-->
+            <!--</td>-->
+            <!--<td><a href="{{ item.get_edit_url }}">{{ item.name }}</a></td>-->
+            <!--<td>{{ item.created.date }}</p></td>-->
+        <!--</tr>-->
+    <!--{% endfor %}-->
+    <!--<tbody> -->
+    <!--</table>-->
+<!--</div>-->
+
+<div class="newsletter_activity">
+
     {% for item in object_list %}
-            <td><a href="{{ item.get_absolute_url }}">{{ item.name }}</a></td>
-            <td>{{ item.created.date }}</p></td>
-    {% endfor %}
-<div id ="group-activity">
+    <h3><a href="{{ item.get_absolute_url }}">{{ item.name }}</a></h3>
     <table class="activity">
-    <thead>
         <tr>
-            <th><input type="checkbox"/></th>
-            <th><h2 class="headline">{% trans 'Group' %}</h2></th>
-            <th><h2 class="headline">{% trans 'Created' %}</h2></th>
-            <th><h2 class="headline">{% trans 'Followers' %}</h2></th>
-        </tr>
-    </thead>
-    <tbody>
-    {% for item in group %}
-        <tr>
-            <td>
-                <input type="checkbox"  class="select_all" value= {{item.id}} />
+            <!--<td class="action"><span class="comment">:: type ::</span></td>-->
+            <td class="description">
+                <!--<div class="item_content">-->
+                    <!--<a href="/">:: description ::</a>-->
+                <!--</div>-->
             </td>
-            <td><a href="{{ item.get_absolute_url }}">{{ item.name }}</a></td>
-            <td>{{ item.created.date }}</p></td>
+            <!--<td class="name">:: user ::</td>-->
+            <td class="date">:: {{ item.created.date }} ::</td>
         </tr>
-    {% endfor %}
-    <tbody> 
     </table>
+    {% endfor %}
+    
 </div>
+
+
+
+
+
 {% endblock %}

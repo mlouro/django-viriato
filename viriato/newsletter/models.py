@@ -10,12 +10,19 @@ class Group(models.Model):
     modified = models.DateTimeField(blank=False, auto_now=True)
     #----------------------------------------------------------------------
     def __unicode__(self):
-        """return de group name"""
+        """return the group name"""
         return self.name
     #----------------------------------------------------------------------
+    @models.permalink
+    def get_absolute_url(self):
+        """return the absolute url"""
+        return ('group_update', [str(self.id)])
+    #----------------------------------------------------------------------
+    @models.permalink
     def get_subscribers_by_group_url(self):
         """Return the filter url"""
-        return "/newsletter/subscribers-by-group/" + str(self.id) + "/"
+        #return "/newsletter/subscribers-by-group/" + str(self.id) + "/"
+        return ('subscriber_by_group', [str(self.id)])
 
 ########################################################################
 class Subscriber(models.Model):
@@ -31,13 +38,18 @@ class Subscriber(models.Model):
         """return the subscriber name"""
         return self.name
     #----------------------------------------------------------------------
+    @models.permalink
     def get_absolute_url(self):
         """Return the absolute url"""
-        return "subscriber-content/" + str(self.id) + "/"
+        #return "subscriber-content/" + str(self.id) + "/"
+        return ('subscriber_update', [str(self.id)])
+
     #----------------------------------------------------------------------
-    def get_edit_url(self):
+    @models.permalink
+    def get_subscribers_by_group_url(self):
         """Return the edit url"""
-        return "/newsletter/subscriber-update/" + str(self.id) + "/"
+        #return "/newsletter/subscriber-update/" + str(self.id) + "/"
+        return ('subscribers_by_group', [str(self.id)])
 
 ########################################################################
 class Newsletter(models.Model):

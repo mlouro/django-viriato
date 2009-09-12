@@ -64,7 +64,7 @@ def newsletter_edit(request, newsletter_id):
         #formset = BookInlineFormSet(instance=author)
         formset = NewsletterForm(instance=newsletter)
     return render_to_response("newsletter/newsletter_edit.html", 
-                              {"form": formset},
+                              {"form": formset,"object":newsletter},
                               context_instance=RequestContext(request))
 
 #----------------------------------------------------------------------
@@ -99,7 +99,42 @@ def newsletter_send(request, newsletter_id):
                               context_instance=RequestContext(request))
 
 #----------------------------------------------------------------------
-def subscribers_by_group(request, object_id):
+def manage_links(request, newsletter_id):
+    from django.forms.models import inlineformset_factory
+    
+    newsletter = Newsletter.objects.get(pk=newsletter_id)
+    LinkInlineFormSet = inlineformset_factory(Newsletter, model=Link)
+    if request.method == "POST":
+        formset = LinkInlineFormSet(request.POST, request.FILES, instance=newsletter)
+        if formset.is_valid():
+            formset.save()
+            # Do something.
+    else:
+        formset = LinkInlineFormSet(instance=newsletter)
+    print formset
+    return render_to_response("newsletter/manage_links.html", {
+        "formset": formset,
+    })
+
+#----------------------------------------------------------------------
+def manage_authors(request):
+    """URL man - just used to try to undestand the concept"""
+    from django.forms.models import modelformset_factory
+    
+    AuthorFormSet = modelformset_factory(Link)
+    if request.method == 'POST':
+        formset = AuthorFormSet(request.POST, request.FILES)
+        if formset.is_valid():
+            formset.save()
+            # do something.
+    else:
+        formset = AuthorFormSet()
+    print formset
+    return render_to_response("newsletter/manage_links.html", {
+        "formset": formset,
+    })
+#----------------------------------------------------------------------
+def subscriber_by_group(request, object_id):
     """It sorts subscribers by group"""
     #look up the group
     #ry:
@@ -111,7 +146,7 @@ def subscribers_by_group(request, object_id):
         request,
         queryset = Subscriber.objects.filter(group = grp),
         template_name = "newsletter/subscriber_list.html",
-        extra_context = {"group_list": Group.objects.all()}
+        extra_context = {"group_list": Group.objects.all}
         )
 
 #----------------------------------------------------------------------
@@ -152,7 +187,7 @@ def display_meta(request):
 
 #----------------------------------------------------------------------
 def link(request,object_id):
-    """testing"""
+    """testing.. (probably this view will get deleted)"""
     data = []
     newsletter = Newsletter.objects.get(id=object_id)
     data = newsletter.get_links()

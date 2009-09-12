@@ -1,0 +1,19 @@
+{% extends "newsletter/subscriber_list.html" %}
+{% load i18n %}
+
+{% block content_id_title %}<h1>Delete Subscriber "{{object}}"</h1>{% endblock %}
+
+{% block content %}
+
+    <form class="form" action="" method="post">
+    
+        <p> Do you want to delete the "{{object}}" subscriber ? </p>
+
+        <p class="submit">
+            <input type="submit" value="Delete Subcriber" />
+            <a href="javascript:history.back()">Cancel</a>
+        </p>
+    
+    </form>
+
+{% endblock %}

@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.forms import forms, ModelForm
-from newsletter.models import Subscriber,Group,Newsletter
+from django.forms.models import modelformset_factory
+from newsletter.models import Subscriber,Group,Newsletter,Link
 
 class NewsletterForm(ModelForm):
     class Meta:
@@ -15,3 +16,10 @@ class SubscriberForm(ModelForm):
 class GroupForm(ModelForm):
     class Meta:
         model = Group
+
+class LinkForm(ModelForm):
+    class Meta:
+        model = Link
+        fields = ('link','slug')
+        
+

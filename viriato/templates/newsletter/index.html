@@ -2,18 +2,6 @@
 {% load i18n %}
 {% load navigation_tags %}
 
-{% block secondary_nav %}
-    <ul>
-    {% url newsletter_index as newsletter_index_url %}
-    {% url  group_list as group_list_url %}
-    {% url  subscriber_list as subscriber_list_url %}
-    
-    {% get_link_if_allowed newsletter_index_url "Newsletters" %}
-    {% get_link_if_allowed group_list_url "Group List" %}
-    {% get_link_if_allowed subscriber_list_url "Subscriber List" %}
-    </ul>
-{% endblock %}
-
 
 {% block content %}
 <div id ="newsletter-list">

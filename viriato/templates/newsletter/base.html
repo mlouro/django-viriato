@@ -25,6 +25,16 @@
     {% get_link_if_allowed  subscriber_add_url "Add Subscriber" %}
 {% endblock %}
 
-
+{% block secondary_nav %}
+    <ul>
+    {% url dashboard as dashboard %}
+    {% url  group_list as group_list_url %}
+    {% url  subscriber_list as subscriber_list_url %}
+    
+    {% get_link_if_allowed dashboard "Dashboard" %}
+    {% get_link_if_allowed group_list_url "Group List" %}
+    {% get_link_if_allowed subscriber_list_url "Subscribers By Group" %}
+    </ul>
+{% endblock %}
 
 

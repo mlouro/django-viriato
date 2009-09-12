@@ -1,9 +1,8 @@
-{% extends "newsletter/index.html" %}
+{% extends "newsletter/base.html" %}
 {% load i18n %}
 {% load navigation_tags %}
 
-{% block content_action %}
-{% endblock %}
+{% block content_id_title %}<h1> Subscribers by Groups</h1>{% endblock %}
 
 
 {% block content %}
@@ -12,49 +11,39 @@
     
 <thead>
     <tr >
-        <th>
-            <h2 class="headline"> {%trans "Groups" %}</h2>
-        </th>
-        <th>
-            <h2 class="headline">{%trans "Subscribers" %}</h2>
-        </th>
+        <th><h2 class="headline"> {%trans "Groups" %}</h2></th>
+        <th><h2 class="headline">{%trans "Subscribers" %}</h2></th>
     </tr>
 </thead>
 
 <tbody>
 <th>
-    <div id="groups">
+    <div id="group_activity">
         {% for group in group_list %}
-            <div class="box">
-                <h3><a href="{{ group.get_subscribers_by_group_url}}">{{ group }}</a></h3> <!-- to fixe--->
-                <br class="clearboth" />
-            </div>
+            <table class="activity">
+                <tr>
+                    <td>
+                        <h3><a href="{{ group.get_subscribers_by_group_url}}">{{ group }}</a></h3>
+                    </td>
+                </tr>
+            </table>
         {% endfor %}
     </div>
 </th>
 <th>
-    <div id="subscriber-list">
+    <div id="subscriber_activity">
         {% for subscriber in object_list %}
-        <div class="subscriber">
-            <h3><a href="{{ subscriber.get_edit_url }}">{{ subscriber }}</a></h3>
-            <table id="stripes">
+            <h3><a href="{{ subscriber.get_absolute_url }}">{{ subscriber }}</a></h3>
+            <table class="activity">
                 <tr>
-                    <td>
-                        <p class="details"> E-mail : {{ subscriber.email }} </p>
-                        <!--<p class="details">{%trans "Groups : " %}</p>
-                        {% for group in subscriber.group.all %}
-                        <p class="gp">{{ group }}</p>
-                        {% endfor %}-->
-                    </td>
+                        <td class="details"> E-mail : {{ subscriber.email }} </td>
                 </tr>
-            </table>
-            <br class="clearboth" />
-        </div>
+                </table>
         {% endfor %}
     </div>
 </th>
 </tbody>
-        
+
 </table>
 
 {% endblock %}

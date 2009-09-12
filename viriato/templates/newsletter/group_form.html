@@ -1,22 +1,14 @@
-{% extends "newsletter/base.html" %}
-{% load i18n %}
+<form class="form" action="" method="post">
 
+    <p class="field">
+        <label>Name</label>
+        {{form.name}}
+    </p>
+    {{form.name.errors}}
 
+    <p class="submit">
+        <input type="submit" value="Save Group" />
+        <a href="javascript:history.back()">Cancel</a>
+    </p>
 
-
-{% block content %}
-    <form class="form" action="{{ newsletter.get_edit_url }}" method="post">
-
-        <p class="field">
-            <label>Name</label>
-            {{form.name}}
-        </p>
-        {{form.name.errors}}
-
-        <p class="submit">
-            <input type="submit" value="Save Group" />
-            <a href="javascript:history.back()">Cancel</a>
-        </p>
-
-    </form>
-{% endblock %}
+</form>

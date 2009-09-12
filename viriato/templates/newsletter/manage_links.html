@@ -1,0 +1,14 @@
+{% extends "newsletter/newsletter_content.html" %}
+{% load i18n %}
+{% load navigation_tags %}
+
+{% block content %}
+
+<form method="POST" action="">
+    {{ formset }}
+    <input type = "submit" value = "Submit">
+
+</form>
+
+
+{% endblock %}
