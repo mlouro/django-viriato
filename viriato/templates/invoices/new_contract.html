@@ -16,9 +16,13 @@
     <script src='{{ MEDIA_URL }}js/invoices/jqModal.js' type='text/javascript'></script>
     <link type="text/css" rel="Stylesheet" media="screen" href="{{ MEDIA_URL }}css/invoices/modal.css"/>
 
-
-
 {% endblock extra_head %}
+
+{% block jquery %}
+    {% if approved %}
+        lock_fields();
+    {% endif %}
+{% endblock jquery %}
 
 {% block content_id_title %}<h1>{% trans 'Create a new Contract' %}</h1>{% endblock %}
 
@@ -142,7 +146,7 @@
         <div class="submit">
             <p>
                 {% block content_data_submit %}
-                    <a onclick="save();" class="navbutton">{% trans 'Create' %}</a>
+                    <a class="navbutton">{% trans 'Create' %}</a>
                 {% endblock content_data_submit %}
             </p>
         </div>
@@ -157,14 +161,27 @@
                 <h3>{% trans 'Milestones Import' %}: </h3>
                 <p>{% trans 'Company' %}: <span id="companyAjax"></span></p>
                 <p>{% trans 'Project' %}: <span id="projectAjax"></span></p>
-            </div>
-            <div id="milestones">
-            </div>
-            <div id="buttons">
-                <p>
-                    <a class="navbutton" id="import_button" onclick="import_milestones();">{% trans 'Import' %}</a>
-                    <a class="navbutton jqmClose">{% trans 'Cancel' %}</a>
-                </p>
+
+                <div id="milestones">
+                    <table class="stripes" id="milestones_table">
+                        <tr>
+                            <th class="select_header headers">{% trans 'Select all' %}<input type="checkbox" id ="select_all" onclick="select_all()"/></th>
+                            <th class="title headers"> {% trans 'Milestone' %}</th>
+                        </tr>
+                        <tr>
+                            <td class="select"><input type="checkbox" id="milestone_"/></td >
+                            <td id="title_"></td>
+                        </tr>
+
+
+                    </table>
+                </div>
+                <div id="buttons">
+                    <p>
+                        <a class="navbutton" id="import_button" onclick="import_milestones();">{% trans 'Import' %}</a>
+                        <a class="navbutton jqmClose">{% trans 'Cancel' %}</a>
+                    </p>
+                </div>
             </div>
         </div>
     {% endif %}
