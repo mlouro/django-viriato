@@ -82,6 +82,7 @@ def contract(request, object_id=0):
                                         'retention': retention,
                                         'contract': contract,
                                         'PROJECT': project,
+                                        'approved': contract.approved,
                                     },
                                     context_instance=RequestContext(request)
         )
@@ -104,6 +105,7 @@ def contract(request, object_id=0):
                                         'retention': retention,
                                         'contract': contract,
                                         'PROJECT': project,
+                                        'approved': contract.approved,
                                     },
                                     context_instance=RequestContext(request)
                                 )
@@ -119,6 +121,7 @@ def contract(request, object_id=0):
                                         'tax': tax,
                                         'retention': retention,
                                         'PROJECT': project,
+                                        'approved': False,
                                     },
                                     context_instance=RequestContext(request)
                                 )
@@ -150,7 +153,7 @@ def milestone_ajax(request):
 
 def contracts_ajax(request):
     #filter(approved=True)
-    data = serializers.serialize('json', Contract.objects.filter(finished=False), ensure_ascii=False)
+    data = serializers.serialize('json', Contract.objects.filter(approved=True), ensure_ascii=False)
     return HttpResponse(data, mimetype='text/javascript')
 
 

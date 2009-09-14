@@ -29,7 +29,7 @@ $(document).ready(function(){
 
     add_calculate_totals_event('table_details');
 
-
+    $('.submit p a').click(function(){ save();});
 });
 
 function totals(){
@@ -42,8 +42,6 @@ function totals(){
             parseFloat($('#id_con-total_retention_value').val())
         );
 }
-
-
 
 function add_calculate_totals_event(table){
     table = '#' + table;
@@ -113,30 +111,37 @@ function get_milestones(project_id){
     $.post("/invoices/contract/milestone_ajax/",
         { project_id : project_id },
         function(data){
-            result =
-                '<table class="stripes" id="milestones_table">' +
-                    '<tr>' +
-                        '<th class="select headers"> Select </th>' +
-                        '<th class="title headers"> Milestone </th>' +
-                    '</tr>'
-            ;
-            for (i in data)
-                result +=
-                    '<tr>' +
-                        '<td class="select"><input type="checkbox" id="milestone_' + i + '"/></td >' +
-                        '<td id="title_' + i + '">' + data[i].fields.title + '</td>' +
-                    '</tr>'
-            result += '</table>';
-            $("#milestones").html(result);
-
+            remove_table_rows($('#milestones_table tr').length-1);
+            for (i in data){
+                $('#milestones_table tr:last').attr('id', 'row_'+i)
+                $('#milestones_table tr:last td:eq(0) input').attr('id', 'milestone_'+i);
+                $('#milestones_table tr:last td:eq(1)')
+                    .attr('id', 'title_'+i)
+                    .html(data[i].fields.title)
+                ;
+                if (i<data.length-1){
+                    new_row = $('#milestones_table tr:last').clone();
+                    $('#milestones_table').append(new_row);
+                }
+            }
             $(".stripes tr:even").addClass("alt");
-
             add_mouse_over_event();
         },
         "json"
     );
 }
 
+function remove_table_rows(len){
+    for (i=1;i<len;i++)
+        $('#row_'+i).remove();
+}
+
+function select_all(){
+    if ($('#select_all').attr('checked'))
+        $('#milestones_table INPUT[type="checkbox"]').attr('checked', true)
+    else
+        $('#milestones_table INPUT[type="checkbox"]').attr('checked', false)
+}
 
 function import_milestones(){
     nr_rows = $("#milestones_table tr").length-1;
@@ -191,4 +196,16 @@ function calculate_others(table, col1, col2, other){
             total +=  val_col1 * val_col2 * val_other;
     }
     return roundNumber(total, 2);
+}
+
+function lock_fields(){
+    // function to be used after contract has been approved
+    $('#id_con-description').attr('readonly', true);
+    $('#id_con-date').attr('readonly', true);
+    $('#id_con-approved').attr('readonly', true);
+    $('#id_con-company').attr('disabled', true);
+    $('#id_con-project').attr('disabled', true);
+    $('#table_details tr td input').attr('readonly', true);
+    $('#importMilestones').unbind();
+    $('.submit p a').unbind();
 }

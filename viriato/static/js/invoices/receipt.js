@@ -126,13 +126,6 @@ function show_tip(x, y, w, id_number, contract){
     ;
 }
 
-function select_all(){
-    if ($('#select_all').attr('checked'))
-        $('#contracts_table INPUT[type="checkbox"]').attr('checked', true)
-    else
-        $('#contracts_table INPUT[type="checkbox"]').attr('checked', false)
-}
-
 function have_contract(){
     create_new_dialog();
     get_contracts();
@@ -218,6 +211,13 @@ function get_contracts_details(contract_id){
         },
         "json"
     );
+}
+
+function select_all(){
+    if ($('#select_all').attr('checked'))
+        $('#contracts_table INPUT[type="checkbox"]').attr('checked', true)
+    else
+        $('#contracts_table INPUT[type="checkbox"]').attr('checked', false)
 }
 
 function import_to_receipt(){
