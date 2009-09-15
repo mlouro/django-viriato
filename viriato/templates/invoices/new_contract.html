@@ -22,6 +22,9 @@
     {% if approved %}
         lock_fields();
     {% endif %}
+    {% if there_are_errors %}
+        there_are_erros_actions();
+    {% endif %}
 {% endblock jquery %}
 
 {% block content_id_title %}<h1>{% trans 'Create a new Contract' %}</h1>{% endblock %}

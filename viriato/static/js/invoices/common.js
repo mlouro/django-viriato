@@ -203,7 +203,7 @@ function roundNumber(number,decimals) {
     return newString; // Output the result to the form field (change for your purposes)
 }
 
-function add_add_row_event(table){
+function add_add_row_event(table, receipt){
     table_to_use = "#" + table;
     $(table_to_use + " tr:last td:eq(1) input").change(function(){
         if ($(this).val()!=""){
@@ -211,8 +211,9 @@ function add_add_row_event(table){
             copy_tax_and_retention_values(table);
             rename_hide_button(table);
             add_calculate_totals_event(table);
-            add_calculate_row_total_event();//not global
-            add_add_row_event('table_details');
+            if (receipt)
+                add_calculate_row_total_event();//not global
+            add_add_row_event('table_details', receipt);
         }
     });
 }
