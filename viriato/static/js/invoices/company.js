@@ -14,12 +14,9 @@ $(document).ready(function(){
         var node = $("#contact_information");
         if (node.hasClass("hidden"))
         {
-            alert ('sda');
             node.removeClass("hidden");
             $(this).parent().addClass("hidden");
         }
-        else
-            alert ('das');
         return false;
     });
 });
