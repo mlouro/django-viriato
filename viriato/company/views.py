@@ -12,7 +12,6 @@ from django.forms.models import modelformset_factory
 from django.core import serializers
 
 
-
 def company(request):
 
     try:
@@ -41,29 +40,32 @@ def company(request):
                     formset_list[formset] = type(formset_list[formset])(instance=company)
                 else:
                     return render_to_response (
-                                    "/invoices/company.html",
+                                    "invoices/company.html",
                                     {
                                         "form": company_form,
                                         'formsets' : formset_list,
+                                        'there_are_errors': True,
                                     },
                                     context_instance = RequestContext(request)
                                     )
 
             return render_to_response (
-                                        "/invoices/company.html",
+                                        "invoices/company.html",
                                         {
                                             "form": company_form,
                                             'formsets' : formset_list,
+
                                         },
                                         context_instance = RequestContext(request)
                                     )
 
         else:
             return render_to_response (
-                                    "/invoices/company.html",
+                                    "invoices/company.html",
                                     {
                                         "form": company_form,
                                         'formsets' : formset_list,
+                                        'there_are_errors': True,
                                     },
                                     context_instance = RequestContext(request)
                                     )
@@ -76,7 +78,7 @@ def company(request):
 
         company_form = MyCompanyForm(instance=company)
         return render_to_response (
-                                    "/invoices/company.html",
+                                    "invoices/company.html",
                                     {
                                         "form": company_form,
                                         'formsets' : formset_list,

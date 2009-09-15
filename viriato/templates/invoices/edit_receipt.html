@@ -1,4 +1,4 @@
-{% extends 'invoices/base.html' %}
+{% extends 'invoices/new_receipt.html' %}
 {% load i18n %}
 
 {% block extra_head %}
@@ -12,152 +12,26 @@
 
 {% endblock extra_head %}
 
-{% block breadcrumbs %}
-    {{ block.super }} <span class="new active"> » {% trans 'Edit Receipt' %}</span>
-{% endblock %}
+{% block content_id_title %}<h1>{% trans 'Editing receipt nr. ' %}{{ receipt.id }}</h1>{% endblock %}
 
-{% block content %}
-    <script type="text/javascript">
-        $(document).ready(function(){
-            {% if receipt_is_not_editable %}
-                receipt_is_not_editable();
-            {% else %}
-                if ($('#id_con-contract').val()!="")
-                    set_with_project_functions();
-                else
-                    set_without_project_functions();
-            {% endif %}
-        });
-    </script>
-    <input type="hidden" value={{ tax }} id="tax"/>
-    <input type="hidden" value={{ retention }} id="retention"/>
-    <input type="hidden" value="{% trans 'Select an Item' %}" id="select_item"/>
+{% block jquery %}
+    {% if receipt_is_not_editable %}
+        receipt_is_not_editable();
+    {% else %}
+        if ($('#id_con-contract').val()!="")
+            set_with_project_functions();
+        else
+            set_without_project_functions();
+    {% endif %}
+{% endblock jquery %}
 
-    {% block content_data_form %}
-        <form name="myForm" id="myForm" method="POST" action="{{ receipt.get_absolute_url }}">
-    {% endblock content_data_form %}
+{% block content_data_form %}
+    <form name="myForm" id="myForm" method="POST" action="{{ receipt.get_absolute_url }}">
+{% endblock content_data_form %}
 
-        {{ formset.management_form }}
-
-        <div id="document_header">
-            <h3>{% trans 'Receipt Information' %}</h3>
-            {{ receipt_form.contract }}
-            <table>
-
-                <tr>
-                    <td><label for="description">{% trans 'Receipt description' %} </label></td>
-                    <td id="description">
-                        {{ receipt_form.description }}
-                        <br/>
-                        {{ receipt_form.description.errors }}
-                    </td>
-                </tr>
-
-                <tr>
-                    <td><label for="company">{% trans 'Company' %} </label></td>
-                    <td>
-                        {{ receipt_form.company }}<a href=""><img title="{% trans 'Add New Company' %}" src="{{ MEDIA_URL }}images/invoices/add.png"></a>
-                        <br/>
-                        {{ receipt_form.company.errors }}
-                    </td>
-                </tr>
-
-                {% if PROJECT %}
-                    <tr>
-                        <td><label for="project">{% trans 'Project' %} </label></td>
-                        <td>
-                            {{ receipt_form.project }}<a href=""><img title="{% trans 'Add New Project' %}" src="{{ MEDIA_URL }}images/invoices/add.png"></a>
-                            <br/>
-                            {{ receipt_form.project.errors }}
-                        </td>
-                    </tr>
-                {% endif %}
-            </table>
-        </div>
-
-        <div id="document_details">
-            <h3>{% trans 'Document Details' %}</h3>
-            <table class="stripes" id="table_details">
-                <tr>
-                    <th class="headers">{% trans "Delete" %}</th>
-                    <th class="headers">{% trans "Description" %}</th>
-                    <th class="headers">{% trans "Unity Cost" %}</th>
-                    <th class="headers">{% trans "Quantity" %}</th>
-                    <th class="headers">{% trans "Total" %}</th>
-                    <th class="headers">{% trans "To Pay" %}</th>
-                    <th id ="hide_1" class="taxes hide_headers headers">{% trans "Tax (%)" %}</th>
-                    <th id="hide_1" class="taxes hide_headers headers">{% trans "Retention (%)" %}</th>
-                </tr>
-
-                {% for form in formset.forms %}
-                    {{ form.id }}
-                    <tr>
-                        <td class="select headers">{{ form.DELETE }}</td>
-                        <td class="description headers">{{ form.description }}<br/>{{ form.description.errors }}</td>
-                        <td class="unity_cost headers">{{ form.unity_cost }}<br/>{{ form.unity_cost.errors }}</td>
-                        <td class="quantity headers">{{ form.quantity }}<br/>{{ form.quantity.errors }}</td>
-                        <td class="total headers">{{ form.total}}<br/>{{ form.total.errors }}</td>
-                        <td class="to_pay headers">{{ form.to_pay}}<br/>{{ form.to_pay.errors }}</td>
-                        <td class="hidden">{{ form.contract_detail }}</td>
-                        <td class="hidden">{{ form.total_payed }}</td>
-                        <td id="hide_1" class="taxes hide_1 headers">{{ form.tax }}<br/>{{ form.tax.errors }}</td>
-                        <td id="hide_1" class="taxes hide_1 headers">{{ form.retention }}<br/>{{ form.retention.errors }}</td>
-                        <td class="image"><img id="hide_button_1" width="28px" src="{{ MEDIA_URL }}images/invoices/show.png"/></a></td>
-                    </tr>{% endfor %}
-            </table>
-            <p id="avaiable">{% trans 'Add another item:' %} <span id="for_avaiable_items"></span></p>
-        </div>
-
-        <div id="finals">
-            <h3>{% trans 'Document Totals' %}</h3>
-            <table>
-                <tr>
-                    <td><label for="total_impact_value">{% trans 'Impact Value' %} </label></td>
-                    <td>
-                        {{ receipt_form.total_impact_value }}
-                        <br/>
-                        {{ receipt_form.total_impact_value.errors }}
-                    </td>
-                </tr>
-                <tr>
-                    <td><label for="total_tax_value">{% trans 'Tax Value' %} </label></td>
-                    <td>
-                        {{ receipt_form.total_tax_value }}
-                        <br/>
-                        {{ receipt_form.total_tax_value.errors }}
-                    </td>
-                </tr>
-                <tr>
-                    <td><label for="total_retention_value">{% trans 'Retention Value' %} </label></td>
-                    <td>
-                        {{ receipt_form.total_retention_value }}
-                        <br/>
-                        {{ receipt_form.total_retention_value.errors }}
-                    </td>
-                </tr>
-                <tr>
-                    <td><label for="date">{% trans 'Total' %} </label><span class="input"></td>
-                    <td>
-                        {{ receipt_form.total }}
-                        <br/>
-                        {{ receipt_form.total.errors }}
-                    </td>
-                </tr>
-            </table>
-        </div>
-
-        <div class="submit">
-            <p>
-                {% block content_data_submit %}
-                    <a onclick="save_receipt();" class="navbutton">{% trans 'Save' %}</a>
-                {% endblock content_data_submit %}
-            </p>
-        </div>
-    </form>
-
-    <span id="tooltip"></span>
-
-{% endblock content %}
+{% block content_data_submit %}
+    <a onclick="save_receipt();" class="navbutton">{% trans 'Save' %}</a>
+{% endblock content_data_submit %}
 
 {% block content_sidebar %}
     <p><a class="navbutton" href="/invoices/receipt/receipt_document/{{ receipt.pk }}/">{% trans "Send Receipts" %}</a></p>

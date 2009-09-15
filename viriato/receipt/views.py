@@ -68,8 +68,7 @@ def receipt(request, object_id=0):
             formset.save()
             new_receipt.calculate() #Total's calculation
         else:
-            print receipt
-            return render_to_response ("/invoices/" + template_to_go,
+            return render_to_response ("invoices/" + template_to_go,
                                             {
                                                 'receipt': receipt,
                                                 'formset': formset,

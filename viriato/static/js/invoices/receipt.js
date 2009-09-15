@@ -8,7 +8,7 @@ $(document).ready(function(){
         get_contracts_details($(this).val());
     });
 
-    $('#contracts_table').hide();
+//     $('#contracts_table').hide();
 });
 
 function set_with_project_functions(){
@@ -18,9 +18,11 @@ function set_with_project_functions(){
 }
 
 function set_without_project_functions(){
-    add_add_row_event('table_details');
+    add_add_row_event('table_details', true);
     add_calculate_row_total_event();
-    $('#table_details tr td:eq(5) input').attr('readonly', true);
+    add_calculate_totals_event('table_details');
+    $('#table_details tr td:eq(5) INPUT[type="text"]').attr('readonly', true);
+    $('.to_pay input').attr('readonly', true);
 }
 
 function add_calculate_row_total_event(){
@@ -37,17 +39,17 @@ function calculate_row_total(id){
     id_number = id.split('-')[1];
     uc = parseFloat($('#id_details-' + id_number + '-unity_cost').val());
     qt = parseFloat($('#id_details-' + id_number + '-quantity').val());
-    tx = parseFloat($('#id_details-' + id_number + '-tax').val());
-    ret = parseFloat($('#id_details-' + id_number + '-retention').val());
+    tx = parseFloat($('#id_details-' + id_number + '-tax').val())/100;
+    ret = parseFloat($('#id_details-' + id_number + '-retention').val())/100;
     isNaN(uc) ? uc = 0 : uc = uc;
     isNaN(qt) ? qt = 0 : qt = qt;
     isNaN(tx) ? tx = 0 : tx = tx;
     isNaN(ret) ? ret = 0 : ret = ret;
-    imp = uc*qt;
-    $('#id_details-' + id_number + '-total').val(roundNumber((imp) - (imp*tx) - (imp*ret),2));
+    impact = uc*qt;
+    $('#id_details-' + id_number + '-total').val(roundNumber((impact) + (impact*tx) - (impact*ret),2));
 
     if (isNaN(parseInt($('#id_con-contract').val())))
-        $('#id_details-' + id_number + '-to_pay').val(roundNumber((imp) - (imp*tx) - (imp*ret),2));
+        $('#id_details-' + id_number + '-to_pay').val(roundNumber((impact) + (impact*tx) - (impact*ret),2));
 }
 
 function add_calculate_totals_event(table){
@@ -121,7 +123,7 @@ function show_tip(x, y, w, id_number, contract){
             'left' : x + w + 5,
             'top' : y
         })
-        .show()
+        .fadeIn('slow')
         .html('Max: ' + max_to_pay(id_number, contract))
     ;
 }
@@ -170,6 +172,7 @@ function get_contracts(){
         {},
         function(data){
             result = '';
+//             result += '<option value="2"> sdsadsadsa </option>';
             for (i in data){
                 result += '<option value="' + data[i].pk + '"> ' + data[i].fields.description + '</option>';
             }
@@ -181,6 +184,7 @@ function get_contracts(){
         },
         "json"
     );
+    get_contracts_details(-1);
 }
 
 function get_contracts_details(contract_id){

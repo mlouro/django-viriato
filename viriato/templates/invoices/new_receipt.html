@@ -19,10 +19,15 @@
 
 {% block jquery %}
     {% if there_are_errors %}
-        if (!isNaN(parseInt($('#id_con-contract').val())))
+        if (!isNaN(parseInt($('#id_con-contract').val()))){
+
             set_with_project_functions();
-        else
+        }
+        else{
+
+            add_new_row('table_details');
             set_without_project_functions();
+        }
     {% else %}
         $('#have_contract').jqmShow({autofire: true,});
     {% endif %}

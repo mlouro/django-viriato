@@ -69,10 +69,10 @@ def contract(request, object_id=0):
         )
 
         if contract_form.is_valid() and formset.is_valid():
-            new_contract = contract_form.save()
-            formset.save()
-            new_contract.calculate() #Total's calculation
-
+            if contract.approved == False:
+                new_contract = contract_form.save()
+                formset.save()
+                new_contract.calculate() #Total's calculation
         else:
             return render_to_response ("invoices/" + template_to_go,
                                     {
@@ -83,12 +83,11 @@ def contract(request, object_id=0):
                                         'contract': contract,
                                         'PROJECT': project,
                                         'approved': contract.approved,
+                                        'there_are_errors': True,
                                     },
                                     context_instance=RequestContext(request)
         )
 
-
-        #return HttpResponseRedirect('/invoices/contracts')#Atention: New destination needed
         return redirect (contract)
 
 
@@ -153,13 +152,17 @@ def milestone_ajax(request):
 
 def contracts_ajax(request):
     #filter(approved=True)
-    data = serializers.serialize('json', Contract.objects.filter(approved=True), ensure_ascii=False)
+    data = serializers.serialize('json', Contract.objects.filter(approved=True, finished=False), ensure_ascii=False)
     return HttpResponse(data, mimetype='text/javascript')
 
 
 def contract_details_ajax(request):
-    contract_id = request.POST['contract_id']
-    data = serializers.serialize('json', ContractDetails.objects.filter(contract=contract_id, payed=False), ensure_ascii=False)
+    contract_id = int(request.POST['contract_id'])
+    if contract_id < 0:
+        first_contract = Contract.objects.filter(approved=True, finished=False)[:1]
+        data = serializers.serialize('json', ContractDetails.objects.filter(contract=first_contract[0].id), ensure_ascii=False)
+    else:
+        data = serializers.serialize('json', ContractDetails.objects.filter(contract=contract_id, payed=False), ensure_ascii=False)
     return HttpResponse(data, mimetype='text/javascript')
 
 

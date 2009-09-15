@@ -1,13 +1,5 @@
 $(document).ready(function(){
-    $("#table_details tr:last td:eq(1) input").change(function(){
-        if ($("#table_details tr:last td:eq(1) input").val()!=""){
-            add_new_row("table_details");
-            add_add_row_event('table_details');
-            copy_tax_and_retention_values("table_details");
-            rename_hide_button("table_details");
-            add_calculate_totals_event('table_details');
-        }
-    });
+    add_add_row_event('table_details', false);
 
     $('#dialog').jqm({
         modal: true,
@@ -41,6 +33,13 @@ function totals(){
             parseFloat($('#id_con-total_tax_value').val()) -
             parseFloat($('#id_con-total_retention_value').val())
         );
+}
+
+function there_are_erros_actions(){
+    add_new_row('table_details');
+    copy_tax_and_retention_values('table_details');
+    add_add_row_event('table_details');
+    rename_hide_button('table_details');
 }
 
 function add_calculate_totals_event(table){
@@ -111,7 +110,7 @@ function get_milestones(project_id){
     $.post("/invoices/contract/milestone_ajax/",
         { project_id : project_id },
         function(data){
-            remove_table_rows($('#milestones_table tr').length-1);
+            $('#milestones_table tr:gt(1)').remove();
             for (i in data){
                 $('#milestones_table tr:last').attr('id', 'row_'+i)
                 $('#milestones_table tr:last td:eq(0) input').attr('id', 'milestone_'+i);
@@ -129,11 +128,6 @@ function get_milestones(project_id){
         },
         "json"
     );
-}
-
-function remove_table_rows(len){
-    for (i=1;i<len;i++)
-        $('#row_'+i).remove();
 }
 
 function select_all(){
@@ -163,7 +157,7 @@ function do_import(id){
     len = $('#table_details tr').length-1;
     $('#table_details tr:eq(' + len + ') td:eq(1) input').val($('#title_' + id).html());
     add_new_row('table_details');
-    add_add_row_event('table_details');
+    add_add_row_event('table_details', false);
     copy_tax_and_retention_values(table);
     rename_hide_button(table);
     add_calculate_totals_event(table);
@@ -200,12 +194,10 @@ function calculate_others(table, col1, col2, other){
 
 function lock_fields(){
     // function to be used after contract has been approved
-    $('#id_con-description').attr('readonly', true);
-    $('#id_con-date').attr('readonly', true);
-    $('#id_con-approved').attr('readonly', true);
-    $('#id_con-company').attr('disabled', true);
-    $('#id_con-project').attr('disabled', true);
-    $('#table_details tr td input').attr('readonly', true);
+    $('INPUT[type="text"]').attr('readonly', true);
+    $('INPUT[type="select"]').attr('disabled', true);
+    $('INPUT[type="checkbox"]').attr('disabled', true);
     $('#importMilestones').unbind();
     $('.submit p a').unbind();
+    $('#id_con-date').unbind();
 }
