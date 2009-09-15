@@ -18,7 +18,7 @@ parser.add_option('-n', '--newsletter', dest='newsletter', metavar='NEWSLETTER',
 if not options.newsletter:
     parser.error("You must specifiy a Newsletter ID")
 
-sys.path.append('/home/coin/projects/newsletters-trunk/newsletters')
+sys.path.append('/home/coin/projects/viriatoapp/viriato_project')
 os.environ['DJANGO_SETTINGS_MODULE'] ='settings'
 
 from django.core.management import setup_environ

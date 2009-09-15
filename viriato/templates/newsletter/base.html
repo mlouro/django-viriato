@@ -10,6 +10,7 @@
 <script type="text/javascript" src="{{ MEDIA_URL }}js/libs/newsletters/jquery.flot.js"></script>
 <script type="text/javascript" src="{{ MEDIA_URL }}js/libs/newsletters/raphael.js"></script>
 <script type="text/javascript" src="{{ MEDIA_URL }}js/newsletters/charts.js"></script>
+<script type="text/JavaScript" src="{{ MEDIA_URL }}js/newsletters/FusionCharts.js"></script>
 {% endblock %}
 
 {% block content_id_title %}<h1>Overview</h1>{% endblock %}
@@ -27,11 +28,13 @@
 
 {% block secondary_nav %}
     <ul>
-    {% url dashboard as dashboard %}
+    {% url dashboard as dashboard_url %}
+    {% url newsletter_list as newsletter_list_url %}
     {% url  group_list as group_list_url %}
     {% url  subscriber_list as subscriber_list_url %}
     
-    {% get_link_if_allowed dashboard "Dashboard" %}
+    {% get_link_if_allowed dashboard_url "Dashboard" %}
+    {% get_link_if_allowed newsletter_list_url "Newsletter List" %}
     {% get_link_if_allowed group_list_url "Group List" %}
     {% get_link_if_allowed subscriber_list_url "Subscribers By Group" %}
     </ul>

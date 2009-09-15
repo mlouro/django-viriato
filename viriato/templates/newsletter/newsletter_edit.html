@@ -1,21 +1,13 @@
-{% extends "newsletter/base.html" %}
+{% extends "newsletter/newsletter_content.html" %}
 {% load i18n %}
 {% load navigation_tags %}
 
-{% block content_id_title %}<h1>Update Newsletter "{{object}}"</h1>{% endblock %}
+
+{% block content_id_title %}<h1>Update Newsletter "{{ object }}"</h1>{% endblock %}
+
 
 {% block content %}
 
     {% include "newsletter/newsletter_form.html" %}
-
-    <div class="links_edit">
-    {% for el in links %}
-        <ul>
-        <li>Alias</li>
-        <input type="text" value ={{ el.slug }}>
-        {{ el.link }}
-        </ul>   
-    {% endfor %}
-    </div>
 
 {% endblock %}

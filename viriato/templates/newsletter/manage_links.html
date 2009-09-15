@@ -5,8 +5,12 @@
 {% block content %}
 
 <form method="POST" action="">
+
     {{ formset }}
-    <input type = "submit" value = "Submit">
+    <p class="submit">
+        <input type="submit" value="Save Newsletter" />
+        <a href="javascript:history.back()">Cancel</a>
+    </p>
 
 </form>
 

@@ -34,10 +34,10 @@
     <!--</table>-->
 <!--</div>-->
 
-<div class="newsletter_activity">
+<div class="group_activity">
 
     {% for item in object_list %}
-    <h3><a href="{{ item.get_absolute_url }}">{{ item.name }}</a></h3>
+    <h3 class="group-row"><a href="{{ item.get_absolute_url }}">{{ item.name }}</a></h3>
     <table class="activity">
         <tr>
             <!--<td class="action"><span class="comment">:: type ::</span></td>-->

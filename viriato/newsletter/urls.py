@@ -60,13 +60,13 @@ urlpatterns = patterns('newsletter.views',
     
     #Newsletters
     url(r'^add/$', 'newsletter_add', name='newsletter_add'),
+    url(r'^list/$','index', name='newsletter_list'),
     url(r'^edit/(?P<newsletter_id>\w+)/$', 'newsletter_edit', name='newsletter_edit'),
     url(r'^content/(?P<newsletter_id>\w+)/$', 'newsletter_content', name = 'newsletter_content'),
     url(r'^analytics/(?P<newsletter_id>\w+)/$', 'newsletter_analytics', name = 'newsletter_analytics'),
     
     #Testing Links
-    url(r'^links/(?P<newsletter_id>\w+)/$', 'manage_links', name='manage_links'),
-    url(r'^man/$', 'manage_authors', name='manage_authors'),
+    url(r'^links/(?P<object_id>\w+)/$', 'manage_links', name='manage_links'),
     
     #Subscribers
     url(r'^subscriber/add/$', create_object, subscriber_create_dict, name='subscriber_create'),
@@ -89,8 +89,7 @@ urlpatterns = patterns('newsletter.views',
     #testing
     url(r'^send/(?P<object_id>\d+)/$','newsletter_send', name='newsletter_send'),
     url(r'^display_meta/$', 'display_meta', name='display_meta'),
-    url(r'^link/(?P<object_id>\d+)/$','link', name='link'),
     
     #Index
-    url(r'^$', 'index', name='newsletter_list'),
+    url(r'^$', 'index'),
 )

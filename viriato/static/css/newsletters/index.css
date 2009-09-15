@@ -1,7 +1,3 @@
-
-/* Newsletters overview
------------------------------------------------ */
-
 table.activity { width: 100%; }
     table.activity td { padding: 6px 4px 8px; border-bottom: 1px solid #EFEFEF;
             white-space: nowrap; }
@@ -9,13 +5,79 @@ table.activity { width: 100%; }
         table.activity .description { width: 100%; }
         table.activity .name { border-right: 1px solid #EFEFEF; }
 
+
+
+/* Newsletters Activity
+----------------------------------------------- */
+
 .newsletter_activity h3 { padding: 5px 10px; background: #EFEFEF; font-weight: normal; }
 .newsletter_activity h3 a { text-decoration: none; color: #000; }
+.newsletter_activity .newsletter-row.focused { background-color: #FFF9DF }
 
 /* Newsletters link edit
 ----------------------------------------------- */
 
 div.links_edit {position: absolute; left: 410px; top: 100px; height: 400px; width: 500px; padding: 1em;}
+
+
+/* Group Activity
+----------------------------------------------- */
+
+
+.group_activity h3 { padding: 5px 10px; background: #EFEFEF; font-weight: normal; }
+.group_activity h3 a { text-decoration: none; color: #000; }
+.group_activity .group-row.focused { background-color: #FFF9DF }
+
+
+
+
+
+/* Newsletters
+----------------------------------------------- */
+
+#tasks .milestone { padding-bottom: 30px; }
+#tasks h2 { font-size: 1.6em; border-bottom: 1px solid #EFEFEF; }
+
+.task_list ul { border-top: 1px solid #EFEFEF;  }
+    .task_list ul.initial-node { margin-top: 15px; }
+    .task_list .task-row { position: relative; padding: 7px 3px 7px 25px; background: #F9F9F9 url(../images/projects/task/bullet_red.gif) no-repeat center left; border: 1px solid #EFEFEF; border-top: none; }
+        .task-row label { font-size: 1.2em; }
+            .task-row label strong { font-weight: bold; }
+            .task-row label em { font-style: italic; }
+        .task-row.complete label { text-decoration: line-through; }
+        .task-row.complete .time { display: none; }
+        .task-row .time, .task-row .owner { padding: 1px 3px; background: green; color: #FFF; font-size: 1.1em; }
+        .task-row .time_until { background: green; }
+        .task-row .time_since { background: red; }
+        .task-row .owner { background: #EDEDED; color: #666 }
+        .task-row .actions a { padding: 6px 3px; }
+
+        .task_list .actions { position: absolute; top: 0; right: 15px; padding: 5px 0 5px 5px; font-size: 1.2em; }
+        .task_list .actions span { margin: 0 2px; }
+        .task_list .actions a:hover { color: #000; }
+
+
+
+    .task_list li ul { padding-left: 20px; border: none; }
+    .task_list li li { font-size: 1em; }
+
+.task_details { height: auto; overflow: hidden; margin-top: 10px; padding: 15px; background-color: #F9F9F9; border: 1px solid #EFEFEF; }
+    .task_details .actions { float: right; }
+    .task_details .details { float: left; }
+
+#content_sidebar .task_list .task-row { border: none; }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

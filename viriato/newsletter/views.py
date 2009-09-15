@@ -3,13 +3,14 @@ from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.template import RequestContext
 from newsletter.models import Subscriber,Group,Newsletter,Link
 from django.db.models import Q
-from newsletter.forms import NewsletterForm
+from newsletter.forms import NewsletterForm, LinkFormset
 from django.views.generic.create_update import create_object, update_object
 from django.views.generic import list_detail
 
 import httplib2, urllib2, lxml
 from lxml.html import fromstring, iterlinks, make_links_absolute
-from settings import ROOT_DIR
+from settings import ROOT_DIR, PROJECT_ROOT
+
 
 def index(request):
     """Present the index newsletter page 
@@ -99,45 +100,29 @@ def newsletter_send(request, newsletter_id):
                               context_instance=RequestContext(request))
 
 #----------------------------------------------------------------------
-def manage_links(request, newsletter_id):
+def manage_links(request, object_id):
     from django.forms.models import inlineformset_factory
     
-    newsletter = Newsletter.objects.get(pk=newsletter_id)
-    LinkInlineFormSet = inlineformset_factory(Newsletter, model=Link)
+    newsletter = Newsletter.objects.get(pk=object_id)
+    
+    #BookInlineFormSet = inlineformset_factory(Author, Book)
     if request.method == "POST":
-        formset = LinkInlineFormSet(request.POST, request.FILES, instance=newsletter)
+        formset = LinkFormset(request.POST, request.FILES, instance=newsletter)
         if formset.is_valid():
             formset.save()
             # Do something.
     else:
-        formset = LinkInlineFormSet(instance=newsletter)
-    print formset
-    return render_to_response("newsletter/manage_links.html", {
-        "formset": formset,
-    })
+        formset = LinkFormset(instance=newsletter)
+        
+    return render_to_response("newsletter/manage_links.html", 
+                              {"formset": formset},
+                              context_instance=RequestContext(request))
 
-#----------------------------------------------------------------------
-def manage_authors(request):
-    """URL man - just used to try to undestand the concept"""
-    from django.forms.models import modelformset_factory
-    
-    AuthorFormSet = modelformset_factory(Link)
-    if request.method == 'POST':
-        formset = AuthorFormSet(request.POST, request.FILES)
-        if formset.is_valid():
-            formset.save()
-            # do something.
-    else:
-        formset = AuthorFormSet()
-    print formset
-    return render_to_response("newsletter/manage_links.html", {
-        "formset": formset,
-    })
 #----------------------------------------------------------------------
 def subscriber_by_group(request, object_id):
     """It sorts subscribers by group"""
     #look up the group
-    #ry:
+    #try:
     grp = Group.objects.get(id=object_id)
     #except Group.DoesNotExist:
        #raise Http404
@@ -181,25 +166,7 @@ def display_meta(request):
     values = request.META.items()
     values.sort()
     html = []
+    
     for k, v in values:
         html.append('<tr><td>%s</td><td>%s</td></tr>' % (k, v))
     return HttpResponse('<table>%s</table>' % '\n'.join(html))
-
-#----------------------------------------------------------------------
-def link(request,object_id):
-    """testing.. (probably this view will get deleted)"""
-    data = []
-    newsletter = Newsletter.objects.get(id=object_id)
-    data = newsletter.get_links()
-    print data
-
-    if request.method == "POST":
-        formset = NewsletterForm(request.POST, instance=newsletter) 
-        if formset.is_valid():
-            formset.save()
-            return HttpResponseRedirect('/newsletter/')
-    else:
-        formset = NewsletterForm(instance=newsletter)
-    return render_to_response("newsletter/newsletter_edit.html", 
-                              {"form": formset,"links":data},
-                              context_instance=RequestContext(request))

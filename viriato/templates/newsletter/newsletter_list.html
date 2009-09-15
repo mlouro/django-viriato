@@ -3,12 +3,14 @@
 {% load navigation_tags %}
 
 
+{% block content_id_title %}<h1>Newsletters</h1>{% endblock %}
+
 {% block content %}
 
 <div class="newsletter_activity">
 
     {% for item in newsletter %}
-    <h3><a href="{{ item.get_absolute_url }}">{{ item.title }}</a></h3>
+    <h3 class="newsletter-row"><a href="{{ item.get_absolute_url }}">{{ item.title }}</a></h3>
     <table class="activity">
         <tr>
             <!--<td class="action"><span class="comment">:: type ::</span></td>-->

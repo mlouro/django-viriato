@@ -162,7 +162,7 @@ class Newsletter(models.Model):
 
     #----------------------------------------------------------------------
     def chart_links(self):
-        """"""
+        """-- NOT BEING USED """
         from pychartdir import *
 
         links = Link.objects.filter(newsletter = self)
@@ -174,10 +174,9 @@ class Newsletter(models.Model):
             # The labels for the bar chart
             labels.append(str(el.slug))
             
-    
     #----------------------------------------------------------------------
     def  get_links(self):
-        """Get links"""
+        """Get links -- NOT BEING USED """
         
         links = Link.objects.filter(newsletter = self)
         data =[]
@@ -187,7 +186,6 @@ class Newsletter(models.Model):
         
         return data
         
-
 ########################################################################
 class Link(models.Model):
     """Class to store the newsletter links with the corresponding hash"""
