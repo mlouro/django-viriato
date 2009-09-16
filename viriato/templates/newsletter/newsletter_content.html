@@ -8,13 +8,15 @@
 
 {% block secondary_nav %}
     <ul>
+    {% url newsletter_send newsletter.id as newsletter_send_url %}
     {% url newsletter_edit newsletter.id as newsletter_edit_url %}
     {% url newsletter_analytics newsletter.id as newsletter_analytics_url %}
-    {% url newsletter_send newsletter.id as newsletter_send_url %}
-    
+    {% url newsletter_delete newsletter.id as newsletter_delete_url %}
+
+    {% get_link_if_allowed newsletter_send_url "Send" %}
     {% get_link_if_allowed newsletter_edit_url "Edit" %}
     {% get_link_if_allowed newsletter_analytics_url "Analytics" %}
-    {% get_link_if_allowed newsletter_send_url "Send" %}
+    {% get_link_if_allowed newsletter_delete_url "Delete" %}
     </ul>
 {% endblock %}
 

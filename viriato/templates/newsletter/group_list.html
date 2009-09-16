@@ -6,38 +6,18 @@
 
 
 {% block content %}
-    <!--{% for item in object_list %}-->
-            <!--<td><a href="{{ item.get_edit_url }}">{{ item.name }}</a></td>-->
-            <!--<td>{{ item.created.date }}</p></td>-->
-    <!--{% endfor %}-->
-<!--<div id ="group-activity">-->
-    <!--<table class="activity">-->
-    <!--<thead>-->
-        <!--<tr>-->
-            <!--<th><input type="checkbox"/></th>-->
-            <!--<th><h2 class="headline">{% trans 'Group' %}</h2></th>-->
-            <!--<th><h2 class="headline">{% trans 'Created' %}</h2></th>-->
-            <!--<th><h2 class="headline">{% trans 'Followers' %}</h2></th>-->
-        <!--</tr>-->
-    <!--</thead>-->
-    <!--<tbody>-->
-    <!--{% for item in group %}-->
-        <!--<tr>-->
-            <!--<td>-->
-                <!--<input type="checkbox"  class="select_all" value= {{item.id}} />-->
-            <!--</td>-->
-            <!--<td><a href="{{ item.get_edit_url }}">{{ item.name }}</a></td>-->
-            <!--<td>{{ item.created.date }}</p></td>-->
-        <!--</tr>-->
-    <!--{% endfor %}-->
-    <!--<tbody> -->
-    <!--</table>-->
-<!--</div>-->
 
 <div class="group_activity">
 
     {% for item in object_list %}
-    <h3 class="group-row"><a href="{{ item.get_absolute_url }}">{{ item.name }}</a></h3>
+    <div class="group-row">
+        <h3><a href="{{ item.get_absolute_url }}">{{ item.name }}</a></h3>
+            <div class="actions hidden">
+                <span><a href="{{ item.get_absolute_url }}" class="edit">view</a>, </span>
+                <span><a href="{{ item.get_absolute_url }}" class="edit">edit</a>,  </span>
+                <span><a href="{{ item.get_delete_url }}" class="delete">delete</a> </span>
+            </div>
+    </div>
     <table class="activity">
         <tr>
             <!--<td class="action"><span class="comment">:: type ::</span></td>-->
@@ -51,11 +31,6 @@
         </tr>
     </table>
     {% endfor %}
-    
 </div>
-
-
-
-
 
 {% endblock %}

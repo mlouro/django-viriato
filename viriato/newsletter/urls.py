@@ -1,5 +1,5 @@
 from django.conf.urls.defaults import *
-from newsletter.models import Subscriber, Group
+from newsletter.models import Newsletter, Subscriber, Group
 from newsletter.forms import NewsletterForm, SubscriberForm,GroupForm
 from django.views.generic import list_detail, date_based
 from django.views.generic.simple import direct_to_template
@@ -52,6 +52,14 @@ group_list_dict = {
     #'template_object_name' : "group", # default is object_list
 }
 
+#Newsletter
+newsletter_delete_dict = {
+    'model':Newsletter,
+    'template_name': 'newsletter/newsletter_delete.html',
+    'post_delete_redirect':'/newsletter/list/',
+}
+
+
 
 urlpatterns = patterns('newsletter.views',
     
@@ -62,6 +70,7 @@ urlpatterns = patterns('newsletter.views',
     url(r'^add/$', 'newsletter_add', name='newsletter_add'),
     url(r'^list/$','index', name='newsletter_list'),
     url(r'^edit/(?P<newsletter_id>\w+)/$', 'newsletter_edit', name='newsletter_edit'),
+    url(r'^delete/(?P<object_id>\w+)/$', delete_object, newsletter_delete_dict, name='newsletter_delete'),
     url(r'^content/(?P<newsletter_id>\w+)/$', 'newsletter_content', name = 'newsletter_content'),
     url(r'^analytics/(?P<newsletter_id>\w+)/$', 'newsletter_analytics', name = 'newsletter_analytics'),
     
@@ -80,7 +89,7 @@ urlpatterns = patterns('newsletter.views',
     url(r'^group/add/$', create_object, group_create_dict, name='group_create'),
     url(r'^group/list/$', list_detail.object_list, group_list_dict, name='group_list'),
     url(r'^group/update/(?P<object_id>\d+)/$', update_object, group_update_dict, name='group_update'),
-    url(r'^group/delete/(?P<object_id>\d+)/$', delete_object, group_delete_dict, name='groups_delete'),
+    url(r'^group/delete/(?P<object_id>\d+)/$', delete_object, group_delete_dict, name='group_delete'),
     
     #Extra
     url(r'^news/(?P<link_hash>\w+)/$', 'link_count', name='link_count'),

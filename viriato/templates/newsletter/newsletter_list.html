@@ -7,10 +7,18 @@
 
 {% block content %}
 
+
 <div class="newsletter_activity">
 
     {% for item in newsletter %}
-    <h3 class="newsletter-row"><a href="{{ item.get_absolute_url }}">{{ item.title }}</a></h3>
+    <div class="newsletter-row">
+        <h3><a href="{{ item.get_absolute_url }}">{{ item.title }}</a></h3>
+            <div class="actions hidden">
+                <span><a href="{{ item.get_absolute_url }}" class="edit">view</a>, </span>
+                <span><a href="{{ item.get_edit_url }}" class="edit">edit</a>,  </span>
+                <span><a href="{{ item.get_delete_url }}" class="delete">delete</a> </span>
+            </div>
+    </div>
     <table class="activity">
         <tr>
             <!--<td class="action"><span class="comment">:: type ::</span></td>-->
@@ -24,7 +32,6 @@
         </tr>
     </table>
     {% endfor %}
-    
 </div>
 
 {% endblock %}

@@ -19,6 +19,11 @@ class Group(models.Model):
         return ('group_update', [str(self.id)])
     #----------------------------------------------------------------------
     @models.permalink
+    def get_delete_url(self):
+        """Return the delete url"""
+        return('group_delete',[str(self.id)])
+    #----------------------------------------------------------------------
+    @models.permalink
     def get_subscribers_by_group_url(self):
         """Return the filter url"""
         #return "/newsletter/subscribers-by-group/" + str(self.id) + "/"
@@ -77,6 +82,11 @@ class Newsletter(models.Model):
         """Return the edit url"""
         #return "/edit/" + str(self.id) + "/"
         return ('newsletter_edit', [str(self.id)])
+    #----------------------------------------------------------------------
+    @models.permalink
+    def get_delete_url(self):
+        """Return the delete url"""
+        return('newsletter_delete',[str(self.id)])
     #----------------------------------------------------------------------
     def save(self):
         """Override the save function to treat the html content"""
