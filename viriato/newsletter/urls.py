@@ -26,6 +26,12 @@ subscriber_list_dict = {
     #'date_field': 'created',
     'template_name': 'newsletter/subscriber_list.html',
     #'template_object_name' : "subscriber", # default is object_list
+}
+subscriber_by_group_list_dict = {
+    'queryset': Subscriber.objects.all(),
+    #'date_field': 'created',
+    'template_name': 'newsletter/subscriber_by_group.html',
+    #'template_object_name' : "subscriber", # default is object_list
     'extra_context': {'group_list' : Group.objects.all}
 }
 
@@ -82,6 +88,7 @@ urlpatterns = patterns('newsletter.views',
     url(r'^subscriber/list/$', list_detail.object_list, subscriber_list_dict, name='subscriber_list'),
     url(r'^subscriber/update/(?P<object_id>\d+)/$', update_object, subscriber_update_dict, name='subscriber_update'),
     url(r'^subscriber/delete/(?P<object_id>\d+)/$', delete_object, subscriber_delete_dict, name='subscriber_delete'),
+    url(r'^subscriber/by-group/$', list_detail.object_list, subscriber_by_group_list_dict, name='subscriber_by_group_list'), # with a generic view in view.py
     url(r'^subscriber/by-group/(?P<object_id>\d+)/$', 'subscriber_by_group', name='subscriber_by_group'), # with a generic view in view.py
     
     #Groups
