@@ -82,7 +82,6 @@ urlpatterns = patterns('newsletter.views',
     url(r'^subscriber/list/$', list_detail.object_list, subscriber_list_dict, name='subscriber_list'),
     url(r'^subscriber/update/(?P<object_id>\d+)/$', update_object, subscriber_update_dict, name='subscriber_update'),
     url(r'^subscriber/delete/(?P<object_id>\d+)/$', delete_object, subscriber_delete_dict, name='subscriber_delete'),
-    
     url(r'^subscriber/by-group/(?P<object_id>\d+)/$', 'subscriber_by_group', name='subscriber_by_group'), # with a generic view in view.py
     
     #Groups

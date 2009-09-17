@@ -130,7 +130,7 @@ def subscriber_by_group(request, object_id):
     return list_detail.object_list(
         request,
         queryset = Subscriber.objects.filter(group = grp),
-        template_name = "newsletter/subscriber_list.html",
+        template_name = "newsletter/subscriber_by_group.html",
         extra_context = {"group_list": Group.objects.all}
         )
 

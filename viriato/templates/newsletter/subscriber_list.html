@@ -2,48 +2,36 @@
 {% load i18n %}
 {% load navigation_tags %}
 
-{% block content_id_title %}<h1> Subscribers by Groups</h1>{% endblock %}
 
+{% block content_id_title %}<h1>Newsletters</h1>{% endblock %}
 
 {% block content %}
 
-<table id="subscriber_table">
-    
-<thead>
-    <tr >
-        <th><h2 class="headline"> {%trans "Groups" %}</h2></th>
-        <th><h2 class="headline">{%trans "Subscribers" %}</h2></th>
-    </tr>
-</thead>
 
-<tbody>
-<th>
-    <div id="group_activity">
-        {% for group in group_list %}
-            <table class="activity">
-                <tr>
-                    <td>
-                        <h3><a href="{{ group.get_subscribers_by_group_url}}">{{ group }}</a></h3>
-                    </td>
-                </tr>
-            </table>
-        {% endfor %}
-    </div>
-</th>
-<th>
-    <div id="subscriber_activity">
-        {% for subscriber in object_list %}
-            <h3><a href="{{ subscriber.get_absolute_url }}">{{ subscriber }}</a></h3>
-            <table class="activity">
-                <tr>
-                        <td class="details"> E-mail : {{ subscriber.email }} </td>
-                </tr>
-                </table>
-        {% endfor %}
-    </div>
-</th>
-</tbody>
+<div class="newsletter_activity">
 
-</table>
+    {% for item in object_list %}
+    <div class="newsletter-row">
+        <h3><a href="{{ item.get_absolute_url }}">{{ item }}</a></h3>
+            <div class="actions hidden">
+                <span><a href="{{ item.get_absolute_url }}" class="edit">view</a>, </span>
+                <span><a href="{{ item.get_edit_url }}" class="edit">edit</a>,  </span>
+                <span><a href="{{ item.get_delete_url }}" class="delete">delete</a> </span>
+            </div>
+    </div>
+    <table class="activity">
+        <tr>
+            <!--<td class="action"><span class="comment">:: type ::</span></td>-->
+            <td class="description">
+                <!--<div class="item_content">-->
+                    <!--<a href="/">:: description ::</a>-->
+                <!--</div>-->
+            </td>
+            <!--<td class="name">:: user ::</td>-->
+            <td class="date">:: {{ item.created.date }} ::</td>
+        </tr>
+    </table>
+    {% endfor %}
+</div>
 
 {% endblock %}

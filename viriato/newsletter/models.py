@@ -24,9 +24,8 @@ class Group(models.Model):
         return('group_delete',[str(self.id)])
     #----------------------------------------------------------------------
     @models.permalink
-    def get_subscribers_by_group_url(self):
+    def get_subscriber_by_group_url(self):
         """Return the filter url"""
-        #return "/newsletter/subscribers-by-group/" + str(self.id) + "/"
         return ('subscriber_by_group', [str(self.id)])
 
 ########################################################################
@@ -46,15 +45,22 @@ class Subscriber(models.Model):
     @models.permalink
     def get_absolute_url(self):
         """Return the absolute url"""
-        #return "subscriber-content/" + str(self.id) + "/"
         return ('subscriber_update', [str(self.id)])
-
     #----------------------------------------------------------------------
     @models.permalink
-    def get_subscribers_by_group_url(self):
-        """Return the edit url"""
-        #return "/newsletter/subscriber-update/" + str(self.id) + "/"
-        return ('subscribers_by_group', [str(self.id)])
+    def get_edit_url(self):
+        """Return the absolute url"""
+        return ('subscriber_update', [str(self.id)])
+    #----------------------------------------------------------------------
+    @models.permalink
+    def get_delete_url(self):
+        """Return the absolute url"""
+        return ('subscriber_delete', [str(self.id)])
+    #----------------------------------------------------------------------
+    #@models.permalink
+    #def get_subscriber_by_group_url(self):
+        #"""Return the edit url"""
+        #return ('subscriber_by_group', [str(self.id)])
 
 ########################################################################
 class Newsletter(models.Model):
