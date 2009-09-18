@@ -7,43 +7,78 @@
 
 {% block content %}
 
-<table id="subscriber_table">
-    
-<thead>
-    <tr >
-        <th><h2 class="headline"> {%trans "Groups" %}</h2></th>
-        <th><h2 class="headline">{%trans "Subscribers" %}</h2></th>
-    </tr>
-</thead>
-
-<tbody>
-<th>
+<div>
+<h2 class="headline"> {%trans "Groups" %}</h2>
     <div id="group_activity">
+        <ul>
         {% for group in group_list %}
-            <table class="activity">
-                <tr>
-                    <td>
-                        <h3><a href="{{ group.get_subscriber_by_group_url }}">{{ group }}</a></h3>
-                    </td>
-                </tr>
-            </table>
+            <!--<table class="activity">-->
+            <li>
+                <h3>
+                    <a href="{{ group.get_subscriber_by_group_url }}">{{ group }}</a>
+                </h3>
+            </li>
         {% endfor %}
+        </ul>
     </div>
-</th>
-<th>
-    <div id="subscriber_activity">
-        {% for subscriber in object_list %}
-            <h3><a href="{{ subscriber.get_absolute_url }}">{{ subscriber }}</a></h3>
-            <table class="activity">
-                <tr>
-                        <td class="details"> E-mail : {{ subscriber.email }} </td>
-                </tr>
-                </table>
-        {% endfor %}
-    </div>
-</th>
-</tbody>
+</div>
 
-</table>
+<div>
+<h2 class="headline"> {%trans "Subscribers" %}</h2>
+    <div id="subscriber_activity">
+    <ul>
+        {% for subscriber in object_list %}
+        <li>
+            <h3>
+                <a href="{{ subscriber.get_absolute_url }}">{{ subscriber }}</a>
+            </h3>
+            <!--<table class="activity">-->
+            <td class="details"> E-mail : {{ subscriber.email }} </td>
+        </li>
+        {% endfor %}
+        </ul>
+    </div>
+</div>
+
+
+<!--<table id="subscriber_by_group_table">-->
+    
+<!--<thead>-->
+    <!--<tr >-->
+        <!--<th><h2 class="headline"> {%trans "Groups" %}</h2></th>-->
+        <!--<th><h2 class="headline">{%trans "Subscribers" %}</h2></th>-->
+    <!--</tr>-->
+<!--</thead>-->
+
+
+<!--<tbody>-->
+<!--<th>-->
+    <!--<div id="group_activity">-->
+        <!--{% for group in group_list %}-->
+            <!--<table class="activity">-->
+                <!--<tr>-->
+                    <!--<td>-->
+                        <!--<h3><a href="{{ group.get_subscriber_by_group_url }}">{{ group }}</a></h3>-->
+                    <!--</td>-->
+                <!--</tr>-->
+            <!--</table>-->
+        <!--{% endfor %}-->
+    <!--</div>-->
+<!--</th>-->
+<!--<th>-->
+    <!--<div id="subscriber_activity">-->
+        <!--{% for subscriber in object_list %}-->
+            <!--<h3><a href="{{ subscriber.get_absolute_url }}">{{ subscriber }}</a></h3>-->
+            <!--<table class="activity">-->
+                <!--<tr>-->
+                        <!--<td class="details"> E-mail : {{ subscriber.email }} </td>-->
+                <!--</tr>-->
+                <!--</table>-->
+        <!--{% endfor %}-->
+    <!--</div>-->
+<!--</th>-->
+<!--</tbody>-->
+
+<!--</table>-->
 
 {% endblock %}

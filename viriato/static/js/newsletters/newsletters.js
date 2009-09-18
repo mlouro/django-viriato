@@ -22,6 +22,15 @@ $(document).ready(function(){
         $(this).children(".actions").addClass("hidden");
     });
 
+// SUBSCRIBER LIST
+    // mouseover / mouseout todolist
+    $(".subscriber-row").mouseover(function(){
+        $(this).addClass("focused");
+        $(this).children(".actions").removeClass("hidden");
+    });
+    $(".subscriber-row").mouseout(function(){
+        $(this).removeClass("focused");
+        $(this).children(".actions").addClass("hidden");
+    });
+
 });
-
-
