@@ -48,8 +48,17 @@ table.activity { width: 100%; }
 
 /* Subscriber by group
 ----------------------------------------------- */
-#subscriber_by_group_table {table-lay
-
+.subscriber_by_group{}
+        .subscriber_by_group a:hover { color: #000; }
+        .subscriber_by_group li {padding:5px}
+        .subscriber_by_group h3 { padding: 5px 10px; background: #EFEFEF; font-weight: normal; }
+        .subscriber_by_group h3 a { text-decoration: none; color: #000; }
+        
+        .group_by {float: left; margin-right: 30px; padding-top: 10px; width:20.5em;}
+        .group_by .group-row.focused h3{ background-color: #FFF9DF }
+        
+        .subscriber_by {float: left; margin-left: 0px; padding-top: 10px; width:20.5em;}
+        .subscriber_by .subscriber-row.focused h3{ background-color: #FFF9DF }
 
 
 /* Newsletters link edit
