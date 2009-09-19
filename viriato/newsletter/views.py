@@ -65,7 +65,7 @@ def newsletter_edit(request, newsletter_id):
         #formset = BookInlineFormSet(instance=author)
         formset = NewsletterForm(instance=newsletter)
     return render_to_response("newsletter/newsletter_edit.html", 
-                              {"form": formset,"object":newsletter},
+                              {"form": formset,"newsletter":newsletter},
                               context_instance=RequestContext(request))
 
 #----------------------------------------------------------------------
@@ -79,23 +79,27 @@ def newsletter_analytics(request,newsletter_id):
                               context_instance=RequestContext(request))
 
 #----------------------------------------------------------------------
-def newsletter_send(request, newsletter_id):
+def newsletter_send(request, object_id):
+    path = PROJECT_ROOT + "/core/scripts/sendmail_v0.1.py"
+    print path
     #try:
         #newsletter = Newsletter.objects.get(id=newsletter_id)
     #except Newsletter.DoesNotExist:
         #raise Http404
     import sys, subprocess, os
-    sys.executable  = ROOT_DIR + '/newsletters/sendmail_v0.1.py -n 1'
+    #os.system  = path +' -n 1'
     #sys.stderr.write(ROOT_DIR + '/sendmail_v0.1.py -n 1')
-    #p = subprocess.Popen([sys.executable, ROOT_DIR + '/newsletters/sendmail_v0.1.py -n 1'], 
-     #                               stdout=subprocess.PIPE, 
-     #                               stderr=subprocess.STDOUT)
-    #sys.executable("/home/coin/projects/newsletters-trunk/newsletters/sendmail_v0.1.py -n 1")
-
+    #p = subprocess.Popen([sys.executable, path  +'-n 1'], 
+                                    #stdout=subprocess.PIPE, 
+                                    #stderr=subprocess.STDOUT)
+    #sys.executable("%s -n 1"%path)
+    
     #return HttpResponseRedirect('/newsletter/')
-    newsletter = get_object_or_404(Newsletter,id=newsletter_id)
-
-    return render_to_response('newsletter/content.html',
+    newsletter = get_object_or_404(Newsletter,id=object_id)
+    #from subprocess import call
+    #retcode = call([path , "-n %s"%str(object_id)])
+    os.system(path)
+    return render_to_response('newsletter/newsletter_content.html',
                               {'newsletter' : newsletter},
                               context_instance=RequestContext(request))
 
@@ -104,8 +108,6 @@ def manage_links(request, object_id):
     from django.forms.models import inlineformset_factory
     
     newsletter = Newsletter.objects.get(pk=object_id)
-    
-    #BookInlineFormSet = inlineformset_factory(Author, Book)
     if request.method == "POST":
         formset = LinkFormset(request.POST, request.FILES, instance=newsletter)
         if formset.is_valid():
@@ -115,7 +117,7 @@ def manage_links(request, object_id):
         formset = LinkFormset(instance=newsletter)
         
     return render_to_response("newsletter/manage_links.html", 
-                              {"formset": formset},
+                              {"formset": formset,},
                               context_instance=RequestContext(request))
 
 #----------------------------------------------------------------------

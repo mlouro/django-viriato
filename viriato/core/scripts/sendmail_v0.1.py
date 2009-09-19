@@ -18,7 +18,7 @@ parser.add_option('-n', '--newsletter', dest='newsletter', metavar='NEWSLETTER',
 if not options.newsletter:
     parser.error("You must specifiy a Newsletter ID")
 
-sys.path.append('/home/coin/projects/viriatoapp/viriato_project')
+sys.path.append('/home/coin/projects/viriatoapp/src/django-viriato/viriato')
 os.environ['DJANGO_SETTINGS_MODULE'] ='settings'
 
 from django.core.management import setup_environ
@@ -69,7 +69,7 @@ class mailx:
         
 ########################################################################
 #IMPLEMENTATION
-from newsletters.newsletter.models import Subscriber,Group,Newsletter
+from newsletter.models import Subscriber,Group,Newsletter
 from django.db.models import Q
 
 newsletter = Newsletter.objects.get(id=options.newsletter)

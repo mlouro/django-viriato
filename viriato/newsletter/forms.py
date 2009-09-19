@@ -22,4 +22,4 @@ class LinkForm(ModelForm):
         model = Link
         fields = ('link','slug')
 
-LinkFormset = inlineformset_factory(Newsletter,Link,extra=0)
+LinkFormset = inlineformset_factory(Newsletter,Link,extra=0,fields=('link','slug',))

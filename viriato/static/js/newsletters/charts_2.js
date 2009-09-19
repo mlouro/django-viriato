@@ -1,9 +1,3 @@
-
-
-
-////////////////////////////////////////////
-
-
 $(function () {
     $("#data_analytics").css({
         position: "absolute",
