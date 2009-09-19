@@ -82,7 +82,7 @@ groups=[]
 for gr in newsletter.group.all():
     groups.append(gr)
     for subs in Subscriber.objects.filter(Q(group=gr)):
-        if not subs in to:
+        if not subs in to and subs.subscribed == True:
             to.append(subs)
     
 server = "smtp.gmail.com"

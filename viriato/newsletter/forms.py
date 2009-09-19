@@ -23,3 +23,6 @@ class LinkForm(ModelForm):
         fields = ('link','slug')
 
 LinkFormset = inlineformset_factory(Newsletter,Link,extra=0,fields=('link','slug',))
+
+class UnsubscribeForm(forms.Form):
+    email = forms.EmailField()

@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load navigation_tags %}
+
+
+{% block content_id_title %}<h1>Unsubscribe</h1>{% endblock %}
+
+{% block content_id_links %}
+{% endblock %}
+
+{% block extra_content_id %}
+{% endblock %}
+
+{% block content %}
+
+To Unsubscribe this Newsletter please insert your E-mail:
+
+<form class="form" action="" method="post">
+
+    <p class="field">
+        <label>E-mail</label>
+        {{form.email}}
+    </p>
+    {{form.email.errors}}
+
+    <p class="submit">
+        <input type="submit" value="Unsubscribe" />
+    </p>
+
+</form>
+
+{% endblock %}

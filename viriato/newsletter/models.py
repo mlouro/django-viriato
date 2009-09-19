@@ -57,8 +57,13 @@ class Subscriber(models.Model):
         """Return the absolute url"""
         return ('subscriber_delete', [str(self.id)])
     #----------------------------------------------------------------------
+    def save(self,subscribed=True):
+        """Override Save method - subscriber.save(false)"""
+        self.subscribed = subscribed
+        super(Subscriber,self).save()
+    #----------------------------------------------------------------------
     #@models.permalink
-    #def get_subscriber_by_group_url(self):
+    #def get_subscriber_by_email_url(self,email):
         #"""Return the edit url"""
         #return ('subscriber_by_group', [str(self.id)])
 

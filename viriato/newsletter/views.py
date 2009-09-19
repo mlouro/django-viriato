@@ -3,7 +3,7 @@ from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.template import RequestContext
 from newsletter.models import Subscriber,Group,Newsletter,Link
 from django.db.models import Q
-from newsletter.forms import NewsletterForm, LinkFormset
+from newsletter.forms import NewsletterForm, LinkFormset, UnsubscribeForm
 from django.views.generic.create_update import create_object, update_object
 from django.views.generic import list_detail
 
@@ -56,16 +56,16 @@ def newsletter_edit(request, newsletter_id):
     newsletter = Newsletter.objects.get(id=newsletter_id)
     #BookInlineFormSet = inlineformset_factory(Author, Book)
     if request.method == "POST":
-        formset = NewsletterForm(request.POST, instance=newsletter) 
-        if formset.is_valid():
-            formset.save()
+        form = NewsletterForm(request.POST, instance=newsletter) 
+        if form.is_valid():
+            form.save()
             
             return HttpResponseRedirect('/newsletter/')
     else:
         #formset = BookInlineFormSet(instance=author)
-        formset = NewsletterForm(instance=newsletter)
+        form = NewsletterForm(instance=newsletter)
     return render_to_response("newsletter/newsletter_edit.html", 
-                              {"form": formset,"newsletter":newsletter},
+                              {"form": form,"newsletter":newsletter},
                               context_instance=RequestContext(request))
 
 #----------------------------------------------------------------------
@@ -142,7 +142,25 @@ def link_count(request,link_hash):
     edit = True
     link = Link.objects.get(created_hash = link_hash)
     link.save(edit)
-    return HttpResponseRedirect(link.link)
+    if link.slug == 'unsubscribe':
+        if request.method == 'POST':
+            form = UnsubscribeForm(request.POST)
+            if form.is_valid():
+                email = form.cleaned_data['email']
+                subscriber = get_object_or_404(Subscriber,email=email)
+                print subscriber
+                print subscriber.subscribed
+                subscriber.save(False)
+                print subscriber.subscribed
+
+                return render_to_response("newsletter/unsubscribe_tks.html")
+        else:
+                form = UnsubscribeForm()
+                return render_to_response("newsletter/unsubscribe.html",
+                                {"form":form,},
+                                context_instance=RequestContext(request))
+    else:
+        return HttpResponseRedirect(link.link)
 
 #----------------------------------------------------------------------
 def search(request):
