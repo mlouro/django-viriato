@@ -68,46 +68,49 @@ class mailx:
         self.mailServer.close()
         
 ########################################################################
-#IMPLEMENTATION
-from newsletter.models import Subscriber,Group,Newsletter
-from django.db.models import Q
 
-newsletter = Newsletter.objects.get(id=options.newsletter)
-html = newsletter.content
-subject =  newsletter.title
 
-to = []
-groups=[]
-
-for gr in newsletter.group.all():
-    groups.append(gr)
-    for subs in Subscriber.objects.filter(Q(group=gr)):
-        if not subs in to and subs.subscribed == True:
-            to.append(subs)
+if __name__ == "__main__":
+    #IMPLEMENTATION
+    from newsletter.models import Subscriber,Group,Newsletter
+    from django.db.models import Q
     
-server = "smtp.gmail.com"
-#port = 587
-port = 25
-
-gmail_user = "viriatoletter@gmail.com"   #Username
-gmail_pwd  = "<alexandre>"                   #Password
-gmail_alt  = "Viriato"                               #Alias ID
-gmail_alias = "Newsletter "+gmail_alt   #nickname
-
-#mailto   =  'tiago.ale.santos@gmail.com','thiaguss@gmail.com'
-#mailtoBcc=  ''
-
-
-########################################################################
-newmail = mailx()
-
-#newmail.mailprep(gmail_alias,subject)
-newmail.htmlprep(subject,gmail_alias,html)
-#for el in to:
-newmail.sendmail(server,port,to,gmail_user,gmail_pwd)
-    #print 'Sent to %s - %s'%(el.name,el.email)
+    newsletter = Newsletter.objects.get(id=options.newsletter)
+    html = newsletter.content
+    subject =  newsletter.title
+    
+    to = []
+    groups=[]
+    
+    for gr in newsletter.group.all():
+        groups.append(gr)
+        for subs in Subscriber.objects.filter(Q(group=gr)):
+            if not subs in to and subs.subscribed == True:
+                to.append(subs)
+        
+    server = "smtp.gmail.com"
+    #port = 587
+    port = 25
+    
+    gmail_user = "viriatoletter@gmail.com"   #Username
+    gmail_pwd  = "<alexandre>"                   #Password
+    gmail_alt  = "Viriato"                               #Alias ID
+    gmail_alias = "Newsletter "+gmail_alt   #nickname
+    
+    #mailto   =  'tiago.ale.santos@gmail.com','thiaguss@gmail.com'
+    #mailtoBcc=  ''
     
     
+    ########################################################################
+    newmail = mailx()
     
-    
-    
+    #newmail.mailprep(gmail_alias,subject)
+    newmail.htmlprep(subject,gmail_alias,html)
+    #for el in to:
+    newmail.sendmail(server,port,to,gmail_user,gmail_pwd)
+        #print 'Sent to %s - %s'%(el.name,el.email)
+        
+        
+        
+        
+        

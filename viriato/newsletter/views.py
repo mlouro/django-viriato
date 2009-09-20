@@ -98,7 +98,8 @@ def newsletter_send(request, object_id):
     newsletter = get_object_or_404(Newsletter,id=object_id)
     #from subprocess import call
     #retcode = call([path , "-n %s"%str(object_id)])
-    os.system(path)
+    #os.system('python '+path+ ' -n 1')
+    os.system('python %s -n %s'%(path,str(object_id)))
     return render_to_response('newsletter/newsletter_content.html',
                               {'newsletter' : newsletter},
                               context_instance=RequestContext(request))
