@@ -71,7 +71,6 @@ class mailx:
 
 
 if __name__ == "__main__":
-    #IMPLEMENTATION
     from newsletter.models import Subscriber,Group,Newsletter
     from django.db.models import Q
     
@@ -97,8 +96,8 @@ if __name__ == "__main__":
     gmail_alt  = "Viriato"                               #Alias ID
     gmail_alias = "Newsletter "+gmail_alt   #nickname
     
-    #mailto   =  'tiago.ale.santos@gmail.com','thiaguss@gmail.com'
-    #mailtoBcc=  ''
+    #mailto   =  ' ',' '
+    #mailtoBcc=  ' '
     
     
     ########################################################################

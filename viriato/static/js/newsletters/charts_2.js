@@ -45,11 +45,11 @@ window.onload = function () {
     for(var i = 0, ii = labels.length; i < ii; i++)
         {
             var y = height - bottomgutter - data[i]/ max * (height - bottomgutter - topgutter),
-          x = Math.round(leftgutter + X * (i+1)),
-          ty = r.text(leftgutter - 14, topgutter + i * Y, Math.round(max/data.length*(ii-i))).attr(txt).toBack(),
-          tx = r.text(x-30, height - 6, labels[i]).attr(txt).toBack(),         
-          bar = r.rect(x-50, y, X-20, data[i]/ max * (height - bottomgutter - topgutter)).attr({fill: color, stroke: color});   
-           
+            x = Math.round(leftgutter + X * (i+1)),
+            ty = r.text(leftgutter - 14, topgutter + i * Y, Math.round(max/data.length*(ii-i))).attr(txt).toBack(),
+            tx = r.text(x-30, height - 6, labels[i]).attr(txt).toBack(),         
+            bar = r.rect(x-50, y, X-20, data[i]/ max * (height - bottomgutter - topgutter)).attr({fill: color, stroke: color});   
+            
             blanket.push(r.rect(x-50, 20, X-20, height - bottomgutter - topgutter).attr({stroke: "#fff", fill: "#000", opacity: 0}));
             
       var rect = blanket[i];
@@ -79,6 +79,6 @@ window.onload = function () {
                 }, 1);
             });
         })
-            (x, y, data[i], labels[i], bar);
+            (x, y, data[i], data[i], bar);
         }  
 };

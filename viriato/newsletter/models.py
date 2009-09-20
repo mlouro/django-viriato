@@ -1,6 +1,6 @@
 from django.db import models
 import datetime
-from lxml.html import parse, iterlinks, make_links_absolute,tostring
+from lxml.html import parse, iterlinks, make_links_absolute,tostring,fromstring
 
 ########################################################################
 class Group(models.Model):
@@ -180,32 +180,41 @@ class Newsletter(models.Model):
                 #rewrited = re.sub('%s'%(el.link),'http://%s:8000/newsletter/news/%s'%(host,el.created_hash),self.content)
         self.content = rewrited
         super(Newsletter,self).save()
-
-    #----------------------------------------------------------------------
-    def chart_links(self):
-        """-- NOT BEING USED """
-        from pychartdir import *
-
-        links = Link.objects.filter(newsletter = self)
-        data = []
-        labels = []
-        for el  in links:
-            # The data for the bar chart
-            data.append(el.click_count)
-            # The labels for the bar chart
-            labels.append(str(el.slug))
-            
     #----------------------------------------------------------------------
     def  get_links(self):
         """Get links -- NOT BEING USED """
+        from lxml.html import builder as E
         
         links = Link.objects.filter(newsletter = self)
-        data =[]
+        html=[]
+        data=[]
+        labels=[]
+        
+        html.append('<table id="data_analytics"><tfoot><tr>')
         for el in links:
             if not el.slug == 'unsubscribe':
-                data.append(el)
+                labels.append('<th>%s</th>'%(el.slug))
+                data.append('<td>%s</td>'%(el.click_count))
+                
+        for el in labels:
+            html.append(el)
+        html.append('</tr></tfoot><tbody><tr>')
+        for el in data:
+            html.append(el)
+        html.append('</tr></tbody></table>')
         
-        return data
+        #print html
+        doc=' '.join(html)
+        test = fromstring(doc)
+        print tostring(test)
+        
+        #html = E.HTML(
+            #E.TABLE(E.CLASS("data_analytics")
+                    #)
+        #)
+        
+        return tostring(test)
+
         
 ########################################################################
 class Link(models.Model):

@@ -73,9 +73,10 @@ def newsletter_analytics(request,newsletter_id):
     newsletter = get_object_or_404(Newsletter,id=newsletter_id)
     
     #l = Link.objects.get(newsletter=newsletter)
-
+    html = newsletter.get_links()
+    print html
     return render_to_response('newsletter/newsletter_analytics.html',
-                              {'newsletter' : newsletter,},
+                              {'newsletter' : newsletter,'html':html},
                               context_instance=RequestContext(request))
 
 #----------------------------------------------------------------------
@@ -149,11 +150,7 @@ def link_count(request,link_hash):
             if form.is_valid():
                 email = form.cleaned_data['email']
                 subscriber = get_object_or_404(Subscriber,email=email)
-                print subscriber
-                print subscriber.subscribed
                 subscriber.save(False)
-                print subscriber.subscribed
-
                 return render_to_response("newsletter/unsubscribe_tks.html")
         else:
                 form = UnsubscribeForm()

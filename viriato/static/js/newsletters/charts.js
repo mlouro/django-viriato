@@ -70,8 +70,8 @@ window.onload = function () {
         is_label_visible = false,
         leave_timer,
         blanket = r.set();
-    label[0] = r.text(60, 10, "24 hits").attr(txt).hide();
-    label[1] = r.text(60, 40, "22 September 2008").attr(txt1).attr({fill: color}).hide();
+    //label[0] = r.text(60, 10, "24 hits").attr(txt).hide();
+    //label[1] = r.text(60, 40, "22 September 2008").attr(txt1).attr({fill: color}).hide();
 
     for (var i = 0, ii = labels.length; i < ii; i++) {
         var y = Math.round(height - bottomgutter - Y * data[i]),
