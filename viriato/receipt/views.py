@@ -183,10 +183,10 @@ def create_document(object_id):
 
     content.append(Spacer(inch * .5, inch * .5))
 
-    client = receipt.
+    client = receipt.company.title
     s1 = _('Client')
 
-    p = Paragraph('', style["Normal"])
+    p = Paragraph('%s: %s' % (s1, client), style["Normal"])
     content.append(p)
     content.append(Spacer(inch * .2, inch * .2))
 
