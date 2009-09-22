@@ -9,6 +9,7 @@ $(document).ready(function(){
     });
 
 //     $('#contracts_table').hide();
+
 });
 
 function set_with_project_functions(){

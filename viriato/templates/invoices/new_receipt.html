@@ -203,15 +203,10 @@
         </div>
     </div>
     <span id="tooltip"></span>
-{{ PROJECT }}
 {% endblock content %}
 
 {% block content_sidebar %}
-    <p><a onclick="javascript:$('tr:last input').css({backgroundColor: 'yellow', fontWeight: 'bolder'});
-" class="navbutton" >{% trans "Send Bills" %}</a></p>
-    <p><a class="navbutton" href="">{% trans "Send Receipts" %}</a></p>
-
-    {% if PROJECT %}
+    {% if PROJECT and not receipt_is_not_editable %}
         <p><a id="importMilestones" class="navbutton">{% trans "Import Milestones" %}</a></p>
     {% endif %}
 {% endblock content_sidebar %}

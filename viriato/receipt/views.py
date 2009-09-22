@@ -18,10 +18,15 @@ from reportlab.platypus import *
 from reportlab.lib.styles import getSampleStyleSheet
 from cStringIO import StringIO
 from reportlab.lib import colors
+from reportlab.platypus.flowables import Image
+
 
 from receipt.models import *
 from receipt.forms import *
 from contract.models import *
+
+from django.utils.translation import ugettext as _
+from django.core.mail import send_mail
 
 from settings import INSTALLED_APPS
 
@@ -67,7 +72,9 @@ def receipt(request, object_id=0):
             new_receipt = receipt_form.save()
             formset.save()
             new_receipt.calculate() #Total's calculation
+            return redirect (receipt)
         else:
+            not_editable = receipt.sent
             return render_to_response ("invoices/" + template_to_go,
                                             {
                                                 'receipt': receipt,
@@ -77,12 +84,10 @@ def receipt(request, object_id=0):
                                                 'retention': retention,
                                                 'there_are_errors': True,
                                                 'PROJECT': project,
+                                                'receipt_is_not_editable': not_editable,
                                             },
                                             context_instance=RequestContext(request)
                     )
-
-        return redirect (receipt)
-
     elif object_id:
         receipt = Receipt.objects.get(pk=object_id)
         receipt_form = ReceiptForm(instance=receipt, prefix="con")
@@ -118,22 +123,70 @@ def receipt(request, object_id=0):
                                     context_instance=RequestContext(request)
                                 )
 
-def receipt_document(request, object_id):
-    response = HttpResponse(mimetype='application/pdf')
-    response['Content-Disposition'] = 'attachment; filename=somefilename22.pdf'
+def download_document(request, object_id):
+    receipt = Receipt.objects.get(pk=object_id)
+    if not receipt.sent:
+        receipt.mark_as_sent()
 
-    style = getSampleStyleSheet()
+    response = HttpResponse(mimetype='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename=receipt%s.pdf' % (object_id)
     buffer = StringIO()
     pdf = SimpleDocTemplate(buffer, pagesize = letter)
+    pdf.build(create_document(object_id))
+    response.write(buffer.getvalue())
+    return response
+
+
+def send_document(request, object_id):
+    receipt = Receipt.objects.get(pk=object_id)
+    if not receipt.sent:
+        receipt.mark_as_sent()
+
+    response = HttpResponse(mimetype='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename=receipt%s.pdf' % (object_id)
+    buffer = StringIO()
+    pdf = SimpleDocTemplate(buffer, pagesize = letter)
+    pdf.build(create_document(object_id))
+    response.write(buffer.getvalue())
+
+
+
+
+    return response
+
+
+def create_document(object_id):
+
+
+    styleSheet = getSampleStyleSheet()
+    style = styleSheet['BodyText']
+
+    style = getSampleStyleSheet()
+
     content = []
+
+#RLmap = Image(mapimg,width=23*inch,height=34*inch)
+#RLmap.hAlign = "CENTER"
+#RLmap.drawOn(c1,0.5*inch,0.5*inch)
 
     receipt = Receipt.objects.get(pk=object_id)
 
-    p = Paragraph('<b>Testando o negrsadsadsito</b>', style["Normal"])
-    content.append(p)
-    content.append(Spacer(inch * .2, inch * .2))
+    my_company = MyCompany.objects.get(pk=1)
+    logo = Image('static/%s' % (str(my_company.photo)), width=50, height=50)
+    logo.hAlign = "RIGHT"
+    content.append(logo)
 
-    p = Paragraph('<i>Testando o itálico</i>', style["Normal"])
+    s1 = _('<b>Company</b>')
+    s2 = my_company.title
+    p = Paragraph('%s: %s' % (s1, s2), style["Normal"])
+    content.append(p)
+
+    content.append(Spacer(inch * .5, inch * .5))
+
+    client = receipt.
+    s1 = _('Client')
+
+    p = Paragraph('', style["Normal"])
     content.append(p)
     content.append(Spacer(inch * .2, inch * .2))
 
@@ -168,22 +221,5 @@ def receipt_document(request, object_id):
 
     table = Table(document_details, style=ts)
     content.append(table)
-#receipt = models.ForeignKey(Receipt)
-    #contract_detail = models.ForeignKey(ContractDetails, null=True, blank=True)
-    #description = models.CharField(max_length=255)
-    #quantity = models.IntegerField(default=0,)
-    #unity_cost = models.DecimalField(max_digits=15, decimal_places=2, default=0)
-    #tax = models.DecimalField(max_digits=5, decimal_places=2, default=0)
-    #tax_value = models.DecimalField(max_digits=15, decimal_places=2, default=0)
-    #retention = models.DecimalField(max_digits=5, decimal_places=2, default=0)
-    #retention_value = models.DecimalField(max_digits=15, decimal_places=2, default=0)
-    #total_impact_value = models.DecimalField(max_digits=15, decimal_places=2, default=0)
-    #total = models.DecimalField(max_digits=15, decimal_places=2, default=0)
-    #to_pay
-    print content
 
-    pdf.build(content)
-
-
-    response.write(buffer.getvalue())
-    return response
+    return content
