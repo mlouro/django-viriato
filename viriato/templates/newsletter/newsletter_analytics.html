@@ -11,16 +11,7 @@
 <script type="text/JavaScript" >
 
 
-<!--var mydata = "{{js_data}}";-->
 
-<!--document.writeln(mydata);-->
-<!--document.writeln("<br>");-->
-
-<!--document.writeln(mydata);-->
-
-js_var = "{{ js_data }}";
-new_var = eval({{ js_data }});
-alert (new_var[0].clicks);
 
 var filmes = [
     {
@@ -50,18 +41,7 @@ var filmes = [
 ]
 
 
-  <!--for(var key in data) -->
-  <!--{-->
-    <!--document.writeln(data[key]);-->
-  <!--}-->
 
-
-<!--var    arr = JSON.decode(testObject);-->
-<!--document.writeln(arr); -->
-
-
-<!--arr = JSON.decode(testObject, function(key, value){return key * value});-->
-<!--document.writeln(arr); -->
 
 
 </script>
@@ -69,7 +49,7 @@ var filmes = [
 <script>
     // Recomendo colocar esta função num ficheiro js
     function get_links(newsletter_id){
-        $.post("/newsletter/analytics/get_links/",
+        $.post("/newsletter/get_links/",
             {newsletter_id: newsletter_id},
             function(data){
                 for (i in data)

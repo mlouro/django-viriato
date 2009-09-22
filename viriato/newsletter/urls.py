@@ -81,7 +81,7 @@ urlpatterns = patterns('newsletter.views',
     url(r'^content/(?P<newsletter_id>\w+)/$', 'newsletter_content', name = 'newsletter_content'),
     url(r'^analytics/(?P<newsletter_id>\w+)/$', 'newsletter_analytics', name = 'newsletter_analytics'),
     #created by Emanuel
-    url(r'^analytics/get_links/$', 'links_ajax', name = 'links_ajax'),
+    url(r'^get_links/$', 'links_ajax', name = 'links_ajax'),
 
     #Testing Links
     url(r'^links/(?P<object_id>\w+)/$', 'manage_links', name='manage_links'),
