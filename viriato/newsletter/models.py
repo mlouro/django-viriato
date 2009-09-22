@@ -183,37 +183,44 @@ class Newsletter(models.Model):
     #----------------------------------------------------------------------
     def  get_links(self):
         """Get links -- NOT BEING USED """
-        from lxml.html import builder as E
+        #from lxml.html import builder as E
         
         links = Link.objects.filter(newsletter = self)
-        html=[]
+        #html=[]
         data=[]
         labels=[]
         
-        html.append('<table id="data_analytics"><tfoot><tr>')
+        #html.append('<table id="data_analytics"><tfoot><tr>')
+        #for el in links:
+            #if not el.slug == 'unsubscribe':
+                #labels.append('<th>%s</th>'%(el.slug))
+                #data.append('<td>%s</td>'%(el.click_count))
+                
+        #for el in labels:
+            #html.append(el)
+        #html.append('</tr></tfoot><tbody><tr>')
+        #for el in data:
+            #html.append(el)
+        #html.append('</tr></tbody></table>')
+        
+        ##print html
+        #doc=' '.join(html)
+        #test = fromstring(doc)
+        #print tostring(test)
+        
+        ##html = E.HTML(
+            ##E.TABLE(E.CLASS("data_analytics")
+                    ##)
+        ##)
+        dict=[]
         for el in links:
             if not el.slug == 'unsubscribe':
-                labels.append('<th>%s</th>'%(el.slug))
-                data.append('<td>%s</td>'%(el.click_count))
+                aux={}
+                aux['label']=el.slug
+                aux['clicks']=el.click_count
+                dict.append(aux)
                 
-        for el in labels:
-            html.append(el)
-        html.append('</tr></tfoot><tbody><tr>')
-        for el in data:
-            html.append(el)
-        html.append('</tr></tbody></table>')
-        
-        #print html
-        doc=' '.join(html)
-        test = fromstring(doc)
-        print tostring(test)
-        
-        #html = E.HTML(
-            #E.TABLE(E.CLASS("data_analytics")
-                    #)
-        #)
-        
-        return tostring(test)
+        return dict
 
         
 ########################################################################

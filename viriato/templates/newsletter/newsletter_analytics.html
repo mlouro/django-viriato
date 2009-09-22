@@ -3,9 +3,68 @@
 {% load navigation_tags %}
 
 {% block extra_head %}
+<script type="text/javascript" src="{{ MEDIA_URL }}js/libs/json.class.js"></script>
 <script type="text/javascript" src="{{ MEDIA_URL }}js/libs/newsletters/raphael.js"></script>
 <script type="text/javascript" src="{{ MEDIA_URL }}js/newsletters/charts_2.js"></script>
 <script type="text/JavaScript" src="{{ MEDIA_URL }}js/newsletters/FusionCharts.js"></script>
+<script type="text/JavaScript" src="{{ MEDIA_URL }}js/newsletters/FusionCharts.js"></script>
+<script type="text/JavaScript" >
+
+
+<!--var mydata = "{{js_data}}";-->
+
+<!--document.writeln(mydata);-->
+<!--document.writeln("<br>");-->
+
+<!--document.writeln(mydata);-->
+
+js_var = "{{ js_data }}";
+new_var = eval({{ js_data }});
+alert (new_var[0].clicks);
+
+var filmes = [
+    {
+        "titulo"  : "X-Men Origens: Wolverine",
+        "genero"  : "Aventura",
+        "duracao" : "107",
+        "ano"     : "2009",
+        "elenco"  : [
+            "Hugh Jackman (Logan / Wolverine)",
+            "Ryan Reynolds (Wade Wilson / Deadpool)",
+            "Liev Schreiber (Victor Creed / Dentes-de-sabre)",
+            "Dominic Monaghan (Bradley)"
+        ]
+    },
+    {
+        "titulo"  : "Velozes & Furiosos 4",
+        "genero"  : "Ação",
+        "duracao" : "107",
+        "ano"     : "2009",
+        "elenco"  : [
+            "Vin Diesel (Dominic \"Dom\" Toretto)",
+            "Paul Walker (Brian O'Conner)",
+            "Jordana Brewster (Mia Toretto)",
+            "Michelle Rodriguez (Letty)"
+        ]
+    }
+]
+
+
+  <!--for(var key in data) -->
+  <!--{-->
+    <!--document.writeln(data[key]);-->
+  <!--}-->
+
+
+<!--var    arr = JSON.decode(testObject);-->
+<!--document.writeln(arr); -->
+
+
+<!--arr = JSON.decode(testObject, function(key, value){return key * value});-->
+<!--document.writeln(arr); -->
+
+
+</script>
 {% endblock %}
 
 {% block content %}
@@ -37,37 +96,37 @@
                 width: 800px;}
 </style>
 
-<table id="data_analytics">
-    <tfoot>
-        <tr>
-            <th>link 1 </th>
-            <th>link 2</th>
-            <th>link 3</th>
-            <th>link 4</th>
-            <th>link 5</th>
-            <th>link 6</th>
-            <th>link 7</th>
-            <th>link 8</th>
-            <th>link 9</th>
-            <th>link 10</th>
-        </tr>
-    </tfoot>
-    <tbody>
-        <tr>
-            <td>8</td>
-            <td>25</td>
-            <td>27</td>
-            <td>25</td>
-            <td>54</td>
-            <td>59</td>
-            <td>79</td>
-            <td>47</td>
-            <td>27</td>
-            <td>44</td>
-            </tr>
-    </tbody>
-</table>
-{{html}}
+<!--<table id="data_analytics">-->
+    <!--<tfoot>-->
+        <!--<tr>-->
+            <!--<th>link 1 </th>-->
+            <!--<th>link 2</th>-->
+            <!--<th>link 3</th>-->
+            <!--<th>link 4</th>-->
+            <!--<th>link 5</th>-->
+            <!--<th>link 6</th>-->
+            <!--<th>link 7</th>-->
+            <!--<th>link 8</th>-->
+            <!--<th>link 9</th>-->
+            <!--<th>link 10</th>-->
+        <!--</tr>-->
+    <!--</tfoot>-->
+    <!--<tbody>-->
+        <!--<tr>-->
+            <!--<td>8</td>-->
+            <!--<td>25</td>-->
+            <!--<td>27</td>-->
+            <!--<td>25</td>-->
+            <!--<td>54</td>-->
+            <!--<td>59</td>-->
+            <!--<td>79</td>-->
+            <!--<td>47</td>-->
+            <!--<td>27</td>-->
+            <!--<td>44</td>-->
+            <!--</tr>-->
+    <!--</tbody>-->
+    {{js_data}}
+<!--</table>-->
 <div id="holder_analytics"></div>
 
 {% endblock %}

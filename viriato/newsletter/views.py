@@ -71,12 +71,13 @@ def newsletter_edit(request, newsletter_id):
 #----------------------------------------------------------------------
 def newsletter_analytics(request,newsletter_id):
     newsletter = get_object_or_404(Newsletter,id=newsletter_id)
-    
+    import simplejson as json
     #l = Link.objects.get(newsletter=newsletter)
-    html = newsletter.get_links()
-    print html
+    dict = newsletter.get_links()
+    print dict
+    js_data = json.dumps(dict, separators=(',',':'))
     return render_to_response('newsletter/newsletter_analytics.html',
-                              {'newsletter' : newsletter,'html':html},
+                              {'newsletter' : newsletter,'js_data':js_data},
                               context_instance=RequestContext(request))
 
 #----------------------------------------------------------------------

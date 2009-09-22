@@ -1,4 +1,5 @@
 $(function () {
+
     $("#data_analytics").css({
         position: "absolute",
         left: "-9999em",
@@ -7,16 +8,17 @@ $(function () {
 });
 window.onload = function () {
     // Grab the data
+    
+    js_data = {{ js_data }};
     var labels = [],
         data = [];
-    $("#data_analytics tfoot th").each(function () {
-        labels.push($(this).html());
-    });
-    $("#data_analytics tbody td").each(function () {
-        data.push($(this).html());
-    });
-    
-   
+    //$("#data_analytics tfoot th").each(function () {
+        //labels.push($(this).html());
+    //});
+    //$("#data_analytics tbody td").each(function () {
+        //data.push($(this).html());
+    //});
+
     // Draw
     var width = 800
         rightgutter = 20,
