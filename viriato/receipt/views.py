@@ -176,12 +176,21 @@ def create_document(object_id):
     logo.hAlign = "RIGHT"
     content.append(logo)
 
+    s1 = _('<b>Receipt number</b>')
+    p = Paragraph('%s %s' % (s1, object_id))
+    content.append(p)
+
+    content.append(Spacer(inch * .5, inch * .5))
+
     s1 = _('<b>Company</b>')
     s2 = my_company.legal_name
     p = Paragraph('%s: %s' % (s1, s2), style["Normal"])
     content.append(p)
 
     content.append(Spacer(inch * .5, inch * .5))
+
+    if receipt.contract:
+
 
     client = receipt.company.title
     s1 = _('Client')
