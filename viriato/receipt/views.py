@@ -177,7 +177,7 @@ def create_document(object_id):
     content.append(logo)
 
     s1 = _('<b>Company</b>')
-    s2 = my_company.title
+    s2 = my_company.legal_name
     p = Paragraph('%s: %s' % (s1, s2), style["Normal"])
     content.append(p)
 
