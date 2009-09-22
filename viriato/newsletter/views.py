@@ -86,8 +86,9 @@ def newsletter_analytics(request,newsletter_id):
                               {'newsletter' : newsletter,},
                               context_instance=RequestContext(request))
 
-def links_ajax(request, newsletter_id):
+def links_ajax(request):
     #Created by Emanuel
+    newsletter_id = request.POST['newsletter_id']
     data = serializers.serialize('json', Link.objects.filter(newsletter= newsletter_id), ensure_ascii=False)
     return HttpResponse(data,mimetype='text/javascript')
 
