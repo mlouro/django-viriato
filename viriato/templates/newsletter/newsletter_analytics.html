@@ -65,22 +65,42 @@ var filmes = [
 
 
 </script>
+
+<script>
+    // Recomendo colocar esta função num ficheiro js
+    function get_links(newsletter_id){
+        $.post("/newsletter/analytics/get_links/",
+            {newsletter_id: newsletter_id},
+            function(data){
+                for (i in data)
+                    alert (data[i].fields.slug);
+                    alert (data[i].fields.click_count)
+            },
+            "json"
+        );
+    }
+</script>
 {% endblock %}
+
+{% block jquery %}
+    get_links({{ newsletter.id }});
+{% endblock jquery %}
+
 
 {% block content %}
 
 
 <table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">
-    <tr> 
-        <td valign="top" class="text" align="center"> 
-            <div id="chartdiv" align="center"> 
-            FusionCharts. 
+    <tr>
+        <td valign="top" class="text" align="center">
+            <div id="chartdiv" align="center">
+            FusionCharts.
             </div>
             <script type="text/javascript">
                 var chart = new FusionCharts("{{ MEDIA_URL }}charts/FCF_Column3D.swf", "ChartId", "600", "350");
-                chart.setDataURL("{{ MEDIA_URL }}data/Column3D.xml"); 
+                chart.setDataURL("{{ MEDIA_URL }}data/Column3D.xml");
                 chart.render("chartdiv");
-            </script> 
+            </script>
         </td>
     </tr>
     <tr>

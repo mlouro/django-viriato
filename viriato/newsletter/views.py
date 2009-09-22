@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from django.shortcuts import render_to_response, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.template import RequestContext
@@ -11,9 +12,11 @@ import httplib2, urllib2, lxml
 from lxml.html import fromstring, iterlinks, make_links_absolute
 from settings import ROOT_DIR, PROJECT_ROOT
 
+from django.core import serializers #added by Emanuel
+
 
 def index(request):
-    """Present the index newsletter page 
+    """Present the index newsletter page
     and send the newsletter data to the template """
     newsletter_list = Newsletter.objects.all().order_by('-created')
 
@@ -25,7 +28,7 @@ def index(request):
 def newsletter_content(request,newsletter_id):
     """return the newsletter content"""
     newsletter = get_object_or_404(Newsletter,id=newsletter_id)
-    
+
     #l = Link.objects.get(newsletter=newsletter)
 
 
@@ -40,7 +43,7 @@ def newsletter_add(request):
         print formset.errors
         if formset.is_valid():
             formset.save()
-            
+
             return HttpResponseRedirect('/newsletter/')
         else:
             return render_to_response('newsletter/newsletter_add.html',
@@ -56,29 +59,37 @@ def newsletter_edit(request, newsletter_id):
     newsletter = Newsletter.objects.get(id=newsletter_id)
     #BookInlineFormSet = inlineformset_factory(Author, Book)
     if request.method == "POST":
-        form = NewsletterForm(request.POST, instance=newsletter) 
+        form = NewsletterForm(request.POST, instance=newsletter)
         if form.is_valid():
             form.save()
-            
+
             return HttpResponseRedirect('/newsletter/')
     else:
         #formset = BookInlineFormSet(instance=author)
         form = NewsletterForm(instance=newsletter)
-    return render_to_response("newsletter/newsletter_edit.html", 
+    return render_to_response("newsletter/newsletter_edit.html",
                               {"form": form,"newsletter":newsletter},
                               context_instance=RequestContext(request))
 
 #----------------------------------------------------------------------
 def newsletter_analytics(request,newsletter_id):
     newsletter = get_object_or_404(Newsletter,id=newsletter_id)
-    import simplejson as json
+    #import simplejson as json Acho q não é preciso
     #l = Link.objects.get(newsletter=newsletter)
-    dict = newsletter.get_links()
-    print dict
-    js_data = json.dumps(dict, separators=(',',':'))
+    #dict = newsletter.get_links() não é preciso
+    #print dict
+    #js_data = json.dumps(dict, separators=(',',':'))
+    #return render_to_response('newsletter/newsletter_analytics.html',
+                              #{'newsletter' : newsletter,'js_data':js_data},
+                              #context_instance=RequestContext(request))
     return render_to_response('newsletter/newsletter_analytics.html',
-                              {'newsletter' : newsletter,'js_data':js_data},
+                              {'newsletter' : newsletter,},
                               context_instance=RequestContext(request))
+
+def links_ajax(request, newsletter_id):
+    #Created by Emanuel
+    data = serializers.serialize('json', Link.objects.filter(newsletter= newsletter_id), ensure_ascii=False)
+    return HttpResponse(data,mimetype='text/javascript')
 
 #----------------------------------------------------------------------
 def newsletter_send(request, object_id):
@@ -91,11 +102,11 @@ def newsletter_send(request, object_id):
     import sys, subprocess, os
     #os.system  = path +' -n 1'
     #sys.stderr.write(ROOT_DIR + '/sendmail_v0.1.py -n 1')
-    #p = subprocess.Popen([sys.executable, path  +'-n 1'], 
-                                    #stdout=subprocess.PIPE, 
+    #p = subprocess.Popen([sys.executable, path  +'-n 1'],
+                                    #stdout=subprocess.PIPE,
                                     #stderr=subprocess.STDOUT)
     #sys.executable("%s -n 1"%path)
-    
+
     #return HttpResponseRedirect('/newsletter/')
     newsletter = get_object_or_404(Newsletter,id=object_id)
     #from subprocess import call
@@ -109,7 +120,7 @@ def newsletter_send(request, object_id):
 #----------------------------------------------------------------------
 def manage_links(request, object_id):
     from django.forms.models import inlineformset_factory
-    
+
     newsletter = Newsletter.objects.get(pk=object_id)
     if request.method == "POST":
         formset = LinkFormset(request.POST, request.FILES, instance=newsletter)
@@ -118,8 +129,8 @@ def manage_links(request, object_id):
             # Do something.
     else:
         formset = LinkFormset(instance=newsletter)
-        
-    return render_to_response("newsletter/manage_links.html", 
+
+    return render_to_response("newsletter/manage_links.html",
                               {"formset": formset,},
                               context_instance=RequestContext(request))
 
@@ -131,7 +142,7 @@ def subscriber_by_group(request, object_id):
     grp = Group.objects.get(id=object_id)
     #except Group.DoesNotExist:
        #raise Http404
-    
+
     return list_detail.object_list(
         request,
         queryset = Subscriber.objects.filter(group = grp),
@@ -185,7 +196,7 @@ def display_meta(request):
     values = request.META.items()
     values.sort()
     html = []
-    
+
     for k, v in values:
         html.append('<tr><td>%s</td><td>%s</td></tr>' % (k, v))
     return HttpResponse('<table>%s</table>' % '\n'.join(html))
