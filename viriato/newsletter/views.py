@@ -129,11 +129,17 @@ def manage_links(request, object_id):
         if formset.is_valid():
             formset.save()
             # Do something.
+        else:
+            return render_to_response("newsletter/manage_links.html",
+                              {"formset": formset,
+                                "object_id": object_id,},
+                              context_instance=RequestContext(request))
     else:
         formset = LinkFormset(instance=newsletter)
 
     return render_to_response("newsletter/manage_links.html",
-                              {"formset": formset,},
+                              {"formset": formset,
+                                "object_id": object_id,},
                               context_instance=RequestContext(request))
 
 #----------------------------------------------------------------------

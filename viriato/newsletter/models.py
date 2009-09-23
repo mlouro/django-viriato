@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from django.db import models
 import datetime
 from lxml.html import parse, iterlinks, make_links_absolute,tostring,fromstring
@@ -184,30 +185,30 @@ class Newsletter(models.Model):
     def  get_links(self):
         """Get links -- NOT BEING USED """
         #from lxml.html import builder as E
-        
+
         links = Link.objects.filter(newsletter = self)
         #html=[]
         data=[]
         labels=[]
-        
+
         #html.append('<table id="data_analytics"><tfoot><tr>')
         #for el in links:
             #if not el.slug == 'unsubscribe':
                 #labels.append('<th>%s</th>'%(el.slug))
                 #data.append('<td>%s</td>'%(el.click_count))
-                
+
         #for el in labels:
             #html.append(el)
         #html.append('</tr></tfoot><tbody><tr>')
         #for el in data:
             #html.append(el)
         #html.append('</tr></tbody></table>')
-        
+
         ##print html
         #doc=' '.join(html)
         #test = fromstring(doc)
         #print tostring(test)
-        
+
         ##html = E.HTML(
             ##E.TABLE(E.CLASS("data_analytics")
                     ##)
@@ -219,10 +220,10 @@ class Newsletter(models.Model):
                 aux['label']=el.slug
                 aux['clicks']=el.click_count
                 dict.append(aux)
-                
+
         return dict
 
-        
+
 ########################################################################
 class Link(models.Model):
     """Class to store the newsletter links with the corresponding hash"""
@@ -236,13 +237,20 @@ class Link(models.Model):
         """return the link hash"""
         return self.link
     #----------------------------------------------------------------------
-    def save(self,edit):
-        """save(self,edit=True) will increment the click_count field
-        save(self,edit=False ) will save a new object with the click_count=0"""
 
+    def save(self, force_insert=False, force_update=False, edit=False):
         if edit:
             self.click_count += 1
-        super(Link,self).save()
+        super(Link, self).save(force_insert, force_update) # Call the "real" save() method.
+
+    #def save(self):
+        #print 'saving'
+        #"""save(self,edit=True) will increment the click_count field
+        #save(self,edit=False ) will save a new object with the click_count=0"""
+
+        #if edit:
+            #self.click_count += 1
+        #super(Link,self).save()
 
 ########################################################################
 class Submission(models.Model):

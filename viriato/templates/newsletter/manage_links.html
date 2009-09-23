@@ -4,21 +4,21 @@
 
 {% block content %}
 
-<form method="POST" action="">
-  <!--{{ formset.management_form }}-->
-    <!--{% for form in formset.forms %}-->
-    
-        <!--{{ form.id }}-->
-        <!--{% ifnotequal form.slug.text "unsubscribe" %}-->
-        <!--<ul>-->
-            <!--<li>{{ form.link}}{{ form.link.errors }} -->
-            <!-->> {{ form.slug }}{{ form.slug.errors }} -->
-            <!-->> {{ form.click_count }} {{ form.click_count.errors }}-->
-            <!-->> {{ form.DELETE}}</li>-->
-        <!--</ul>-->
-        <!--{% endifnotequal %}-->
-    <!--{% endfor %}-->
-{{ formset}}
+<form method="POST" action="/newsletter/links/{{ object_id }}/">
+  {{ formset.management_form }}
+    {% for form in formset.forms %}
+
+        {{ form.id }}
+        {% ifnotequal form.slug.text "unsubscribe" %}
+        <ul>
+            <li>{{ form.link}}{{ form.link.errors }}
+            {{ form.slug }}{{ form.slug.errors }}
+            {{ form.click_count }} {{ form.click_count.errors }}
+            {{ form.DELETE}}</li>
+        </ul>
+        {% endifnotequal %}
+    {% endfor %}
+
 
     <p class="submit">
         <input type="submit" value="Save Newsletter" />
