@@ -190,7 +190,9 @@ def create_document(object_id):
     content.append(Spacer(inch * .5, inch * .5))
 
     if receipt.contract:
-
+        s1 = _('This receipt belongs to contract number')
+        p = Paragraph('%s %s' %(s1, receipt.contract.id))
+        content.append(p)
 
     client = receipt.company.title
     s1 = _('Client')
