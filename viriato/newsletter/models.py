@@ -183,7 +183,7 @@ class Newsletter(models.Model):
         super(Newsletter,self).save()
     #----------------------------------------------------------------------
     def  get_links(self):
-        """Get links -- NOT BEING USED """
+        """Get links"""
         #from lxml.html import builder as E
 
         links = Link.objects.filter(newsletter = self)
