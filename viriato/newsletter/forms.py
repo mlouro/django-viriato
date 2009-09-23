@@ -22,7 +22,18 @@ class LinkForm(ModelForm):
         model = Link
         fields = ('link','slug')
 
-LinkFormset = inlineformset_factory(Newsletter,Link,extra=0,fields=('link','slug',))
+class LinkFormFormset(ModelForm):
+    link = forms.CharField(widget=forms.TextInput(attrs={'readonly':'true',}))
+
+    class Meta:
+        model = Link
+
+        fields = (
+            'link',
+            'slug',
+        )
+
+LinkFormset = inlineformset_factory(Newsletter,Link,extra=0,form=LinkFormFormset)
 
 class UnsubscribeForm(forms.Form):
     email = forms.EmailField()
