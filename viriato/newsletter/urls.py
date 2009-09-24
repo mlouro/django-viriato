@@ -80,7 +80,8 @@ urlpatterns = patterns('newsletter.views',
     url(r'^delete/(?P<object_id>\w+)/$', delete_object, newsletter_delete_dict, name='newsletter_delete'),
     url(r'^content/(?P<newsletter_id>\w+)/$', 'newsletter_content', name = 'newsletter_content'),
     url(r'^analytics/(?P<newsletter_id>\w+)/$', 'newsletter_analytics', name = 'newsletter_analytics'),
-    #created by Emanuel
+
+    #Ajax Call's
     url(r'^get_links/$', 'links_ajax', name = 'links_ajax'),
 
     #Testing Links

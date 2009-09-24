@@ -90,31 +90,18 @@ def links_ajax(request):
     #Created by Emanuel
     newsletter_id = int(request.POST['newsletter_id'])
     print newsletter_id
-    data = serializers.serialize('json', Link.objects.filter(newsletter= newsletter_id), ensure_ascii=False)
+    data = serializers.serialize('json', Link.objects.filter(newsletter=newsletter_id), ensure_ascii=False)
     return HttpResponse(data,mimetype='text/javascript')
 
 #----------------------------------------------------------------------
 def newsletter_send(request, object_id):
-    path = PROJECT_ROOT + "/core/scripts/sendmail_v0.1.py"
-    print path
-    #try:
-        #newsletter = Newsletter.objects.get(id=newsletter_id)
-    #except Newsletter.DoesNotExist:
-        #raise Http404
-    import sys, subprocess, os
-    #os.system  = path +' -n 1'
-    #sys.stderr.write(ROOT_DIR + '/sendmail_v0.1.py -n 1')
-    #p = subprocess.Popen([sys.executable, path  +'-n 1'],
-                                    #stdout=subprocess.PIPE,
-                                    #stderr=subprocess.STDOUT)
-    #sys.executable("%s -n 1"%path)
+    import os
 
-    #return HttpResponseRedirect('/newsletter/')
+    path = PROJECT_ROOT + "/core/scripts/sendmail_v0.1.py"
     newsletter = get_object_or_404(Newsletter,id=object_id)
-    #from subprocess import call
-    #retcode = call([path , "-n %s"%str(object_id)])
-    #os.system('python '+path+ ' -n 1')
+
     os.system('python %s -n %s'%(path,str(object_id)))
+    
     return render_to_response('newsletter/newsletter_content.html',
                               {'newsletter' : newsletter},
                               context_instance=RequestContext(request))

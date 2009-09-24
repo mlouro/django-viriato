@@ -9,13 +9,15 @@
     {% for form in formset.forms %}
 
         {{ form.id }}
-        {% ifnotequal form.slug.text "unsubscribe" %}
-        <ul>
-            <li>{{ form.link}}{{ form.link.errors }}
-            {{ form.slug }}{{ form.slug.errors }}
-            {{ form.click_count }} {{ form.click_count.errors }}
-            {{ form.DELETE}}</li>
-        </ul>
+        {% ifnotequal form.link.text "unsubscribe" %}
+            <ul>
+                <li>
+                    {{ form.link}} {{ form.link.errors }}
+                    {{ form.slug }} {{ form.slug.errors }}
+                    {{ form.click_count }} {{ form.click_count.errors }}
+                    {{ form.DELETE}}
+                </li>
+            </ul>
         {% endifnotequal %}
     {% endfor %}
 

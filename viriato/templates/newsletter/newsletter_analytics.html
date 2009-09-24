@@ -4,66 +4,17 @@
 
 {% block extra_head %}
 <script type="text/javascript" src="{{ MEDIA_URL }}js/libs/json.class.js"></script>
-<script type="text/javascript" src="{{ MEDIA_URL }}js/libs/newsletters/raphael.js"></script>
-<script type="text/javascript" src="{{ MEDIA_URL }}js/newsletters/charts_2.js"></script>
+<script type="text/javascript" src="{{ MEDIA_URL }}js/libs/newsletters/raphael.js"></script>s
 <script type="text/JavaScript" src="{{ MEDIA_URL }}js/newsletters/FusionCharts.js"></script>
-<script type="text/JavaScript" src="{{ MEDIA_URL }}js/newsletters/FusionCharts.js"></script>
-<script type="text/JavaScript" >
-
-
-
-
-var filmes = [
-    {
-        "titulo"  : "X-Men Origens: Wolverine",
-        "genero"  : "Aventura",
-        "duracao" : "107",
-        "ano"     : "2009",
-        "elenco"  : [
-            "Hugh Jackman (Logan / Wolverine)",
-            "Ryan Reynolds (Wade Wilson / Deadpool)",
-            "Liev Schreiber (Victor Creed / Dentes-de-sabre)",
-            "Dominic Monaghan (Bradley)"
-        ]
-    },
-    {
-        "titulo"  : "Velozes & Furiosos 4",
-        "genero"  : "Ação",
-        "duracao" : "107",
-        "ano"     : "2009",
-        "elenco"  : [
-            "Vin Diesel (Dominic \"Dom\" Toretto)",
-            "Paul Walker (Brian O'Conner)",
-            "Jordana Brewster (Mia Toretto)",
-            "Michelle Rodriguez (Letty)"
-        ]
-    }
-]
-
-
-
-
-
-</script>
-
-<script>
-    // Recomendo colocar esta função num ficheiro js
-    function get_links(newsletter_id){
-        $.post("/newsletter/get_links/",
-            {newsletter_id: newsletter_id},
-            function(data){
-                for (i in data)
-                    alert (data[i].fields.slug);
-                    alert (data[i].fields.click_count)
-            },
-            "json"
-        );
-    }
-</script>
+<script type="text/JavaScript" src="{{ MEDIA_URL }}js/newsletters/analytics.js"></script>
 {% endblock %}
 
+
+
 {% block jquery %}
+
     get_links({{ newsletter.id }});
+
 {% endblock jquery %}
 
 
@@ -91,42 +42,42 @@ var filmes = [
 
 
 <style type="text/css" media="screen">
-            #holder_analytics {
+            #holder {
                 height: 250px;
-                width: 800px;}
-</style>
-
-<!--<table id="data_analytics">-->
-    <!--<tfoot>-->
-        <!--<tr>-->
-            <!--<th>link 1 </th>-->
-            <!--<th>link 2</th>-->
-            <!--<th>link 3</th>-->
-            <!--<th>link 4</th>-->
-            <!--<th>link 5</th>-->
-            <!--<th>link 6</th>-->
-            <!--<th>link 7</th>-->
-            <!--<th>link 8</th>-->
-            <!--<th>link 9</th>-->
-            <!--<th>link 10</th>-->
-        <!--</tr>-->
-    <!--</tfoot>-->
-    <!--<tbody>-->
-        <!--<tr>-->
-            <!--<td>8</td>-->
-            <!--<td>25</td>-->
-            <!--<td>27</td>-->
-            <!--<td>25</td>-->
-            <!--<td>54</td>-->
-            <!--<td>59</td>-->
-            <!--<td>79</td>-->
-            <!--<td>47</td>-->
-            <!--<td>27</td>-->
-            <!--<td>44</td>-->
-            <!--</tr>-->
-    <!--</tbody>-->
-    {{js_data}}
-<!--</table>-->
-<div id="holder_analytics"></div>
+                width: 800px;
+            }
+        </style>
+    </head><body>
+        <table id="data">
+            <tfoot>
+                <tr>
+                    <th>1</th>
+                    <th>2</th>
+                    <th>3</th>
+                    <th>4</th>
+                    <th>5</th>
+                    <th>6</th>
+                    <th>7</th>
+                    <th>8</th>
+                    <th>9</th>
+                    <th>10</th>
+                </tr>
+            </tfoot>
+            <tbody>
+                <tr>
+                    <td>8</td>
+                    <td>25</td>
+                    <td>27</td>
+                    <td>25</td>
+                    <td>54</td>
+                    <td>59</td>
+                    <td>79</td>
+                    <td>47</td>
+                    <td>27</td>
+                    <td>44</td>
+                    </tr>
+            </tbody>
+        </table>
+        <div id="holder"></div>
 
 {% endblock %}
