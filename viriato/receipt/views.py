@@ -118,17 +118,18 @@ def receipt(request, object_id=0):
                                 )
 
 def download_document(request, object_id):
-    receipt = Receipt.objects.get(pk=object_id)
-    if not receipt.sent:
-        receipt.mark_as_sent()
+    send_mail()
+    #receipt = Receipt.objects.get(pk=object_id)
+    #if not receipt.sent:
+        #receipt.mark_as_sent()
 
-    response = HttpResponse(mimetype='application/pdf')
-    response['Content-Disposition'] = 'attachment; filename=receipt%s.pdf' % (object_id)
-    buffer = StringIO()
-    pdf = SimpleDocTemplate(buffer, pagesize = letter)
-    pdf.build(create_document(object_id))
-    response.write(buffer.getvalue())
-    return response
+    #response = HttpResponse(mimetype='application/pdf')
+    #response['Content-Disposition'] = 'attachment; filename=receipt%s.pdf' % (object_id)
+    #buffer = StringIO()
+    #pdf = SimpleDocTemplate(buffer, pagesize = letter)
+    #pdf.build(create_document(object_id))
+    #response.write(buffer.getvalue())
+    #return response
 
 
 def send_document(request, object_id):
@@ -158,3 +159,24 @@ def create_pdf(c, object_id):
     create_doc_details(c, receipt, receipt_details)
 
     return c
+
+
+def send_mail():
+    from django.core.mail import EmailMessage
+
+    subject = 'dsad,sadksadsd'
+    message = 'I just call to say I love you'
+    email = 'costavitorino@gmail.com'
+    #attach = request.FILES['attach']
+
+    try:
+
+        mail = EmailMessage(subject, message, settings.EMAIL_HOST_USER, [email])
+
+        #mail.attach(attach.name, attach.read(), attach.content_type)
+        mail.send()
+        print 'a'
+        return HttpResponse("Hello, world. You're at the poll index.")
+    except:
+        return HttpResponse("erro")
+    return HttpResponse("fim")
