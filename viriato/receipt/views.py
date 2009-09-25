@@ -11,15 +11,7 @@ from django.http import HttpResponse
 from django.template import RequestContext
 import datetime
 from company.models import MyCompany
-
-from reportlab.lib.pagesizes import letter
-from reportlab.lib.units import inch
-from reportlab.platypus import *
-from reportlab.lib.styles import getSampleStyleSheet
-from cStringIO import StringIO
-from reportlab.lib import colors
-from reportlab.platypus.flowables import Image
-
+from contact.models import *
 
 from receipt.models import *
 from receipt.forms import *
@@ -30,6 +22,8 @@ from django.core.mail import send_mail
 
 from settings import INSTALLED_APPS
 
+from reportlab.pdfgen import canvas
+from receipt.pdf_gen import *
 
 if 'projects' in INSTALLED_APPS:
     project = True
@@ -144,93 +138,23 @@ def send_document(request, object_id):
 
     response = HttpResponse(mimetype='application/pdf')
     response['Content-Disposition'] = 'attachment; filename=receipt%s.pdf' % (object_id)
-    buffer = StringIO()
-    pdf = SimpleDocTemplate(buffer, pagesize = letter)
-    pdf.build(create_document(object_id))
-    response.write(buffer.getvalue())
 
-
-
-
+    c = canvas.Canvas(response)
+    c = create_pdf(c, object_id)
+    c.showPage()
+    c.save()
     return response
 
 
-def create_document(object_id):
-
-
-    styleSheet = getSampleStyleSheet()
-    style = styleSheet['BodyText']
-
-    style = getSampleStyleSheet()
-
-    content = []
-
-#RLmap = Image(mapimg,width=23*inch,height=34*inch)
-#RLmap.hAlign = "CENTER"
-#RLmap.drawOn(c1,0.5*inch,0.5*inch)
-
-    receipt = Receipt.objects.get(pk=object_id)
-
+def create_pdf(c, object_id):
     my_company = MyCompany.objects.get(pk=1)
-    logo = Image('static/%s' % (str(my_company.photo)), width=50, height=50)
-    logo.hAlign = "RIGHT"
-    content.append(logo)
+    set_states(c, author=my_company.title, title="My Receipt")
+    create_header(c, my_company)
+    create_footer(c, my_company)
+    receipt = Receipt.objects.get(pk=object_id)
+    receipt_details = ReceiptDetails.objects.filter(receipt=object_id)
+    client = Company.objects.get(pk=receipt.company)
+    create_doc_main(c, object_id, client)
+    create_doc_details(c, receipt, receipt_details)
 
-    s1 = _('<b>Receipt number</b>')
-    p = Paragraph('%s %s' % (s1, object_id))
-    content.append(p)
-
-    content.append(Spacer(inch * .5, inch * .5))
-
-    s1 = _('<b>Company</b>')
-    s2 = my_company.legal_name
-    p = Paragraph('%s: %s' % (s1, s2), style["Normal"])
-    content.append(p)
-
-    content.append(Spacer(inch * .5, inch * .5))
-
-    if receipt.contract:
-        s1 = _('This receipt belongs to contract number')
-        p = Paragraph('%s %s' %(s1, receipt.contract.id))
-        content.append(p)
-
-    client = receipt.company.title
-    s1 = _('Client')
-
-    p = Paragraph('%s: %s' % (s1, client), style["Normal"])
-    content.append(p)
-    content.append(Spacer(inch * .2, inch * .2))
-
-    p = Paragraph('<u>Testando sublinhado</u>', style["Normal"])
-    content.append(p)
-    content.append(Spacer(inch * .2, inch * .2))
-
-    document_details = []
-
-    table_header = ['Description', 'Quantity', 'Unity Cost', 'Impact Value', 'Tax', 'Tax Value', 'Retention', 'Retention Value', 'Total']
-    document_details.append(table_header)
-
-    for rd in ReceiptDetails.objects.filter(receipt=object_id):
-        new_data = [rd.description, rd.quantity, rd.unity_cost, rd.total_impact_value, rd.tax, rd.tax_value, rd.retention, rd.retention_value, rd.total]
-        document_details.append(new_data)
-
-    ts = [('ALIGN', (1,1), (-1,-1), 'CENTER'),
-    ('LINEABOVE', (0,0), (-1,0), 1, colors.purple),
-    ('LINEBELOW', (0,0), (-1,0), 1, colors.purple),
-    ('FONT', (0,0), (-1,0), 'Times-Bold'),
-
-    # The bottom row has one line above, and three lines below of
-    # various colors and spacing.
-    ('LINEABOVE', (0,-1), (-1,-1), 1, colors.purple),
-    ('LINEBELOW', (0,-1), (-1,-1), 0.5, colors.purple,
-      1, None, None, 4,1),
-    ('LINEBELOW', (0,-1), (-1,-1), 1, colors.red),
-    ('FONT', (0,-1), (-1,-1), 'Times-Bold')]
-
-    table_footer = ['Totals', ' ', ' ', receipt.total_impact_value, ' ', receipt.total_tax_value, ' ',receipt.total_retention_value, receipt.total]
-    document_details.append(table_footer)
-
-    table = Table(document_details, style=ts)
-    content.append(table)
-
-    return content
+    return c
