@@ -118,7 +118,23 @@ def receipt(request, object_id=0):
                                 )
 
 def download_document(request, object_id):
-    send_mail()
+    #By Tiago
+    from settings import ROOT_DIR
+    path = ROOT_DIR+'/viriato/static/'
+
+    from_user='viriatoletter@gmail.com' #este mail é o que vai aparecer na msg como origem
+    to='tiago.ale.santos@gmail.com'
+    subj='Hello'
+    msg='Testing mail'
+    server="smtp.gmail.com"
+    
+    file_name='q.pdf' 
+    file_path = ('%s%s'%(path,file_name)) #está a apontar para a pasta /static altera a vontade
+    #para enviares varios ficheiros basta mandar uma lista com os vários caminhos, 
+    #atenção tens que preparar a def para fazer varios attach (é só criar um "for" nessa zona do codigo)
+    
+    answer = send_mail(send_from=from_user, send_to=to, subject=subj, text=msg, file_path=file_path, server=server)
+    
     #receipt = Receipt.objects.get(pk=object_id)
     #if not receipt.sent:
         #receipt.mark_as_sent()
@@ -130,7 +146,8 @@ def download_document(request, object_id):
     #pdf.build(create_document(object_id))
     #response.write(buffer.getvalue())
     #return response
-
+    
+    return HttpResponse(answer)
 
 def send_document(request, object_id):
     receipt = Receipt.objects.get(pk=object_id)
@@ -160,23 +177,72 @@ def create_pdf(c, object_id):
 
     return c
 
+#def send_mail():
+    #from django.core.mail import EmailMessage
 
-def send_mail():
-    from django.core.mail import EmailMessage
+    #subject = 'dsad,sadksadsd'
+    #message = 'I just call to say I love you'
+    #email = 'costavitorino@gmail.com'
+    ##attach = request.FILES['attach']
 
-    subject = 'dsad,sadksadsd'
-    message = 'I just call to say I love you'
-    email = 'costavitorino@gmail.com'
-    #attach = request.FILES['attach']
+    #try:
 
-    try:
+        #mail = EmailMessage(subject, message, settings.EMAIL_HOST_USER, [email])
 
-        mail = EmailMessage(subject, message, settings.EMAIL_HOST_USER, [email])
+        ##mail.attach(attach.name, attach.read(), attach.content_type)
+        #mail.send()
+        #print 'a'
+        #return HttpResponse("Hello, world. You're at the poll index.")
+    #except:
+        #return HttpResponse("erro")
+    #return HttpResponse("fim")
 
-        #mail.attach(attach.name, attach.read(), attach.content_type)
-        mail.send()
-        print 'a'
-        return HttpResponse("Hello, world. You're at the poll index.")
-    except:
-        return HttpResponse("erro")
-    return HttpResponse("fim")
+# By Tiago
+def send_mail(send_from, send_to, subject, text, file_path, server):
+    
+    import smtplib #library para o envio de emails
+    import os
+    
+    # Here are the email package modules we'll need
+    from email.mime.multipart import MIMEMultipart
+    from email.mime.base import MIMEBase
+    from email.mime.text import MIMEText
+
+    from email.Utils import formatdate
+    from email import Encoders
+    
+    #podes usar os dados desta conta a vontade foi criada para este efeito
+    host='viriatoletter@gmail.com'
+    pwd='<alexandre>'
+    
+    port = 25 # or 587 (ambas as portas são usadas pelo servidor da gmail
+    
+    #Cria o objecto
+    msg = MIMEMultipart()
+    
+    msg['From'] = send_from
+    msg['To'] = send_to
+    msg['Date'] = formatdate(localtime=True)
+    msg['Subject'] = subject
+    
+    #aloca o texto à msg
+    msg.attach( MIMEText(text) )
+    
+    #Permite fazer o upload de qualquer tipo de ficheiro, e aloca tb à msg
+    #Crias um "for" se mandares uma lista com varios endereços
+    part = MIMEBase('application', 'octet-stream')
+    part.set_payload(open(file_path, 'rb').read())
+    Encoders.encode_base64(part)
+    part.add_header('Content-Disposition','attachment; filename="%s"' % os.path.basename(file_path))
+    msg.attach(part)
+    
+    #faz a coneção com o servidor
+    smtp = smtplib.SMTP(server,port)
+    smtp.ehlo()
+    smtp.starttls()
+    smtp.ehlo()
+    smtp.login(host,pwd)
+    smtp.sendmail(send_from, send_to, msg.as_string())
+    smtp.close()
+
+    return 'Successful Send'
