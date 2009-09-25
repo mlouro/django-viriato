@@ -7,5 +7,4 @@ urlpatterns = patterns('',
     (r'^(?P<object_id>\d+)/$', 'receipt.views.receipt'),
     url(r'^download_document/(?P<object_id>\d+)/$', 'receipt.views.download_document', name="download_document"),
     url(r'^send_document/(?P<object_id>\d+)/$', 'receipt.views.send_document', name="send_document"),
-    url(r'^mail/$', 'receipt.views.send_email', name="send_email"), #by Tiago
 )
