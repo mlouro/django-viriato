@@ -25,8 +25,6 @@ function get_links(newsletter_id){
 
 function draw(labels,data) {
     // Grab the data
-    for ( i in data)
-        alert (data[i])
 
     //$("#data_analytics tfoot th").each(function () {
         //labels.push($(this).html());

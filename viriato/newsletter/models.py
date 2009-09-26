@@ -238,7 +238,7 @@ class Link(models.Model):
         return self.link
     #----------------------------------------------------------------------
 
-    def save(self, force_insert=False, force_update=False, edit=False):
+    def save(self, edit=False, force_insert=False, force_update=False):
         if edit:
             self.click_count += 1
         super(Link, self).save(force_insert, force_update) # Call the "real" save() method.
