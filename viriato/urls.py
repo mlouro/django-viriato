@@ -9,7 +9,6 @@ urlpatterns = patterns('',
 
     (r'^admin/doc/', include('django.contrib.admindocs.urls')),
     (r'^admin/(.*)', admin.site.root),
-    (r'^account/',  include('django_authopenid.urls')),
 
     # apps
     #(r'^calendar/', include('schedule.urls')),
