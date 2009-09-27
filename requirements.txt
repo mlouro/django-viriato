@@ -1,14 +1,10 @@
 # TODOS
-# 1. Create bootstrap file to install manual stuff
-# install python_openid: pip install python_openid
 
 # Django
 django
 
 # user stuff
-python_openid
 django_registration
-django-authopenid
 lxml
 httplib2
 simplejson
