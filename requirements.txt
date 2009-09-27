@@ -8,7 +8,6 @@ django
 # user stuff
 python_openid
 django_registration
-django-authopenid
 lxml
 httplib2
 simplejson
@@ -18,5 +17,4 @@ pygments
 -e git://github.com/alex/pyvcs.git#egg=pyvcs
 -e git://github.com/jelmer/dulwich.git#egg=dulwich
 -e git://github.com/mlouro/django-vcs.git#egg=django-vcs
-PIL
 reportlab
