@@ -32,6 +32,8 @@ from invoices.pdf_gen import *
 from invoices.sendmail import *
 from invoices.common import *
 
+from django.utils.translation import ugettext as _
+
 
 if 'projects' in INSTALLED_APPS:
     project = True
@@ -235,8 +237,22 @@ def create_pdf(c, object_id):
     contract = Contract.objects.get(pk=object_id)
     contract_details = ContractDetails.objects.filter(contract=object_id)
     client = Company.objects.get(pk=contract.company)
-    create_doc_main(c, object_id, client)
-    create_doc_details(c, contract, contract_details)
+
+    table_header = [_('Description'),'','', '', '', _('Quantity'), _('Unity Cost'), _('Imp. Value'), _('Tax'), _('Tax Value'), _('Retention'), _('Ret. Value'), _('Total')]
+
+    table_body = []
+    for rd in contract_details:
+        new_data = [rd.description[:50],'','','','', rd.quantity, rd.unity_cost, rd.impact_value, rd.tax, rd.tax_value, rd.retention, rd.retention_value, rd.total]
+        table_body.append (new_data)
+
+    for rd in contract_details:
+        new_data = [rd.description[:50],'','','','', rd.quantity, rd.unity_cost, rd.impact_value, rd.tax, rd.tax_value, rd.retention, rd.retention_value, rd.total]
+
+
+    table_footer = [_('Totals'),'', ' ' ,'',' ', ' ', ' ', contract.total_impact_value, ' ', contract.total_tax_value, ' ',contract.total_retention_value, contract.total]
+
+    create_doc_main(c, object_id, client, receipt=False)
+    create_doc_details(c, table_header, table_body, table_footer)
 
     return c
 

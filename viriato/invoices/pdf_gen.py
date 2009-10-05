@@ -77,27 +77,16 @@ def create_doc_main(c, object_id, instance, receipt=True):
         p.textLine(line)
     c.drawText(p)
 
-def create_doc_details(c, instance, details_instance):
+def create_doc_details(c, table_header, table_body, table_footer):
     w, h = A4
     document_details = []
 
     c.setFont("Helvetica", 8)
 
-    table_header = [_('Description'),'','', '', '', _('Quantity'), _('Unity Cost'), _('Imp. Value'), _('Tax'), _('Tax Value'), _('Retention'), _('Ret. Value'), _('Total')]
-    for rd in details_instance:
-        new_data = [rd.description[:50],'','','','', rd.quantity, rd.unity_cost, rd.total_impact_value, rd.tax, rd.tax_value, rd.retention, rd.retention_value, rd.total]
-    table_footer = [_('Totals'),'', ' ' ,'',' ', ' ', ' ', instance.total_impact_value, ' ', instance.total_tax_value, ' ',instance.total_retention_value, instance.total]
-
-
     document_details.append(table_header)
+    for detail in table_body:
+        document_details.append (detail)
     document_details.append(table_footer)
-
-
-        document_details.append(new_data)
-
-
-
-
 
     ts = [
             ('FONT', (0,0), (-1,-1), 'Times-Roman', 8),

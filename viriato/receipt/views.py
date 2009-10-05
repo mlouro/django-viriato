@@ -159,8 +159,18 @@ def create_pdf(c, object_id):
     receipt = Receipt.objects.get(pk=object_id)
     receipt_details = ReceiptDetails.objects.filter(receipt=object_id)
     client = Company.objects.get(pk=receipt.company)
+
+    table_header = [_('Description'),'','', '', '', _('Quantity'), _('Unity Cost'), _('Imp. Value'), _('Tax'), _('Tax Value'), _('Retention'), _('Ret. Value'), _('Total')]
+
+    table_body = []
+    for rd in receipt_details:
+        new_data = [rd.description[:50],'','','','', rd.quantity, rd.unity_cost, rd.total_impact_value, rd.tax, rd.tax_value, rd.retention, rd.retention_value, rd.total]
+        table_body.append (new_data)
+
+    table_footer = [_('Totals'),'', ' ' ,'',' ', ' ', ' ', receipt.total_impact_value, ' ', receipt.total_tax_value, ' ',receipt.total_retention_value, receipt.total]
+
     create_doc_main(c, object_id, client)
-    create_doc_details(c, receipt, receipt_details)
+    create_doc_details(c, table_header, table_body, table_footer)
 
     return c
 
