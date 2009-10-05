@@ -1,0 +1,58 @@
+{% extends 'invoices/base.html' %}
+{% load i18n %}
+
+{% block extra_head %}
+    {{ block.super }}
+    <link type="text/css" rel="Stylesheet" media="screen" href="{{ MEDIA_URL }}css/invoices/index.css"/>
+{% endblock extra_head %}
+
+
+{% block content %}
+    <div id="contracts">
+        <h2>{% trans 'Contracts' %}</h2>
+        {% if contracts %}
+            <table class="stripes" id="list_table" style="width:100%">
+                <tr>
+                    <th class="center">{% trans "Description" %}</th>
+                    <th class="center">{% trans "Client" %}</th>
+                    <th class="center">{% trans "Total" %}</th>
+                    <th class="center">{% trans "To pay" %}</th>
+                    <th class="center">{% trans "Approved" %}</th>
+                    <th class="center">{% trans "Finished" %}</th>
+                </tr>
+
+                {% for contract in contracts %}
+                        <td><a href="{{ contract.get_absolute_url }}">{{ contract.description }}</a></td>
+                        <td><a href="{{ contract.get_absolute_url }}">{{ contract.company }}</a></td>
+                        <td class="number"><a href="{{ contract.get_absolute_url }}">{{ contract.total }}</a></td>
+                        <td class="number"><a href="{{ contract.get_absolute_url }}">{{ contract.to_pay }}</a></td>
+                        <td class="center"><a href="{{ contract.get_absolute_url }}">
+                            {% if contract.approved %}
+                                {% trans 'Yes' %}
+                            {% else %}
+                                {% trans 'No' %}
+                            {% endif %}
+                        </a></td>
+                        <td class="center"><a href="{{ contract.get_absolute_url }}">
+                            {% if contract.finished %}
+                                {% trans 'Yes' %}
+                            {% else %}
+                                {% trans 'No' %}
+                            {% endif %}
+                        </a></td>
+                    </tr>
+                {% endfor %}
+            </table>
+        {% else %}
+            {% trans "There aren't contracts" %}
+        {% endif %}
+    </div>
+
+{% endblock content %}
+
+{% block content_sidebar %}
+
+{% endblock content_sidebar %}
+
+
+

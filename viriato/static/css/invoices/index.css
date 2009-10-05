@@ -1,0 +1,35 @@
+.headers{
+    padding: 5px;
+}
+
+#receipts{
+    margin: 20px;
+    border-bottom: 2px solid #8F8FBD;
+    padding-bottom: 10px;
+}
+
+#contracts{
+    margin: 20px;
+    border-bottom: 2px solid #8F8FBD;
+    padding-bottom: 10px;
+}
+
+a{
+    text-decoration: none;
+}
+
+h2{ padding: 10px;}
+
+h3{
+    padding: 5px;
+    font-size: 12px;
+}
+
+td{
+    padding-left:10px;
+    padding-right:10px;
+}
+
+.number{ text-align:right; }
+
+.center { text-align: center;}
