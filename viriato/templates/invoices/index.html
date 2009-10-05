@@ -1,4 +1,4 @@
-{% extends '/invoices/base.html' %}
+{% extends 'invoices/base.html' %}
 {% load i18n %}
 
 {% block extra_head %}
@@ -6,41 +6,92 @@
     <link type="text/css" rel="Stylesheet" media="screen" href="{{ MEDIA_URL }}css/invoices/index.css"/>
 {% endblock extra_head %}
 
-{% block breadcrumbs %}
-
-{% endblock %}
 
 {% block content %}
-    {% if bills %}
-        <table class="stripes" id="list_table" style="width:100%">
-            <tr>
-                <th class="center">{% trans "Select" %}</th>
-                <th class="center">{% trans "Bill nr." %}</th>
-                <th class="center">{% trans "Client" %}</th>
-                <th class="center">{% trans "Description" %}</th>
-                <th class="center">{% trans "Emission Date" %}</th>
-                <th class="center">{% trans "Total" %}</th>
-                <th class="center">{% trans "Payed" %}</th>
-                <th class="center">{% trans "Status" %}</th>
-                <th class="center">{% trans "Sent" %}</th>
-                <th class="center">{% trans "Edit" %}</th>
-            </tr>
-        
-        {% for bill in bills %}
-            <tr>
-                <td><input type="checkbox"/></td>
-            </tr>
-        {% endfor %}
-        </table>
-    {% else %}
-        {% trans "There aren't emitted bills" %}
-    {% endif %}
+    <div id="contracts">
+        <h2>{% trans 'Last Contracts' %}</h2>
+        {% if contracts %}
+            <table class="stripes" id="list_table" style="width:100%">
+                <tr>
+                    <th class="center">{% trans "Description" %}</th>
+                    <th class="center">{% trans "Client" %}</th>
+                    <th class="center">{% trans "Total" %}</th>
+                    <th class="center">{% trans "To pay" %}</th>
+                    <th class="center">{% trans "Approved" %}</th>
+                    <th class="center">{% trans "Finished" %}</th>
+                </tr>
+
+                {% for contract in contracts %}
+                        <td><a href="{{ contract.get_absolute_url }}">{{ contract.description }}</a></td>
+                        <td><a href="{{ contract.get_absolute_url }}">{{ contract.company }}</a></td>
+                        <td class="number"><a href="{{ contract.get_absolute_url }}">{{ contract.total }}</a></td>
+                        <td class="number"><a href="{{ contract.get_absolute_url }}">{{ contract.to_pay }}</a></td>
+                        <td class="center"><a href="{{ contract.get_absolute_url }}">
+                            {% if contract.approved %}
+                                {% trans 'Yes' %}
+                            {% else %}
+                                {% trans 'No' %}
+                            {% endif %}
+                        </a></td>
+                        <td class="center"><a href="{{ contract.get_absolute_url }}">
+                            {% if contract.finished %}
+                                {% trans 'Yes' %}
+                            {% else %}
+                                {% trans 'No' %}
+                            {% endif %}
+                        </a></td>
+                    </tr>
+                {% endfor %}
+            </table>
+            <h3 class="show_more"><a href="/invoices/contract/index/">{% trans 'Show more' %}</a></h3>
+        {% else %}
+            {% trans "There aren't contracts" %}
+        {% endif %}
+    </div>
+
+    <div id="receipts">
+        <h2>{% trans 'Last Receipts' %}</h2>
+        {% if receipts %}
+            <table class="stripes" id="list_table" style="width:100%">
+                <tr>
+                    <th class="center">{% trans "Description" %}</th>
+                    <th class="center">{% trans "Contract" %}</th>
+                    <th class="center">{% trans "Client" %}</th>
+                    <th class="center">{% trans "Total" %}</th>
+                    <th class="center">{% trans "Sent" %}</th>
+                </tr>
+                {% for receipt in receipts %}
+                    <tr>
+                        <td><a href="{{receipt.get_absolute_url }}">{{ receipt.description }}</a></td>
+                        <td><a href="{{receipt.contract.get_absolute_url }}">
+                            {% if receipt.contract %}
+                                {{ receipt.contract.description }}
+                            {% else %}
+                                {% trans 'No' %}
+                            {% endif %}
+                        </a></td>
+                        <td><a href="{{receipt.get_absolute_url }}">{{ receipt.company }}</a></td>
+                        <td class="number"><a href="{{receipt.get_absolute_url }}">{{ receipt.total }}</a></td>
+                        <td class="center"><a href="{{receipt.get_absolute_url }}">
+                            {% if receipt.sent %}
+                                {% trans 'at' %} {{ receipt.sent_date }}
+                            {% else %}
+                                {% trans 'No' %}
+                            {% endif %}
+                        </a></td>
+                    </tr>
+                {% endfor %}
+            </table>
+            <h3 class="show_more"><a href="/invoices/receipt/index/">{% trans 'Show more' %}...</a></h3>
+        {% else %}
+            {% trans "There aren't receipts" %}
+        {% endif %}
+    </div>
+
 {% endblock content %}
 
 {% block content_sidebar %}
 
-    <p><a class="navbutton" href="">{% trans "Send Bills" %}</a></p>
-    <p><a class="navbutton" href="">{% trans "Send Receipts" %}</a></p>
 {% endblock content_sidebar %}
 
 

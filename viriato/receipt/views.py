@@ -23,7 +23,10 @@ from django.core.mail import send_mail
 from settings import INSTALLED_APPS
 
 from reportlab.pdfgen import canvas
-from receipt.pdf_gen import *
+from cStringIO import StringIO
+from invoices.pdf_gen import *
+from invoices.sendmail import *
+from invoices.common import *
 
 if 'projects' in INSTALLED_APPS:
     project = True
@@ -31,17 +34,14 @@ else:
     project = False
 
 def index(request):
-    receipts = Receipt.objects.all()
-    return render_to_response ("/invoices/index.html",
+    receipts = Receipt.objects.order_by('creation_date').reverse()
+    return render_to_response ("invoices/receipt_index.html",
                                 {'receipts': receipts, },
                                 context_instance=RequestContext(request)
                             )
 
-#@login_required
+@login_required
 def receipt(request, object_id=0):
-
-    print project
-
     try:
         my_company = MyCompany.objects.get(pk=1)
         tax = my_company.tax
@@ -118,50 +118,37 @@ def receipt(request, object_id=0):
                                 )
 
 def download_document(request, object_id):
-    #By Tiago
-    from settings import ROOT_DIR
-    path = ROOT_DIR+'/viriato/static/'
-
-    from_user='viriatoletter@gmail.com' #este mail é o que vai aparecer na msg como origem
-    to='tiago.ale.santos@gmail.com'
-    subj='Hello'
-    msg='Testing mail'
-    server="smtp.gmail.com"
-    
-    file_name='q.pdf' 
-    file_path = ('%s%s'%(path,file_name)) #está a apontar para a pasta /static altera a vontade
-    #para enviares varios ficheiros basta mandar uma lista com os vários caminhos, 
-    #atenção tens que preparar a def para fazer varios attach (é só criar um "for" nessa zona do codigo)
-    
-    answer = send_mail(send_from=from_user, send_to=to, subject=subj, text=msg, file_path=file_path, server=server)
-    
-    #receipt = Receipt.objects.get(pk=object_id)
-    #if not receipt.sent:
-        #receipt.mark_as_sent()
-
-    #response = HttpResponse(mimetype='application/pdf')
-    #response['Content-Disposition'] = 'attachment; filename=receipt%s.pdf' % (object_id)
-    #buffer = StringIO()
-    #pdf = SimpleDocTemplate(buffer, pagesize = letter)
-    #pdf.build(create_document(object_id))
-    #response.write(buffer.getvalue())
-    #return response
-    
-    return HttpResponse(answer)
-
-def send_document(request, object_id):
     receipt = Receipt.objects.get(pk=object_id)
     if not receipt.sent:
         receipt.mark_as_sent()
 
     response = HttpResponse(mimetype='application/pdf')
     response['Content-Disposition'] = 'attachment; filename=receipt%s.pdf' % (object_id)
-
     c = canvas.Canvas(response)
     c = create_pdf(c, object_id)
     c.showPage()
     c.save()
     return response
+
+def send_document(request, object_id):
+    from settings import ROOT_DIR
+    path = ROOT_DIR+'/viriato/static/tmp/'
+    filename = 'receipt%s.pdf' % (object_id)
+    file_path = ('%s%s'%(path,filename))
+
+    receipt = Receipt.objects.get(pk=object_id)
+    if not receipt.sent:
+        receipt.mark_as_sent()
+
+    c = canvas.Canvas(file_path)
+    c = create_pdf(c, object_id)
+    c.showPage()
+    c.save()
+
+    if sendmail(file_path, object_id, MyCompany.objects.get(pk=1).title):
+        return HttpResponse("Hello, world. You're at the poll index.")
+    else:
+        return HttpResponse("false")
 
 
 def create_pdf(c, object_id):
@@ -177,72 +164,13 @@ def create_pdf(c, object_id):
 
     return c
 
-#def send_mail():
-    #from django.core.mail import EmailMessage
 
-    #subject = 'dsad,sadksadsd'
-    #message = 'I just call to say I love you'
-    #email = 'costavitorino@gmail.com'
-    ##attach = request.FILES['attach']
+def sendmail(file_path, object_id, company_title):
+    host, pwd, from_user, server = get_email_data()
 
-    #try:
+    to='costavitorino@gmail.com'
+    subj=_('Receipt from %s' % (company_title))
+    msg=_('Sending receipt number %s' % (object_id))
 
-        #mail = EmailMessage(subject, message, settings.EMAIL_HOST_USER, [email])
-
-        ##mail.attach(attach.name, attach.read(), attach.content_type)
-        #mail.send()
-        #print 'a'
-        #return HttpResponse("Hello, world. You're at the poll index.")
-    #except:
-        #return HttpResponse("erro")
-    #return HttpResponse("fim")
-
-# By Tiago
-def send_mail(send_from, send_to, subject, text, file_path, server):
-    
-    import smtplib #library para o envio de emails
-    import os
-    
-    # Here are the email package modules we'll need
-    from email.mime.multipart import MIMEMultipart
-    from email.mime.base import MIMEBase
-    from email.mime.text import MIMEText
-
-    from email.Utils import formatdate
-    from email import Encoders
-    
-    #podes usar os dados desta conta a vontade foi criada para este efeito
-    host='viriatoletter@gmail.com'
-    pwd='<alexandre>'
-    
-    port = 25 # or 587 (ambas as portas são usadas pelo servidor da gmail
-    
-    #Cria o objecto
-    msg = MIMEMultipart()
-    
-    msg['From'] = send_from
-    msg['To'] = send_to
-    msg['Date'] = formatdate(localtime=True)
-    msg['Subject'] = subject
-    
-    #aloca o texto à msg
-    msg.attach( MIMEText(text) )
-    
-    #Permite fazer o upload de qualquer tipo de ficheiro, e aloca tb à msg
-    #Crias um "for" se mandares uma lista com varios endereços
-    part = MIMEBase('application', 'octet-stream')
-    part.set_payload(open(file_path, 'rb').read())
-    Encoders.encode_base64(part)
-    part.add_header('Content-Disposition','attachment; filename="%s"' % os.path.basename(file_path))
-    msg.attach(part)
-    
-    #faz a coneção com o servidor
-    smtp = smtplib.SMTP(server,port)
-    smtp.ehlo()
-    smtp.starttls()
-    smtp.ehlo()
-    smtp.login(host,pwd)
-    smtp.sendmail(send_from, send_to, msg.as_string())
-    smtp.close()
-
-    return 'Successful Send'
+    answer = send_mail(send_from=from_user, send_to=to, subject=subj, text=msg, file_path=file_path, server=server, host=host, pwd=pwd)
+    return answer

@@ -12,7 +12,15 @@
 
 {% endblock extra_head %}
 
-{% block content_id_title %}<h1>{% trans 'Editing receipt nr. ' %}{{ receipt.id }}</h1>{% endblock %}
+{% block content_id_title %}
+    <h1>
+        {% if receipt_is_not_editable %}
+            {% trans 'Viewing receipt nr. ' %}{{ receipt.id }}
+        {% else %}
+            {% trans 'Editing receipt nr. ' %}{{ receipt.id }}
+        {% endif %}
+    </h1>
+{% endblock %}
 
 {% block jquery %}
     {% if receipt_is_not_editable %}
@@ -36,6 +44,6 @@
 {% endblock content_data_submit %}
 
 {% block content_sidebar %}
-    <p><a class="navbutton" href="/invoices/receipt/download_document/{{ receipt.pk }}/">{% trans "Download Receipt" %}</a></p>
+   <p><a class="navbutton" href="/invoices/receipt/download_document/{{ receipt.pk }}/">{% trans "Download Receipt" %}</a></p>
     <p><a class="navbutton" href="/invoices/receipt/send_document/{{ receipt.pk }}/">{% trans "Send Receipt" %}</a></p>
 {% endblock content_sidebar %}
