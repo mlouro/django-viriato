@@ -23,13 +23,14 @@ def company(request):
 
         company_form = MyCompanyForm(request.POST, instance=company)
 
-        #formset_list = {
-                    #'email_formset' : EmailFormSet(instance=company, data=request.POST),
-                    #'phone_formset' : PhoneFormSet(instance=company, data=request.POST),
-                    #'im_formset' : InstantMessagingFormSet(instance=company, data=request.POST),
-                    #'address_formset' : AddressFormSet(instance=company, data=request.POST),
-                    #'website_formset' : WebsiteFormSet(instance=company, data=request.POST),
-                #}
+        formset_list = {
+            'email_formset' : emails_formset(instance=company, prefix='emails', data=request.POST),
+            'phone_formset' : phones_formset(instance=company, prefix='phones', data=request.POST),
+            'im_formset' : ims_formset(instance=company, prefix='ims', data=request.POST),
+            'address_formset' : addresses_formset(instance=company, prefix='addresses', data=request.POST),
+            'website_formset' : websites_formset(instance=company, prefix='websites', data=request.POST),
+            'email_settings_formset': email_settings_formset(instance=company, prefix='email_settings', data=request.POST),
+        }
 
         if company_form.is_valid():
             company_form.save()
