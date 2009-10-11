@@ -38,24 +38,33 @@ class Receipt(models.Model):
 
 
     def save(self, force_insert=False, force_update=False):
-        self.creation_date = datetime.datetime.now()
-        super(Receipt, self).save(force_insert, force_update) # Call the "real" save() method.
+        if not self.creation_date:
+            self.creation_date = datetime.datetime.now()
+
+        if not self.sent:
+            super(Receipt, self).save(force_insert, force_update) # Call the "real" save() method.
 
 
     def calculate(self):
-        receipt = ReceiptDetails.objects.filter(receipt=self.id)
-        self.total_impact_value = receipt.aggregate(Sum('total'))['total__sum']
-        self.total_tax_value = receipt.aggregate(Sum('tax_value'))['tax_value__sum']
-        self.total_retention_value = receipt.aggregate(Sum('retention_value'))['retention_value__sum']
-        try:
-            self.total = self.total_impact_value + self.total_tax_value - self.total_retention_value
-        except TypeError: # Preventing deletion of all details
-            self.total_impact_value = 0
-            self.total_tax_value = 0
-            self.total_retention_value = 0
-            self.total = 0
+        if not self.sent:
+            receipt = ReceiptDetails.objects.filter(receipt=self.id)
+            self.total_impact_value = receipt.aggregate(Sum('total'))['total__sum']
+            self.total_tax_value = receipt.aggregate(Sum('tax_value'))['tax_value__sum']
+            self.total_retention_value = receipt.aggregate(Sum('retention_value'))['retention_value__sum']
+            try:
+                self.total = self.total_impact_value + self.total_tax_value - self.total_retention_value
+            except TypeError: # Preventing deletion of all details
+                self.total_impact_value = 0
+                self.total_tax_value = 0
+                self.total_retention_value = 0
+                self.total = 0
 
-        self.save()
+            self.save()
+
+    def mark_as_sent(self, force_insert=False, force_update=False):
+        self.sent = True
+        self.sent_date = datetime.datetime.now()
+        super(Receipt, self).save(force_insert, force_update) # Call the "real" save() method.
 
 
 class ReceiptDetails(models.Model):
@@ -77,25 +86,26 @@ class ReceiptDetails(models.Model):
         return self.description
 
     def save(self, force_insert=False, force_update=False):
-        self.total_impact_value = self.unity_cost * self.quantity
-        self.tax_value = self.total_impact_value * (self.tax/100)
-        self.retention_value = self.total_impact_value * (self.retention/100)
+        if not self.receipt.sent:
+            self.total_impact_value = self.unity_cost * self.quantity
+            self.tax_value = self.total_impact_value * (self.tax/100)
+            self.retention_value = self.total_impact_value * (self.retention/100)
 
-        self.total = self.total_impact_value - self.retention_value + self.tax_value
+            self.total = self.total_impact_value - self.retention_value + self.tax_value
 
-        if self.contract_detail != None:
-            self.contract_detail.total_payed += self.to_pay
+            if self.contract_detail != None:
+                self.contract_detail.total_payed += self.to_pay
 
-            if self.contract_detail.total_payed >= self.contract_detail.total:
-                self.contract_detail.payed = True
+                if self.contract_detail.total_payed >= self.contract_detail.total:
+                    self.contract_detail.payed = True
 
-            self.contract_detail.save()
+                self.contract_detail.save()
 
-            nr_of_details = ContractDetails.objects.filter(contract=self.receipt.contract.id).count()
-            nr_of_payed = ContractDetails.objects.filter(payed=True, contract=self.receipt.contract.id).count()
+                nr_of_details = ContractDetails.objects.filter(contract=self.receipt.contract.id).count()
+                nr_of_payed = ContractDetails.objects.filter(payed=True, contract=self.receipt.contract.id).count()
 
-            if nr_of_details == nr_of_payed:
-                self.receipt.contract.finished = True
-                self.receipt.contract.save()
+                if nr_of_details == nr_of_payed:
+                    self.receipt.contract.finished = True
+                    self.receipt.contract.save()
 
-        super(ReceiptDetails, self).save(force_insert, force_update) # Call the "real" save() method.
+            super(ReceiptDetails, self).save(force_insert, force_update) # Call the "real" save() method.

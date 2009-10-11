@@ -4,7 +4,11 @@ from django.conf.urls.defaults import *
 
 
 urlpatterns = patterns('',
-    url(r'^$', 'contract.views.contract', name="contract_index"),
+    url(r'^index/$', 'contract.views.index', name="contract_index"),
+    url(r'^$', 'contract.views.contract', name="contract"),
+    url(r'^download_document/(?P<object_id>\d+)/$', 'contract.views.download_document', name="download_document"),
+    url(r'^send_document/(?P<object_id>\d+)/$', 'contract.views.send_document', name="send_document"),
+
     (r'^contracts_ajax/$', 'contract.views.contracts_ajax'),
     (r'^contract_details_ajax/$', 'contract.views.contract_details_ajax'),
     (r'^contract_detail_line_ajax/$', 'contract.views.contract_detail_line_ajax'),

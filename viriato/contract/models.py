@@ -5,6 +5,7 @@ from django.db.models import Sum
 from settings import INSTALLED_APPS
 from contact.models import Company
 import datetime
+from django.db.models import Sum
 
 if "projects" in INSTALLED_APPS:
     from projects.models.project import Project
@@ -26,10 +27,6 @@ class Contract(models.Model):
     else:
         project = models.IntegerField(blank=True, null=True)
 
-
-    #def payed_percentage(self):
-        #return "%s ->(%s pct)" % (self.payed, round((self.payed*100)/self.total_bill,2))
-
     def get_absolute_url(self):
         return "/invoices/contract/%s/" % (self.id)
 
@@ -40,7 +37,6 @@ class Contract(models.Model):
 
         self.date = datetime.datetime.now()
         super(Contract, self).save(force_insert, force_update) # Call the "real" save() method.
-
 
     def calculate(self):
         contract = ContractDetails.objects.filter(contract=self.id)
@@ -57,6 +53,10 @@ class Contract(models.Model):
             self.total_bill = 0
 
         self.save()
+
+    def to_pay(self):
+        tot_payed = ContractDetails.objects.filter(contract=self.id).aggregate(Sum('total_payed'))['total_payed__sum']
+        return self.total - tot_payed
 
 
 class ContractDetails(models.Model):

@@ -32,7 +32,7 @@ function draw(labels,data) {
     //$("#data_analytics tbody td").each(function () {
         //data.push($(this).html());
     //});
-    
+
     // Draw
 var width = 800
         rightgutter = 20,
@@ -56,17 +56,17 @@ var width = 800
         blanket = r.set(),
             bar_label = r.text(60, 40, "22 September 2008").attr(txt1).hide(),
             t0 = r.text(leftgutter-14, height-25, 0).attr(txt).toBack();
-   
+
     for(var i = 0, ii = labels.length; i < ii; i++)
         {
             var y = height - bottomgutter - data[i]/ max * (height - bottomgutter - topgutter),
           x = Math.round(leftgutter + X * (i+1)),
           ty = r.text(leftgutter - 14, topgutter + i * Y, Math.round(max/data.length*(ii-i))).attr(txt).toBack(),
-          tx = r.text(x-30, height - 6, labels[i]).attr(txt).toBack(),         
-          bar = r.rect(x-50, y, X-20, data[i]/ max * (height - bottomgutter - topgutter)).attr({fill: color, stroke: color});   
-           
+          tx = r.text(x-30, height - 6, labels[i]).attr(txt).toBack(),
+          bar = r.rect(x-50, y, X-20, data[i]/ max * (height - bottomgutter - topgutter)).attr({fill: color, stroke: color});
+
             blanket.push(r.rect(x-50, 20, X-20, height - bottomgutter - topgutter).attr({stroke: "#fff", fill: "#000", opacity: 0}));
-      var rect = blanket[i];         
+      var rect = blanket[i];
       (function (x, y, data, label, bar) {
             var timer, i = 0;
             $(rect.node).hover(function () {
@@ -75,7 +75,7 @@ var width = 800
                 if (newcoord.y - 20 < 0) {
                     newcoord.y += 16;
                 }
-                bar.attr({opacity: .3});   
+                bar.attr({opacity: .3});
                 frame.show().animate({x: newcoord.x, y: newcoord.y}, 200 * is_label_visible);
                // bar_label.show();
                    bar_label.attr({text: label}).show().animate({x: newcoord.x + 25, y: newcoord.y + 10}, 200 * is_label_visible);
@@ -94,5 +94,5 @@ var width = 800
             });
         })
             (x, y, data[i], data[i], bar);
-        }  
+        }
 };
