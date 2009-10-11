@@ -23,7 +23,7 @@ def index(request,project_id):
     response_vars = {}
     project = Project.objects.get(id=project_id)
 
-    milestones = Milestone.objects.filter(completed=False,project=project).order_by('end_date')
+    milestones = Milestone.objects.filter(project=project).order_by('end_date')
     milestone_list = []
     for milestone in milestones:
         if milestone.task_set.all():
@@ -64,7 +64,7 @@ def delete(request,project_id,task_id):
         task = Task.objects.get(id=request.POST['task_id'])
         task.delete()
 
-        return HttpResponseRedirect(reverse('projects.task.views.index', args=[project.id]))
+        return HttpResponseRedirect(reverse('task_index', args=[project.id]))
 
 
     response = { }

@@ -14,7 +14,7 @@ urlpatterns += patterns('projects.views.message',
     url(r'(?P<project_id>\d+)/message/details/(?P<message_id>[0-9]+)/$', 'details', name="message_details"),
     url(r'(?P<project_id>\d+)/message/save/$', 'save', name='message_add'),
     url(r'(?P<project_id>\d+)/message/save/(?P<message_id>[0-9]+)/$', 'save'),
-    url(r'(?P<project_id>\d+)/message/$', 'index', name="milestone_index"),
+    url(r'(?P<project_id>\d+)/message/$', 'index', name="message_index"),
 )
 
 # task views
@@ -64,7 +64,6 @@ urlpatterns += patterns('django_vcs.views',
 )
 
 urlpatterns += patterns('projects.views.project',
-    url(r'(?P<project_id>\d+)/dashboard/$', 'dashboard', name="project_dashboard"),
     url(r'(?P<project_id>\d+)/people/$', 'people', name="project_people"),
     url(r'(?P<project_id>\d+)/people/change/(?P<member_id>\d+)/$', 'membership_change', name="membership_change"),
     url(r'(?P<project_id>\d+)/people/add/$', 'membership_add', name="membership_add"),

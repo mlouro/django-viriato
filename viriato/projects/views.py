@@ -6,8 +6,13 @@ from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required, permission_required
 from core.decorators import permission_required_with_403
 
-@permission_required_with_403('sites.can_add_site')
+from projects import models
+
+@login_required
 def dashboard(request):
+
+    messages = models.Message.objects.all().count()
+    print messages
 
     c = context_instance=RequestContext(request)
     return render_to_response('project/dashboard.html',{},c)

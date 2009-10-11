@@ -8,7 +8,7 @@
         <div class="actions hidden">
             <span><a href="/task/save/{{ task.id }}/" class="edit">view</a>, </span>
             <span><a href="{% url projects.task.views.save project.id, task.id %}" class="edit">edit</a>,  </span>
-            <span><a href="" class="delete">delete</a> </span>
+            <span><a href="{% task_delete project.id, task.id %}" class="delete">delete</a> </span>
         </div>
     </div>
     {% if task.todo_set.all.count %}
