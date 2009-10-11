@@ -1,6 +1,7 @@
+# -*- coding: utf-8 -*-
 from django.db import models
 import datetime
-from lxml.html import parse, iterlinks, make_links_absolute,tostring
+from lxml.html import parse, iterlinks, make_links_absolute,tostring,fromstring
 
 ########################################################################
 class Group(models.Model):
@@ -57,8 +58,13 @@ class Subscriber(models.Model):
         """Return the absolute url"""
         return ('subscriber_delete', [str(self.id)])
     #----------------------------------------------------------------------
+    def save(self,subscribed=True):
+        """Override Save method - subscriber.save(false)"""
+        self.subscribed = subscribed
+        super(Subscriber,self).save()
+    #----------------------------------------------------------------------
     #@models.permalink
-    #def get_subscriber_by_group_url(self):
+    #def get_subscriber_by_email_url(self,email):
         #"""Return the edit url"""
         #return ('subscriber_by_group', [str(self.id)])
 
@@ -175,33 +181,49 @@ class Newsletter(models.Model):
                 #rewrited = re.sub('%s'%(el.link),'http://%s:8000/newsletter/news/%s'%(host,el.created_hash),self.content)
         self.content = rewrited
         super(Newsletter,self).save()
-
-    #----------------------------------------------------------------------
-    def chart_links(self):
-        """-- NOT BEING USED """
-        from pychartdir import *
-
-        links = Link.objects.filter(newsletter = self)
-        data = []
-        labels = []
-        for el  in links:
-            # The data for the bar chart
-            data.append(el.click_count)
-            # The labels for the bar chart
-            labels.append(str(el.slug))
-            
     #----------------------------------------------------------------------
     def  get_links(self):
-        """Get links -- NOT BEING USED """
-        
+        """Get links"""
+        #from lxml.html import builder as E
+
         links = Link.objects.filter(newsletter = self)
-        data =[]
+        #html=[]
+        data=[]
+        labels=[]
+
+        #html.append('<table id="data_analytics"><tfoot><tr>')
+        #for el in links:
+            #if not el.slug == 'unsubscribe':
+                #labels.append('<th>%s</th>'%(el.slug))
+                #data.append('<td>%s</td>'%(el.click_count))
+
+        #for el in labels:
+            #html.append(el)
+        #html.append('</tr></tfoot><tbody><tr>')
+        #for el in data:
+            #html.append(el)
+        #html.append('</tr></tbody></table>')
+
+        ##print html
+        #doc=' '.join(html)
+        #test = fromstring(doc)
+        #print tostring(test)
+
+        ##html = E.HTML(
+            ##E.TABLE(E.CLASS("data_analytics")
+                    ##)
+        ##)
+        dict=[]
         for el in links:
             if not el.slug == 'unsubscribe':
-                data.append(el)
-        
-        return data
-        
+                aux={}
+                aux['label']=el.slug
+                aux['clicks']=el.click_count
+                dict.append(aux)
+
+        return dict
+
+
 ########################################################################
 class Link(models.Model):
     """Class to store the newsletter links with the corresponding hash"""
@@ -215,13 +237,20 @@ class Link(models.Model):
         """return the link hash"""
         return self.link
     #----------------------------------------------------------------------
-    def save(self,edit):
-        """save(self,edit=True) will increment the click_count field
-        save(self,edit=False ) will save a new object with the click_count=0"""
 
+    def save(self, edit=False, force_insert=False, force_update=False):
         if edit:
             self.click_count += 1
-        super(Link,self).save()
+        super(Link, self).save(force_insert, force_update) # Call the "real" save() method.
+
+    #def save(self):
+        #print 'saving'
+        #"""save(self,edit=True) will increment the click_count field
+        #save(self,edit=False ) will save a new object with the click_count=0"""
+
+        #if edit:
+            #self.click_count += 1
+        #super(Link,self).save()
 
 ########################################################################
 class Submission(models.Model):

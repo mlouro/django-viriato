@@ -1,3 +1,5 @@
+/* Global App
+----------------------------------------------- */
 table.activity { width: 100%; }
     table.activity td { padding: 6px 4px 8px; border-bottom: 1px solid #EFEFEF;
             white-space: nowrap; }
@@ -6,10 +8,8 @@ table.activity { width: 100%; }
         table.activity .name { border-right: 1px solid #EFEFEF; }
 
 
-
 /* Newsletters Activity
 ----------------------------------------------- */
-
 .newsletter_activity h3 { padding: 5px 10px; background: #EFEFEF; font-weight: normal; }
 .newsletter_activity h3 a { text-decoration: none; color: #000; }
 
@@ -23,8 +23,6 @@ table.activity { width: 100%; }
 
 /* Group Activity
 ----------------------------------------------- */
-
-
 .group_activity h3 { padding: 5px 10px; background: #EFEFEF; font-weight: normal; }
 .group_activity h3 a { text-decoration: none; color: #000; }
 
@@ -34,6 +32,34 @@ table.activity { width: 100%; }
 .group_activity .group-row .actions a:hover { color: #000; }
 
 .group_activity .group-row.focused h3{ background-color: #FFF9DF }
+
+/* Newsletters Activity
+----------------------------------------------- */
+.subscriber_activity h3 { padding: 5px 10px; background: #EFEFEF; font-weight: normal; }
+.subscriber_activity h3 a { text-decoration: none; color: #000; }
+
+.subscriber_activity .subscriber-row .actions a { padding: 6px 3px; }
+.subscriber_activity .subscriber-row .actions { position: absolute; padding: 5px 5px 5px 5px; font-size: 1.2em; }
+.subscriber_activity .subscriber-row .actions span { margin: 0 2px; }
+.subscriber_activity .subscriber-row .actions a:hover { color: #000; }
+
+.subscriber_activity .subscriber-row.focused h3{ background-color: #FFF9DF }
+
+
+/* Subscriber by group
+----------------------------------------------- */
+.subscriber_by_group{}
+        .subscriber_by_group a:hover { color: #000; }
+        .subscriber_by_group li {padding:5px}
+        .subscriber_by_group h3 { padding: 5px 10px; background: #EFEFEF; font-weight: normal; }
+        .subscriber_by_group h3 a { text-decoration: none; color: #000; }
+        
+        .group_by {float: left; margin-right: 30px; padding-top: 10px; width:20.5em;}
+        .group_by .group-row.focused h3{ background-color: #FFF9DF }
+        
+        .subscriber_by {float: left; margin-left: 0px; padding-top: 10px; width:20.5em;}
+        .subscriber_by .subscriber-row.focused h3{ background-color: #FFF9DF }
+
 
 /* Newsletters link edit
 ----------------------------------------------- */

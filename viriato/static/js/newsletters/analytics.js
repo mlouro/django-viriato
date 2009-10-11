@@ -1,40 +1,55 @@
-$(function () {
-    $("#data_analytics").css({
-        position: "absolute",
-        left: "-9999em",
-        top: "-9999em"
-    });
-});
-window.onload = function () {
+function get_links(newsletter_id){
+    $.post("/newsletter/get_links/",
+        {newsletter_id: newsletter_id},
+        function(data){
+            label=[];
+            click=[];
+            for (i in data){
+                label.push(data[i].fields.slug);
+                click.push(data[i].fields.click_count);
+                };
+            draw(label,click);
+        },"json"
+    );
+}
+
+
+//$(function () {
+
+    //$("#data_analytics").css({
+        //position: "absolute",
+        //left: "-9999em",
+        //top: "-9999em"
+    //});
+//});
+
+function draw(labels,data) {
     // Grab the data
-    var labels = [],
-        data = [];
-    $("#data_analytics tfoot th").each(function () {
-        labels.push($(this).html());
-    });
-    $("#data_analytics tbody td").each(function () {
-        data.push($(this).html());
-    });
+
+    //$("#data_analytics tfoot th").each(function () {
+        //labels.push($(this).html());
+    //});
+    //$("#data_analytics tbody td").each(function () {
+        //data.push($(this).html());
+    //});
     
-   
     // Draw
-    var width = 800
+var width = 800
         rightgutter = 20,
         height = 250,
         leftgutter = 30,
         bottomgutter = 20,
         topgutter = 25,
-        colorhue = .6 || Math.random(),
+        colorhue = .7 || Math.random(),
         color = "hsb(" + [colorhue, 1, .75] + ")",
-        r = Raphael("holder_analytics", width, height),
+        r = Raphael("holder", width, height),
         txt = {"font": '12px "Arial"', stroke: "none", fill: "#000"},
         txt1 = {"font": '9px "Arial"', stroke: "none", fill: "#000"},
         X = (width - leftgutter - rightgutter) / labels.length,
         max = Math.max.apply(Math, data),
         Y = (height - bottomgutter - topgutter) / data.length;
     r.path({stroke: "#036"}).moveTo(leftgutter, topgutter-20).lineTo(leftgutter, height-bottomgutter);
-    r.path({stroke: "#036"}).moveTo(leftgutter, height-bottomgutter).lineTo(width, height-bottomgutter);
-    
+      r.path({stroke: "#036"}).moveTo(leftgutter, height-bottomgutter).lineTo(width, height-bottomgutter);
     var frame = r.rect(10, 10, 50, 20, 5).attr({fill: "#888", stroke: "#474747", "stroke-width": 2}).hide(),
         is_label_visible = false,
         leave_timer,
@@ -51,8 +66,7 @@ window.onload = function () {
           bar = r.rect(x-50, y, X-20, data[i]/ max * (height - bottomgutter - topgutter)).attr({fill: color, stroke: color});   
            
             blanket.push(r.rect(x-50, 20, X-20, height - bottomgutter - topgutter).attr({stroke: "#fff", fill: "#000", opacity: 0}));
-            
-      var rect = blanket[i];
+      var rect = blanket[i];         
       (function (x, y, data, label, bar) {
             var timer, i = 0;
             $(rect.node).hover(function () {
@@ -79,6 +93,6 @@ window.onload = function () {
                 }, 1);
             });
         })
-            (x, y, data[i], labels[i], bar);
+            (x, y, data[i], data[i], bar);
         }  
 };
