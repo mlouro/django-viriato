@@ -137,9 +137,9 @@ class Newsletter(models.Model):
                     link.newsletter = self
                     link.created_hash = hashlib.sha1(salt+el.get('href')).hexdigest()
                     link.click_count = 0
-                    link.slug = link.link
+                    link.label = link.link
                     if link.link == 'http://unsubscribe':
-                        link.slug = 'unsubscribe'
+                        link.label = 'unsubscribe'
                     link.save(edit)
                     self.rewrite_html()
 
@@ -193,8 +193,8 @@ class Newsletter(models.Model):
 
         #html.append('<table id="data_analytics"><tfoot><tr>')
         #for el in links:
-            #if not el.slug == 'unsubscribe':
-                #labels.append('<th>%s</th>'%(el.slug))
+            #if not el.label == 'unsubscribe':
+                #labels.append('<th>%s</th>'%(el.label))
                 #data.append('<td>%s</td>'%(el.click_count))
 
         #for el in labels:
@@ -215,9 +215,9 @@ class Newsletter(models.Model):
         ##)
         dict=[]
         for el in links:
-            if not el.slug == 'unsubscribe':
+            if not el.label == 'unsubscribe':
                 aux={}
-                aux['label']=el.slug
+                aux['label']=el.label
                 aux['clicks']=el.click_count
                 dict.append(aux)
 
@@ -231,7 +231,7 @@ class Link(models.Model):
     newsletter = models.ForeignKey(Newsletter)
     created_hash = models.CharField(max_length=60)
     click_count = models.IntegerField(blank=True)
-    slug = models.SlugField()
+    label = models.CharField(max_length=100)
     #----------------------------------------------------------------------
     def __unicode__(self):
         """return the link hash"""

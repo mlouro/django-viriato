@@ -6,7 +6,7 @@ function get_links(newsletter_id){
             click=[];
             link=[];
             for (i in data){
-                label.push(data[i].fields.slug);
+                label.push(data[i].fields.label);
                 click.push(data[i].fields.click_count);
                 link.push(data[i].fields.link);
                 };

@@ -151,7 +151,7 @@ def link_count(request,link_hash):
     edit = True
     link = Link.objects.get(created_hash = link_hash)
     link.save(edit)
-    if link.slug == 'unsubscribe':
+    if link.label == 'unsubscribe':
         if request.method == 'POST':
             form = UnsubscribeForm(request.POST)
             if form.is_valid():
