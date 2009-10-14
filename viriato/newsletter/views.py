@@ -178,7 +178,7 @@ def search(request):
         results = Newsletter.objects.filter(qset).distinct()
 
     return render_to_response("newsletter/index.html",
-        { "results": results, "query": query },
+        {"results": results, "query": query },
         context_instance=RequestContext(request))
 #----------------------------------------------------------------------
 def host(request):

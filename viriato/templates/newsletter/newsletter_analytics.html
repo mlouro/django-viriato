@@ -3,10 +3,12 @@
 {% load navigation_tags %}
 
 {% block extra_head %}
-<script type="text/javascript" src="{{ MEDIA_URL }}js/libs/json.class.js"></script>
-<script type="text/javascript" src="{{ MEDIA_URL }}js/libs/newsletters/raphael.js"></script>s
-<script type="text/JavaScript" src="{{ MEDIA_URL }}js/newsletters/FusionCharts.js"></script>
-<script type="text/JavaScript" src="{{ MEDIA_URL }}js/newsletters/analytics.js"></script>
+<script type="text/javascript" src="{{ MEDIA_URL }}js/libs/json.class.js" charset="utf-8"></script>
+<script src="http://raphaeljs.com/raphael.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" src="{{ MEDIA_URL }}js/libs/newsletters/g.raphael.js" charset="utf-8"></script>
+<script type="text/javascript" src="{{ MEDIA_URL }}js/libs/newsletters/g.pie.js" charset="utf-8"></script>
+<script type="text/JavaScript" src="{{ MEDIA_URL }}js/newsletters/FusionCharts.js" charset="utf-8"></script>
+<script type="text/JavaScript" src="{{ MEDIA_URL }}js/newsletters/analytics.js" charset="utf-8"></script>
 {% endblock %}
 
 
@@ -20,23 +22,23 @@
 {% block content %}
 
 
-<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">
-    <tr>
-        <td valign="top" class="text" align="center">
-            <div id="chartdiv" align="center">
-            FusionCharts.
-            </div>
-            <script type="text/javascript">
-                var chart = new FusionCharts("{{ MEDIA_URL }}charts/FCF_Column3D.swf", "ChartId", "600", "350");
-                chart.setDataURL("{{ MEDIA_URL }}data/Column3D.xml");
-                chart.render("chartdiv");
-            </script>
-        </td>
-    </tr>
-    <tr>
-        <td valign="top" class="text" align="center">&nbsp;</td>
-     </tr>
-</table>
+<!--<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">-->
+    <!--<tr>-->
+        <!--<td valign="top" class="text" align="center">-->
+            <!--<div id="chartdiv" align="center">-->
+            <!--FusionCharts.-->
+            <!--</div>-->
+            <!--<script type="text/javascript">-->
+                <!--var chart = new FusionCharts("{{ MEDIA_URL }}charts/FCF_Column3D.swf", "ChartId", "600", "350");-->
+                <!--chart.setDataURL("{{ MEDIA_URL }}data/Column3D.xml");-->
+                <!--chart.render("chartdiv");-->
+            <!--</script>-->
+        <!--</td>-->
+    <!--</tr>-->
+    <!--<tr>-->
+        <!--<td valign="top" class="text" align="center">&nbsp;</td>-->
+     <!--</tr>-->
+<!--</table>-->
 
 
 
@@ -77,6 +79,6 @@
                     <!--</tr>-->
             <!--</tbody>-->
         <!--</table>-->
-        <div id="holder"></div>
+<div id="holder"></div>
 
 {% endblock %}

@@ -60,7 +60,7 @@ class mailx:
         #self.mailServer.set_debuglevel(1)
         for el in to:
             try:
-                self.mailServer.sendmail(user,el.email,self.mail.as_string())
+                self.mailServer.sendmail(user,el.mail,self.mail.as_string())
                 print '========\n\nSENT TO %s - %s\n\n========'%(el.name,el.email)
             except Exception, e:
                 print e
