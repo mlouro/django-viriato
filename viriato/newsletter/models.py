@@ -143,29 +143,6 @@ class Newsletter(models.Model):
                     link.save(edit)
                     self.rewrite_html()
 
-            #for el in doc.cssselect('a'):
-                #if not el.get('href') == 'http://unsubscribe':
-                    #rand = str(random.random())
-                    #salt = hashlib.sha1(rand).hexdigest()[:5]
-                    #link = Link()
-                    #link.link = el.get('href')
-                    #link.newsletter = self
-                    #link.created_hash = hashlib.sha1(salt+el.get('href')).hexdigest()
-                    #link.click_count = 0
-                    #link.save(edit)
-                    #self.rewrite_html()
-                #else:
-                    #if not Link.objects.filter(link='http://unsubscribe'):
-                        #rand = str(random.random())
-                        #salt = hashlib.sha1(rand).hexdigest()[:5]
-                        #link = Link()
-                        #link.link = el.get('href')
-                        #link.newsletter = self
-                        #link.created_hash = hashlib.sha1(salt+el.get('href')).hexdigest()
-                        #link.click_count = 0
-                        #link.save(edit)
-                        #self.rewrite_html()
-
     #----------------------------------------------------------------------
     def rewrite_html(self):
         """rewrite the self.content with the newlinks"""
@@ -175,10 +152,7 @@ class Newsletter(models.Model):
         import re
         for el in links:
             rewrited = re.sub('%s'%(el.link),'http://%s:8000/newsletter/news/%s'%(host,el.created_hash),self.content)
-            #if not el.link == 'http://unsubscribe':
-                #rewrited = re.sub('%s'%(el.link),'http://%s:8000/newsletter/news/%s'%(host,el.created_hash),self.content,1)
-            #else:
-                #rewrited = re.sub('%s'%(el.link),'http://%s:8000/newsletter/news/%s'%(host,el.created_hash),self.content)
+
         self.content = rewrited
         super(Newsletter,self).save()
     #----------------------------------------------------------------------
@@ -243,14 +217,6 @@ class Link(models.Model):
             self.click_count += 1
         super(Link, self).save(force_insert, force_update) # Call the "real" save() method.
 
-    #def save(self):
-        #print 'saving'
-        #"""save(self,edit=True) will increment the click_count field
-        #save(self,edit=False ) will save a new object with the click_count=0"""
-
-        #if edit:
-            #self.click_count += 1
-        #super(Link,self).save()
 
 ########################################################################
 class Submission(models.Model):

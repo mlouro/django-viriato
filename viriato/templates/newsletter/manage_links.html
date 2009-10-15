@@ -4,7 +4,7 @@
 
 {% block content %}
 
-<form method="POST" action="/newsletter/links/{{ object_id }}/">
+<form method="POST" action="/newsletter/edit/links/{{ object_id }}/">
   {{ formset.management_form }}
     {% for form in formset.forms %}
 

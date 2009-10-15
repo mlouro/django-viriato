@@ -17,6 +17,23 @@
         {{ form.group }}
     </p>
     {{ form.group.errors }}
+    
+    {{ formset.management_form }}
+    {% for obj in formset.forms %}
+
+        {{ obj.id }}
+        {% ifnotequal obj.link.text "unsubscribe" %}
+            <ul>
+                <li>
+                    {{ obj.link}} {{ obj.link.errors }}
+                    {{ obj.label }} {{ obj.label.errors }}
+                    {{ obj.click_count }} {{ obj.click_count.errors }}
+                    <!--{{ form.DELETE}}-->
+                </li>
+            </ul>
+        {% endifnotequal %}
+    {% endfor %}
+
 
     <p class="submit">
         <input type="submit" value="Save Newsletter" />

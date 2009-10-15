@@ -31,7 +31,6 @@ def newsletter_content(request,newsletter_id):
 
     #l = Link.objects.get(newsletter=newsletter)
 
-
     return render_to_response('newsletter/newsletter_content.html',
                               {'newsletter' : newsletter},
                               context_instance=RequestContext(request))
@@ -40,7 +39,7 @@ def newsletter_content(request,newsletter_id):
 def newsletter_add(request):
     if request.method == 'POST':
         formset = NewsletterForm(request.POST)
-        print formset.errors
+
         if formset.is_valid():
             formset.save()
 
@@ -56,19 +55,48 @@ def newsletter_add(request):
 
 #----------------------------------------------------------------------
 def newsletter_edit(request, newsletter_id):
+    from django.forms.models import inlineformset_factory
+    
     newsletter = Newsletter.objects.get(id=newsletter_id)
     #BookInlineFormSet = inlineformset_factory(Author, Book)
     if request.method == "POST":
-        form = NewsletterForm(request.POST, instance=newsletter)
-        if form.is_valid():
+        form = NewsletterForm(request.POST, instance=newsletter, prefix="newsletter")
+        formset = LinkFormset(request.POST, request.FILES, instance=newsletter, prefix="links")
+        if form.is_valid() and formset.is_valid():
             form.save()
-
-            return HttpResponseRedirect('/newsletter/')
+            formset.save()
+            
+            return HttpResponseRedirect('/newsletter/edit/%s'%(newsletter_id))
     else:
-        #formset = BookInlineFormSet(instance=author)
-        form = NewsletterForm(instance=newsletter)
+        form = NewsletterForm(instance=newsletter, prefix="newsletter")
+        formset = LinkFormset(instance=newsletter, prefix="links")
+        
     return render_to_response("newsletter/newsletter_edit.html",
-                              {"form": form,"newsletter":newsletter},
+                              {"form": form,"newsletter":newsletter,
+                               "formset": formset,},
+                              context_instance=RequestContext(request))
+
+#----------------------------------------------------------------------
+def manage_links(request, object_id):
+    from django.forms.models import inlineformset_factory
+
+    newsletter = Newsletter.objects.get(pk=object_id)
+    if request.method == "POST":
+        formset = LinkFormset(request.POST, request.FILES, instance=newsletter)
+        if formset.is_valid():
+            formset.save()
+            # Do something.
+        else:
+            return render_to_response("newsletter/manage_links.html",
+                              {"formset": formset,
+                                "object_id": object_id,},
+                              context_instance=RequestContext(request))
+    else:
+        formset = LinkFormset(instance=newsletter)
+
+    return render_to_response("newsletter/manage_links.html",
+                              {"formset": formset,
+                                "object_id": object_id,},
                               context_instance=RequestContext(request))
 
 #----------------------------------------------------------------------
@@ -103,29 +131,6 @@ def newsletter_send(request, object_id):
     
     return render_to_response('newsletter/newsletter_content.html',
                               {'newsletter' : newsletter},
-                              context_instance=RequestContext(request))
-
-#----------------------------------------------------------------------
-def manage_links(request, object_id):
-    from django.forms.models import inlineformset_factory
-
-    newsletter = Newsletter.objects.get(pk=object_id)
-    if request.method == "POST":
-        formset = LinkFormset(request.POST, request.FILES, instance=newsletter)
-        if formset.is_valid():
-            formset.save()
-            # Do something.
-        else:
-            return render_to_response("newsletter/manage_links.html",
-                              {"formset": formset,
-                                "object_id": object_id,},
-                              context_instance=RequestContext(request))
-    else:
-        formset = LinkFormset(instance=newsletter)
-
-    return render_to_response("newsletter/manage_links.html",
-                              {"formset": formset,
-                                "object_id": object_id,},
                               context_instance=RequestContext(request))
 
 #----------------------------------------------------------------------
