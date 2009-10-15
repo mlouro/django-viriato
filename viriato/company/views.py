@@ -10,10 +10,10 @@ from contact.models import Company
 from django.forms.models import modelformset_factory
 from django.core import serializers
 from company.forms import *
+from invoices.decorators import have_company
 
-
+@login_required
 def company(request):
-
     try:
         company = MyCompany.objects.get(pk=1)
     except:
@@ -87,7 +87,8 @@ def company(request):
                                     },
                                     context_instance = RequestContext(request)
                                     )
-
+@login_required
+@have_company
 def company_ajax(request):
     """ Ajax Request """
     data = serializers.serialize('json', Company.objects.all(), ensure_ascii=False)

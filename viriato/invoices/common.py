@@ -4,8 +4,6 @@ from invoices.decorators import have_company
 from django.contrib.auth.decorators import login_required
 
 
-@login_required
-@have_company
 def get_email_data():
     company = MyCompany.objects.get(pk=1)
     host = company.host

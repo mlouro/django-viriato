@@ -220,17 +220,16 @@ def download_document(request, object_id):
     c.save()
     return response
 
-@login_required
-@have_company
+
 def send_document(request, object_id):
     from settings import ROOT_DIR
     path = ROOT_DIR+'/viriato/static/tmp/'
     filename = 'contract%s.pdf' % (object_id)
-    file_path = ('%s%s'%(path,filename))
+    file_path = [('%s%s'%(path,filename)),]
 
     contract = Contract.objects.get(pk=object_id)
 
-    c = canvas.Canvas(file_path)
+    c = canvas.Canvas(file_path[0])
     c = create_pdf(c, object_id)
     c.showPage()
     c.save()
@@ -240,8 +239,7 @@ def send_document(request, object_id):
     else:
         return HttpResponse("false")
 
-@login_required
-@have_company
+
 def create_pdf(c, object_id):
     my_company = MyCompany.objects.get(pk=1)
     set_states(c, author=my_company.title, title="My Contract")
@@ -269,8 +267,7 @@ def create_pdf(c, object_id):
 
     return c
 
-@login_required
-@have_company
+
 def sendmail(file_path, object_id, company_title):
     host, pwd, from_user, server = get_email_data()
 
