@@ -8,13 +8,16 @@
     </script>
 {% endblock extra_head %}
 
-{% block breadcrumbs %}
-    {{ block.super }} <span class="edit active"> » {% trans 'Edit Contract' %}</span>
+{% block content_id_title %}
+    <h1>
+        {% if approved %}
+            {% trans 'Viewing contract nr.' %} {{ contract.id }}
+        {% else %}
+            {% trans 'Editing contract nr.' %} {{ contract.id }}
+        {% endif %}
+    </h1>
 {% endblock %}
 
-{% block content %}
-    {{ block.super }}
-{% endblock content %}
 
 {% block content_data_form %}
     <form name="myForm" id="myForm" method="POST" action="{{ contract.get_absolute_url }}">
@@ -25,13 +28,8 @@
 {% endblock content_data_submit %}
 
 {% block content_sidebar %}
-
-    <p><a onclick="hello()" class="navbutton" >{% trans "Send Bills" %}</a></p>
-    <p><a class="navbutton" href="">{% trans "Send Receipts" %}</a></p>
-    {% if PROJECT %}
-        <p><a id="importMilestones" class="navbutton">{% trans "Import Milestones" %}</a></p>
-    {% endif %}
-    <a class="basic" href="#">Demo</a>
+    <p><a class="navbutton" href="/invoices/contract/download_document/{{ contract.pk }}/">{% trans "Download Contract" %}</a></p>
+    <p><a class="navbutton" href="/invoices/contract/send_document/{{ contract.pk }}/">{% trans "Send Contract" %}</a></p>
 {% endblock content_sidebar %}
 
 

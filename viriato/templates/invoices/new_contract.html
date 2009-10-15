@@ -192,9 +192,7 @@
 {% endblock content %}
 
 {% block content_sidebar %}
-    <p><a onclick="hello()" class="navbutton" >{% trans "Send Bills" %}</a></p>
-    <p><a class="navbutton" href="">{% trans "Send Receipts" %}</a></p>
-    {% if PROJECT %}
+    {% if PROJECT and not approved%}
         <p><a id="importMilestones" class="navbutton">{% trans "Import Milestones" %}</a></p>
     {% endif %}
 {% endblock content_sidebar %}

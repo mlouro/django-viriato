@@ -41,5 +41,3 @@ var r = Raphael("holder");
                   this.label[1].attr({"font-weight": 400});
               }
           });
-
-};

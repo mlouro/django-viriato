@@ -17,6 +17,8 @@ from core.decorators import permission_required_with_403
 # shortcuts
 from render_project_shortcut import render_project
 
+from projects import models
+
 
 
 @login_required

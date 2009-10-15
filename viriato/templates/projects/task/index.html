@@ -25,32 +25,5 @@
     <p>There are no tasks created for this project</p>
     {% endif %}
 
-    {% if late_list %}
-    <div class="milist late">
-        <h2>Late</h2>
-        {% for task in late_list %}
-        {% include 'projects/task/_list_detail.html' %}
-        {% endfor %}
-    </div>
-    {% endif %}
-
-    {% if upcoming_list %}
-    <div class="milist upcoming">
-        <h2>Upcoming</h2>
-        {% for task in upcoming_list %}
-        {% include 'projects/task/_list_detail.html' %}
-        {% endfor %}
-    </div>
-    {% endif %}
-
-    {% if completed_list %}
-    <div class="milist completed">
-        <h2>Completed</h2>
-        {% for task in completed_list %}
-        {% include 'projects/task/_list_detail.html' %}
-        {% endfor %}
-    </div>
-    {% endif %}
-
 </div>
 {% endblock content %}

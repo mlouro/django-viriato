@@ -26,6 +26,14 @@ from django.db.models import Sum
 from projects.models.milestone import Milestone
 from settings import INSTALLED_APPS
 
+from reportlab.pdfgen import canvas
+from cStringIO import StringIO
+from invoices.pdf_gen import *
+from invoices.sendmail import *
+from invoices.common import *
+
+from django.utils.translation import ugettext as _
+
 
 if 'projects' in INSTALLED_APPS:
     project = True
@@ -33,10 +41,11 @@ else:
     project = False
 
 
+@login_required
 def index(request):
-    receipts = Receipt.objects.all()
-    return render_to_response ("/invoices/index.html",
-                                {'receipts': receipts, },
+    contracts = Contract.objects.order_by('date').reverse()
+    return render_to_response ("invoices/contract_index.html",
+                                {'contracts': contracts, },
                                 context_instance=RequestContext(request)
                             )
 
@@ -188,3 +197,72 @@ def new_contract_items(request):
 
     data = serializers.serialize('json', ContractDetails.objects.filter(~Q(pk__in=ids), contract=contract_id, payed=False), ensure_ascii=False)
     return HttpResponse(data, mimetype='text/javascript')
+
+
+def download_document(request, object_id):
+    contract = Contract.objects.get(pk=object_id)
+
+    response = HttpResponse(mimetype='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename=contract%s.pdf' % (object_id)
+    c = canvas.Canvas(response)
+    c = create_pdf(c, object_id)
+    c.showPage()
+    c.save()
+    return response
+
+def send_document(request, object_id):
+    from settings import ROOT_DIR
+    path = ROOT_DIR+'/viriato/static/tmp/'
+    filename = 'contract%s.pdf' % (object_id)
+    file_path = ('%s%s'%(path,filename))
+
+    contract = Contract.objects.get(pk=object_id)
+
+    c = canvas.Canvas(file_path)
+    c = create_pdf(c, object_id)
+    c.showPage()
+    c.save()
+
+    if sendmail(file_path, object_id, MyCompany.objects.get(pk=1).title):
+        return HttpResponse("Hello, world. You're at the poll index.")
+    else:
+        return HttpResponse("false")
+
+
+def create_pdf(c, object_id):
+    my_company = MyCompany.objects.get(pk=1)
+    set_states(c, author=my_company.title, title="My Contract")
+    create_header(c, my_company)
+    create_footer(c, my_company)
+    contract = Contract.objects.get(pk=object_id)
+    contract_details = ContractDetails.objects.filter(contract=object_id)
+    client = Company.objects.get(pk=contract.company)
+
+    table_header = [_('Description'),'','', '', '', _('Quantity'), _('Unity Cost'), _('Imp. Value'), _('Tax'), _('Tax Value'), _('Retention'), _('Ret. Value'), _('Total')]
+
+    table_body = []
+    for rd in contract_details:
+        new_data = [rd.description[:50],'','','','', rd.quantity, rd.unity_cost, rd.impact_value, rd.tax, rd.tax_value, rd.retention, rd.retention_value, rd.total]
+        table_body.append (new_data)
+
+    for rd in contract_details:
+        new_data = [rd.description[:50],'','','','', rd.quantity, rd.unity_cost, rd.impact_value, rd.tax, rd.tax_value, rd.retention, rd.retention_value, rd.total]
+
+
+    table_footer = [_('Totals'),'', ' ' ,'',' ', ' ', ' ', contract.total_impact_value, ' ', contract.total_tax_value, ' ',contract.total_retention_value, contract.total]
+
+    create_doc_main(c, object_id, client, receipt=False)
+    create_doc_details(c, table_header, table_body, table_footer)
+
+    return c
+
+
+def sendmail(file_path, object_id, company_title):
+    host, pwd, from_user, server = get_email_data()
+
+    to='costavitorino@gmail.com'
+    subj=_('Contract from %s' % (company_title))
+    msg=_('Sending contract number %s' % (object_id))
+
+    answer = send_mail(send_from=from_user, send_to=to, subject=subj, text=msg, file_path=file_path, server=server, host=host, pwd=pwd)
+    return answer

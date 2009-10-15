@@ -6,17 +6,26 @@
     <div class="project_activity">
 
         {% for object in object_list %}
-        <h3><a href="{{ object.get_absolute_url }}">{{ object }}</a></h3>
+        <h3><a href="{% url message_index object.id %}">{{ object }}</a></h3>
         <table class="activity">
             <tr>
-                <td class="action"><span class="comment">:: type ::</span></td>
                 <td class="description">
                     <div class="item_content">
-                        <a href="/">:: description ::</a>
+                        <p>
+                            <label>Messages:</label> {{ object.message_set.all.count }}
+                        </p>
+                        <p>
+                            <label>Users:</label> {% for user in object.users.all %}{{ user }}{% endfor %}
+                        </p>
+                        <p>
+                            <label>Tasks:</label> {{ object.task_set.all.count }}
+                        </p>
+                        <p>
+                            <label>Issues:</label> {{ object.issue_set.all.count }}
+                        </p>
+
                     </div>
                 </td>
-                <td class="name">:: user ::</td>
-                <td class="date">:: date ::</td>
             </tr>
         </table>
         {% endfor %}
