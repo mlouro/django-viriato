@@ -42,7 +42,7 @@ def get_link_if_allowed(parser, token):
         raise TemplateSyntaxError, "get_link_if_permssions tag takes two or three arguments {% get_link_if_allowed url title permission %}"
     else:
         permission = parser.compile_filter(bits[2])
-
+    print bits[1]
     return LinkAllowedNode(parser.compile_filter(bits[0]),parser.compile_filter(bits[1]),permission)
 
 get_link_if_allowed = register.tag(get_link_if_allowed)

@@ -61,138 +61,148 @@
             </tr>
         </table>
 
+        <h2 class="headline">{% trans 'Extra information' %}</h2>
+        <div id="contact_information" >
 
-        <h2 class="headline">{% trans 'Contact information' %} <small>(<a id="show_contact_information">show</a>)</small></h2>
-        <div id="contact_information" class="hidden">
-            <fieldset class="formset">
-            {{ formsets.email_formset.management_form }}
-            <h3>{% trans 'Email addresses' %}</h3>
-            {% for form in formsets.email_formset.forms %}
-                <div>
-                    {{ form.id }}
-                    {{ form.address }}
-                    {{ form.contact_type }}
-                    {{ form.DELETE }}
-                </div>
-                {{ form.address.errors }}
-                {{ form.contact_type.errors }}
-            {% endfor %}
-            </fieldset>
-
-            <fieldset class="formset">
-                <h3>{% trans 'Phone numbers' %}</h3>
-                {{ formsets.phone_formset.management_form }}
-                {% for form in formsets.phone_formset.forms %}
-                    <div>
-                        {{ form.number }}
-                        {{ form.phone_type }}
-                        {{ form.DELETE }}
-                    </div>
-                    {{ form.address.errors }}
-                    {{ form.phone_type.errors }}
-                {% endfor %}
-            </fieldset>
-
-            <fieldset class="formset">
-                <h3>{% trans 'Instant Messaging' %}</h3>
-                {{ formsets.im_formset.management_form }}
-                {% for form in formsets.im_formset.forms %}
-                    <div>
-                        {{ form.email }}
-                        {{ form.contact_type }}
-                        {{ form.DELETE }}
-                    </div>
-                    {{ form.address.errors }}
-                    {{ form.contact_type.errors }}
-                {% endfor %}
-            </fieldset>
-
-            <fieldset class="formset">
-                <h3>Websites</h3>
-                {{ formsets.website_formset.management_form }}
-                {% for form in formsets.website_formset.forms %}
-                    <div>
-                        {{ form.url }}
-                        {{ form.contact_type }}
-                        {{ form.DELETE }}
-                    </div>
-                    {{ form.address.errors }}
-                    {{ form.contact_type.errors }}
-                {% endfor %}
-            </fieldset>
-
-            <fieldset class="formset">
-                <h3>{% trans 'Addresses' %}</h3>
+            <h3>{% trans 'Email addresses' %} <img id="show_emails" width="20px" src="{{ MEDIA_URL }}images/invoices/show_div.png" alt="show"/> </h3>
+            <div id="emails" class="hidden">
+                {{ formsets.email_formset.management_form }}
                 <table>
-                    {{ formsets.address_formset.management_form }}
-                    {% for form in formsets.address_formset.forms %}
+                    {% for form in formsets.email_formset.forms %}
+                        {{ form.id }}
+                        <tr><td>{% trans 'Delete' %}</td><td>{{ form.DELETE }}</td></tr>
                         <tr>
-                            <td>{% trans 'Delete' %}</td>
-                            <td>{{ form.DELETE }}</td>
+                            <td>Email</td>
+                            <td>{{ form.address }}<br/>{{ form.address.errors }}</td>
                         </tr>
                         <tr>
-                            <td>{% trans 'Contact Type' %}</td>
-                            <td>
-                                {{ form.contact_type }}
-                                <br/>
-                                {{ form.contact_type.errors }}
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>{% trans 'Street' %}</td>
-                            <td>
-                                {{ form.street }}
-                                <br/>
-                                {{ form.street.errors }}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>{% trans 'City' %}</td>
-                            <td>
-                                {{ form.city }}
-                                <br/>
-                                {{ form.city.errors }}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>{% trans 'State' %}</td>
-                            <td>
-                                {{ form.state }}
-                                <br/>
-                                {{ form.state.errors }}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>{% trans 'Zipcode' %}</td>
-                            <td>
-                                {{ form.zipcode }}
-                                <br/>
-                                {{ form.zipcode.errors }}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>{% trans 'Country' %}</td>
-                            <td>
-                                {{ form.country }}
-                                <br/>
-                                {{ form.country.errors }}
-                            </td>
+                            <td>{% trans 'Contact type' %} </td>
+                            <td>{{ form.contact_type }}<br/>{{ form.contact_type.errors }}</td>
                         </tr>
                     {% endfor %}
                 </table>
-            </fieldset>
+            </div>
+
+            <h3>{% trans 'Addresses' %} <img id="show_addresses" width="20px" src="{{ MEDIA_URL }}images/invoices/show_div.png" alt="show"/> </h3>
+            <div id="addresses" class="hidden">
+                {{ formsets.address_formset.management_form }}
+                <table>
+                    {% for form in formsets.address_formset.forms %}
+                        {{ form.id }}
+                        <tr><td>{% trans 'Delete' %}</td><td>{{ form.DELETE }}</td></tr>
+                        <tr>
+                            <td>{% trans 'Street'%}</td>
+                            <td>{{ form.street}}<br/>{{ form.street.errors }}</td>
+                        </tr>
+                        <tr>
+                            <td>{% trans 'City'%}</td>
+                            <td>{{ form.city}}<br/>{{ form.city.errors }}</td>
+                        </tr>
+                        <tr>
+                            <td>{% trans 'State'%}</td>
+                            <td>{{ form.state}}<br/>{{ form.state.errors }}</td>
+                        </tr>
+                        <tr>
+                            <td>{% trans 'Zip Code'%}</td>
+                            <td>{{ form.zipcode }}<br/>{{ form.zipcode.errors }}</td>
+                        </tr>
+                        <tr>
+                            <td>{% trans 'Country'%}</td>
+                            <td>{{ form.country }}<br/>{{ form.country.errors }}</td>
+                        </tr>
+                        <tr>
+                            <td>{% trans 'Contact type' %} </td>
+                            <td>{{ form.contact_type }}<br/>{{ form.contact_type.errors }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+
+            <h3>{% trans 'Phone Numbers' %} <img id="show_phones" width="20px" src="{{ MEDIA_URL }}images/invoices/show_div.png" alt="show"/> </h3>
+            <div id="phones" class="hidden">
+                {{ formsets.phone_formset.management_form }}
+                <table>
+                    {% for form in formsets.phone_formset.forms %}
+                        {{ form.id }}
+                        <tr><td>{% trans 'Delete' %}</td><td>{{ form.DELETE }}</td></tr>
+                        <tr>
+                            <td>{% trans 'Number' %}</td>
+                            <td>{{ form.number }}<br/>{{ form.number.errors }}</td>
+                        </tr>
+                        <tr>
+                            <td>{% trans 'Contact type' %} </td>
+                            <td>{{ form.contact_type }}<br/>{{ form.contact_type.errors }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+
+            <h3>{% trans 'Websites' %} <img id="show_websites" width="20px" src="{{ MEDIA_URL }}images/invoices/show_div.png" alt="show"/> </h3>
+            <div id="websites" class="hidden">
+                {{ formsets.website_formset.management_form }}
+                <table>
+                    {% for form in formsets.website_formset.forms %}
+                        {{ form.id }}
+                        <tr><td>{% trans 'Delete' %}</td><td>{{ form.DELETE }}</td></tr>
+                        <tr>
+                            <td>{% trans 'URL' %}</td>
+                            <td>{{ form.url }}<br/>{{ form.url.errors }}</td>
+                        </tr>
+                        <tr>
+                            <td>{% trans 'Contact type' %} </td>
+                            <td>{{ form.contact_type }}<br/>{{ form.contact_type.errors }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+
+            <h3>{% trans 'Instant Messaging' %} <img id="show_ims" width="20px" src="{{ MEDIA_URL }}images/invoices/show_div.png" alt="show"/> </h3>
+            <div id="ims" class="hidden">
+                {{ formsets.im_formset.management_form }}
+                <table>
+                    {% for form in formsets.im_formset.forms %}
+                        {{ form.id }}
+                        <tr><td>{% trans 'Delete' %}</td><td>{{ form.DELETE }}</td></tr>
+                        <tr>
+                            <td>Email</td>
+                            <td>{{ form.im }}<br/>{{ form.im.errors }}</td>
+                        </tr>
+                        <tr>
+                            <td>{% trans 'Contact type' %} </td>
+                            <td>{{ form.contact_type }}<br/>{{ form.contact_type.errors }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+
+            <h3>{% trans 'Email Host Settings' %} <img id="show_email_settings" width="20px" src="{{ MEDIA_URL }}images/invoices/show_div.png" alt="show"/> </h3>
+            <div id="email_settings" class="hidden">
+                <table>
+                    <tr>
+                        <td>{% trans 'Host' %}</td>
+                        <td>{{ form.host }}<br/>{{ form.host.errors }}</td>
+                    </tr>
+                    <tr>
+                        <td>{% trans 'Password' %} </td>
+                        <td>{{ form.pwd }}<br/>{{ form.pwd.errors }}</td>
+                    </tr>
+                    <tr>
+                        <td>{% trans 'From User' %}</td>
+                        <td>{{ form.from_user }}<br/>{{ form.from_user.errors }}</td>
+                    </tr>
+                    <tr>
+                        <td>{% trans 'Server' %}</td>
+                        <td>{{ form.server }}<br/>{{ form.server.errors }}</td>
+                    </tr>
+                </table>
+            </div>
+
         </div>
-        <h2 class="headline">{% trans 'Extra information' %} <small>(<a id="show_extra_information">show</a>)</small></h2>
-        <div id="extra_information" class="hidden">
-            <fieldset class="formset">
-                <div>
-                    <label>Photo</label>
-                    {{ form.photo }}
-                    {{ form.photo.errors }}
-                </div>
-            </fieldset>
-        </div>
+
+
+
+
+
         <p id="buttons">
             <input type="submit" value="{% trans 'Save' %}"/>
         </p>

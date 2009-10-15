@@ -33,7 +33,7 @@ from invoices.sendmail import *
 from invoices.common import *
 
 from django.utils.translation import ugettext as _
-
+from invoices.decorators import have_company
 
 if 'projects' in INSTALLED_APPS:
     project = True
@@ -42,6 +42,7 @@ else:
 
 
 @login_required
+@have_company
 def index(request):
     contracts = Contract.objects.order_by('date').reverse()
     return render_to_response ("invoices/contract_index.html",
@@ -49,7 +50,8 @@ def index(request):
                                 context_instance=RequestContext(request)
                             )
 
-#@login_required
+@login_required
+@have_company
 def contract(request, object_id=0):
 
     try:
