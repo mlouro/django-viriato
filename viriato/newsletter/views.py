@@ -50,7 +50,7 @@ def newsletter_add(request):
                                     context_instance=RequestContext(request))
     else:
         return render_to_response('newsletter/newsletter_add.html',
-                                {'form'    : NewsletterForm()},
+                                {'form': NewsletterForm()},
                                 context_instance=RequestContext(request))
 
 #----------------------------------------------------------------------
@@ -58,7 +58,6 @@ def newsletter_edit(request, newsletter_id):
     from django.forms.models import inlineformset_factory
     
     newsletter = Newsletter.objects.get(id=newsletter_id)
-    #BookInlineFormSet = inlineformset_factory(Author, Book)
     if request.method == "POST":
         form = NewsletterForm(request.POST, instance=newsletter, prefix="newsletter")
         formset = LinkFormset(request.POST, request.FILES, instance=newsletter, prefix="links")
@@ -85,7 +84,7 @@ def manage_links(request, object_id):
         formset = LinkFormset(request.POST, request.FILES, instance=newsletter)
         if formset.is_valid():
             formset.save()
-            # Do something.
+
         else:
             return render_to_response("newsletter/manage_links.html",
                               {"formset": formset,
