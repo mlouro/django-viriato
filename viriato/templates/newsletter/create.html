@@ -1,0 +1,14 @@
+{% extends "newsletter/base.html" %}
+{% load i18n %}
+
+
+
+{% block conttent %}
+<form method="post" action="">
+  <p>
+    <label for="id_name">Name:</label> {{ form.name }}
+  </p>
+  <input type="submit" />
+</form>
+
+{% endblock %}

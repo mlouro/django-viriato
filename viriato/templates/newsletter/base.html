@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load navigation_tags %}
+
+{% block extra_head %}
+<link type="text/css" rel="stylesheet" href="{{ MEDIA_URL }}css/newsletters/index.css" charset="utf-8" />
+<script type="text/javascript" src="{{ MEDIA_URL }}js/common/forms.js"></script>
+<script type="text/javascript" src="{{ MEDIA_URL }}js/newsletters/newsletters.js"></script>
+<script type="text/javascript" src="{{ MEDIA_URL }}js/libs/jquery-1.3.2.min.js"></script>
+<script type="text/javascript" src="{{ MEDIA_URL }}js/libs/newsletters/jquery.flot.js"></script>
+<script type="text/javascript" src="{{ MEDIA_URL }}js/libs/newsletters/raphael.js"></script>
+<script type="text/javascript" src="{{ MEDIA_URL }}js/newsletters/charts.js"></script>
+<script type="text/JavaScript" src="{{ MEDIA_URL }}js/newsletters/FusionCharts.js"></script>
+{% endblock %}
+
+{% block content_id_title %}<h1>Overview</h1>{% endblock %}
+
+{% block content_id_links %}
+    {% url newsletter_add as newsletter_add_url %}
+    {% url group_create as group_add_url %}
+    {% url subscriber_create as subscriber_add_url %}
+
+
+    {% get_link_if_allowed  newsletter_add_url "Add Newsletter" %}
+    {% get_link_if_allowed  group_add_url "Add Group" %}
+    {% get_link_if_allowed  subscriber_add_url "Add Subscriber" %}
+{% endblock %}
+
+{% block secondary_nav %}
+    <ul>
+        {% url dashboard as dashboard_url %}
+        {% url newsletter_list as newsletter_list_url %}
+        {% url  group_list as group_list_url %}
+        {% url  subscriber_list as subscriber_list_url %}
+        {% url subscriber_by_group_list as subscriber_by_group_list_url %}
+        
+        {% get_link_if_allowed dashboard_url "Dashboard" %}
+        <li><span style="float: left; padding-left: 30px;">&nbsp;</span></li>
+        {% get_link_if_allowed newsletter_list_url "Newsletter List" %}
+        {% get_link_if_allowed group_list_url "Group List" %}
+        {% get_link_if_allowed subscriber_list_url "Subscriber List" %}
+        <li><span style="float: left; padding-left: 30px;">&nbsp;</span></li>
+        {% get_link_if_allowed  subscriber_by_group_list_url "Subscriber By Group" %}
+    </ul>
+{% endblock %}
+
+

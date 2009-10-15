@@ -1,6 +1,7 @@
+# -*- coding: utf-8 -*-
 from django.db import models
 import datetime
-from lxml.html import parse, iterlinks, make_links_absolute,tostring
+from lxml.html import parse, iterlinks, make_links_absolute,tostring,fromstring
 
 ########################################################################
 class Group(models.Model):
@@ -10,12 +11,23 @@ class Group(models.Model):
     modified = models.DateTimeField(blank=False, auto_now=True)
     #----------------------------------------------------------------------
     def __unicode__(self):
-        """return de group name"""
+        """return the group name"""
         return self.name
     #----------------------------------------------------------------------
-    def get_subscribers_by_group_url(self):
+    @models.permalink
+    def get_absolute_url(self):
+        """return the absolute url"""
+        return ('group_update', [str(self.id)])
+    #----------------------------------------------------------------------
+    @models.permalink
+    def get_delete_url(self):
+        """Return the delete url"""
+        return('group_delete',[str(self.id)])
+    #----------------------------------------------------------------------
+    @models.permalink
+    def get_subscriber_by_group_url(self):
         """Return the filter url"""
-        return "/newsletter/subscribers-by-group/" + str(self.id) + "/"
+        return ('subscriber_by_group', [str(self.id)])
 
 ########################################################################
 class Subscriber(models.Model):
@@ -31,13 +43,30 @@ class Subscriber(models.Model):
         """return the subscriber name"""
         return self.name
     #----------------------------------------------------------------------
+    @models.permalink
     def get_absolute_url(self):
         """Return the absolute url"""
-        return "subscriber-content/" + str(self.id) + "/"
+        return ('subscriber_update', [str(self.id)])
     #----------------------------------------------------------------------
+    @models.permalink
     def get_edit_url(self):
-        """Return the edit url"""
-        return "/newsletter/subscriber-update/" + str(self.id) + "/"
+        """Return the absolute url"""
+        return ('subscriber_update', [str(self.id)])
+    #----------------------------------------------------------------------
+    @models.permalink
+    def get_delete_url(self):
+        """Return the absolute url"""
+        return ('subscriber_delete', [str(self.id)])
+    #----------------------------------------------------------------------
+    def save(self,subscribed=True):
+        """Override Save method - subscriber.save(false)"""
+        self.subscribed = subscribed
+        super(Subscriber,self).save()
+    #----------------------------------------------------------------------
+    #@models.permalink
+    #def get_subscriber_by_email_url(self,email):
+        #"""Return the edit url"""
+        #return ('subscriber_by_group', [str(self.id)])
 
 ########################################################################
 class Newsletter(models.Model):
@@ -54,13 +83,22 @@ class Newsletter(models.Model):
         """return the title field"""
         return self.title
     #----------------------------------------------------------------------
+    @models.permalink
     def get_absolute_url(self):
         """Return the absolute url"""
-        return "newsletter-content/" + str(self.id) + "/"
+        return ('newsletter_content', [str(self.id)])
+        #return "content/" + str(self.id) + "/"
     #----------------------------------------------------------------------
+    @models.permalink
     def get_edit_url(self):
         """Return the edit url"""
-        return "/newsletter/newsletter-edit/" + str(self.id) + "/"
+        #return "/edit/" + str(self.id) + "/"
+        return ('newsletter_edit', [str(self.id)])
+    #----------------------------------------------------------------------
+    @models.permalink
+    def get_delete_url(self):
+        """Return the delete url"""
+        return('newsletter_delete',[str(self.id)])
     #----------------------------------------------------------------------
     def save(self):
         """Override the save function to treat the html content"""
@@ -143,76 +181,48 @@ class Newsletter(models.Model):
                 #rewrited = re.sub('%s'%(el.link),'http://%s:8000/newsletter/news/%s'%(host,el.created_hash),self.content)
         self.content = rewrited
         super(Newsletter,self).save()
-
     #----------------------------------------------------------------------
-    def chart_links(self):
-        """"""
-        from pychartdir import *
+    def  get_links(self):
+        """Get links"""
+        #from lxml.html import builder as E
 
         links = Link.objects.filter(newsletter = self)
-        data = []
-        labels = []
-        for el  in links:
-            # The data for the bar chart
-            data.append(el.click_count)
-            # The labels for the bar chart
-            labels.append(str(el.slug))
-        #print "QQQQQQQQQQQQQQQQQQQQQQ"
-        #print len(links)
+        #html=[]
+        data=[]
+        labels=[]
 
-        #switch len(links):
-            #case =5:
-                #print "Igual"
-            #case <5:
-                #print "Menor"
-            #else:
-                #print "NADA"
+        #html.append('<table id="data_analytics"><tfoot><tr>')
+        #for el in links:
+            #if not el.slug == 'unsubscribe':
+                #labels.append('<th>%s</th>'%(el.slug))
+                #data.append('<td>%s</td>'%(el.click_count))
 
-        # Create a XYChart object of size 600 x 250 pixels
-        c = XYChart(600, 250)
+        #for el in labels:
+            #html.append(el)
+        #html.append('</tr></tfoot><tbody><tr>')
+        #for el in data:
+            #html.append(el)
+        #html.append('</tr></tbody></table>')
 
-        # Add a title to the chart using Arial Bold Italic font
-        c.addTitle("Newsletter %s " % str(self.title), "arialbi.ttf")
+        ##print html
+        #doc=' '.join(html)
+        #test = fromstring(doc)
+        #print tostring(test)
 
-        # Set the plotarea at (100, 30) and of size 400 x 200 pixels. Set the plotarea
-        # border, background and grid lines to Transparent
-        c.setPlotArea(200, 30, 400, 100, Transparent, Transparent, Transparent, Transparent,
-                      Transparent)
+        ##html = E.HTML(
+            ##E.TABLE(E.CLASS("data_analytics")
+                    ##)
+        ##)
+        dict=[]
+        for el in links:
+            if not el.slug == 'unsubscribe':
+                aux={}
+                aux['label']=el.slug
+                aux['clicks']=el.click_count
+                dict.append(aux)
 
-        # Add a bar chart layer using the given data. Use a gradient color for the bars,
-        # where the gradient is from dark green (0x008000) to white (0xffffff)
-        layer = c.addBarLayer(data, c.gradientColor(100, 0, 800, 0, 0x008000, 0xffffff))
+        return dict
 
-        # Swap the axis so that the bars are drawn horizontally
-        c.swapXY(1)
-
-        # Set the bar gap to 10%
-        layer.setBarGap(0.1)
-
-        # Use the format "xxx Clicks" as the bar label
-        layer.setAggregateLabelFormat("{value} Clicks")
-
-        # Set the bar label font to 10 pts Arial Bold Italic/dark red (0x663300)
-        layer.setAggregateLabelStyle("arialbi.ttf", 10, 0x663300)
-
-        # Set the labels on the x axis
-        textbox = c.xAxis().setLabels(labels)
-
-        # Set the x axis label font to 10pt Arial Bold Italic
-        textbox.setFontStyle("arialbi.ttf")
-        textbox.setFontSize(10)
-
-        # Set the x axis to Transparent, with labels in dark red (0x663300)
-        c.xAxis().setColors(Transparent, 0x663300)
-
-        # Set the y axis and labels to Transparent
-        c.yAxis().setColors(Transparent, Transparent)
-
-        # Output the chart
-        path = "static/images/tmp/tmpcharts/hbar.png"
-        c.makeChart(path)
-
-        return path
 
 ########################################################################
 class Link(models.Model):
@@ -227,67 +237,20 @@ class Link(models.Model):
         """return the link hash"""
         return self.link
     #----------------------------------------------------------------------
-    def save(self,edit):
-        """save(self,edit=True) will increment the click_count field
-        save(self,edit=False ) will save a new object with the click_count=0"""
 
+    def save(self, edit=False, force_insert=False, force_update=False):
         if edit:
             self.click_count += 1
-        super(Link,self).save()
+        super(Link, self).save(force_insert, force_update) # Call the "real" save() method.
 
-    #----------------------------------------------------------------------
-    def chart_test(self):
-        """"""
-        from pychartdir import *
+    #def save(self):
+        #print 'saving'
+        #"""save(self,edit=True) will increment the click_count field
+        #save(self,edit=False ) will save a new object with the click_count=0"""
 
-        # The data for the bar chart
-        data = [450, 560, 630, 800, 1100, 1350, 1600, 1950, 2300, 2700]
-
-        # The labels for the bar chart
-        labels = ["1996", "1997", "1998", "1999", "2000", "2001", "2002", "2003", "2004",
-                  "2005"]
-
-        # Create a XYChart object of size 600 x 360 pixels
-        c = XYChart(600, 360)
-
-        # Add a title to the chart using 18pts Times Bold Italic font
-        c.addTitle("Annual Revenue for Star Tech", "timesbi.ttf", 18)
-
-        # Set the plotarea at (60, 40) and of size 500 x 280 pixels. Use a vertical gradient
-        # color from light blue (eeeeff) to deep blue (0000cc) as background. Set border and
-        # grid lines to white (ffffff).
-        c.setPlotArea(60, 40, 500, 280, c.linearGradientColor(60, 40, 60, 280, 0xeeeeff,
-                                                              0x0000cc), -1, 0xffffff, 0xffffff)
-
-        # Add a multi-color bar chart layer using the supplied data. Use soft lighting effect
-        # with light direction from top.
-        c.addBarLayer3(data).setBorderColor(Transparent, softLighting(Top))
-
-        # Set x axis labels using the given labels
-        c.xAxis().setLabels(labels)
-
-        # Draw the ticks between label positions (instead of at label positions)
-        c.xAxis().setTickOffset(0.5)
-
-        # When auto-scaling, use tick spacing of 40 pixels as a guideline
-        c.yAxis().setTickDensity(40)
-
-        # Add a title to the y axis with 12pts Times Bold Italic font
-        c.yAxis().setTitle("USD (millions)", "timesbi.ttf", 12)
-
-        # Set axis label style to 8pts Arial Bold
-        c.xAxis().setLabelStyle("arialbd.ttf", 8)
-        c.yAxis().setLabelStyle("arialbd.ttf", 8)
-
-        # Set axis line width to 2 pixels
-        c.xAxis().setWidth(2)
-        c.yAxis().setWidth(2)
-
-        # Create the image and save it in a temporary location
-        chart1URL = c.makeTmpFile("/tmp/tmpcharts")
-
-        # Create an image map for the chart
-        imageMap = c.getHTMLImageMap("clickline.py", "", "title='{xLabel}: US$ {value|0}M'")
+        #if edit:
+            #self.click_count += 1
+        #super(Link,self).save()
 
 ########################################################################
 class Submission(models.Model):

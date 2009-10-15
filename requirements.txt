@@ -1,21 +1,16 @@
 # TODOS
-# 1. Create bootstrap file to install manual stuff
-# install python_openid: pip install python_openid
 
 # Django
 django
 
 # user stuff
-python_openid
 django_registration
-django-authopenid
 lxml
 httplib2
+simplejson
 
 # code browser
 pygments
 -e git://github.com/alex/pyvcs.git#egg=pyvcs
 -e git://github.com/jelmer/dulwich.git#egg=dulwich
 -e git://github.com/mlouro/django-vcs.git#egg=django-vcs
-PIL
-reportlab

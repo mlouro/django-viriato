@@ -1,31 +1,40 @@
-window.onload = draw;
+function get_links(newsletter_id){
+    $.post("/newsletter/get_links/",
+        {newsletter_id: newsletter_id},
+        function(data){
+            label=[];
+            click=[];
+            for (i in data){
+                label.push(data[i].fields.slug);
+                click.push(data[i].fields.click_count);
+                };
+            draw(label,click);
+        },"json"
+    );
+}
 
 
-    
-$(function () {
-    $("#data").css({
-        position: "absolute",
-        left: "-9999em",
-        top: "-9999em"
-    });
-});
+//$(function () {
 
+    //$("#data_analytics").css({
+        //position: "absolute",
+        //left: "-9999em",
+        //top: "-9999em"
+    //});
+//});
 
-function draw() {
+function draw(labels,data) {
     // Grab the data
-    var labels = [],
-        data = [];
-    $("#data tfoot th").each(function () {
-        labels.push($(this).html());
-    });
-    $("#data tbody td").each(function () {
-        data.push($(this).html());
-    });
-    
 
-    
+    //$("#data_analytics tfoot th").each(function () {
+        //labels.push($(this).html());
+    //});
+    //$("#data_analytics tbody td").each(function () {
+        //data.push($(this).html());
+    //});
+
     // Draw
-    var width = 800
+var width = 800
         rightgutter = 20,
         height = 250,
         leftgutter = 30,
@@ -47,18 +56,17 @@ function draw() {
         blanket = r.set(),
             bar_label = r.text(60, 40, "22 September 2008").attr(txt1).hide(),
             t0 = r.text(leftgutter-14, height-25, 0).attr(txt).toBack();
-   
+
     for(var i = 0, ii = labels.length; i < ii; i++)
         {
             var y = height - bottomgutter - data[i]/ max * (height - bottomgutter - topgutter),
           x = Math.round(leftgutter + X * (i+1)),
           ty = r.text(leftgutter - 14, topgutter + i * Y, Math.round(max/data.length*(ii-i))).attr(txt).toBack(),
-          tx = r.text(x-30, height - 6, labels[i]).attr(txt).toBack(),         
-          bar = r.rect(x-50, y, X-20, data[i]/ max * (height - bottomgutter - topgutter)).attr({fill: color, stroke: color});   
-           
+          tx = r.text(x-30, height - 6, labels[i]).attr(txt).toBack(),
+          bar = r.rect(x-50, y, X-20, data[i]/ max * (height - bottomgutter - topgutter)).attr({fill: color, stroke: color});
+
             blanket.push(r.rect(x-50, 20, X-20, height - bottomgutter - topgutter).attr({stroke: "#fff", fill: "#000", opacity: 0}));
       var rect = blanket[i];
-      
       (function (x, y, data, label, bar) {
             var timer, i = 0;
             $(rect.node).hover(function () {
@@ -67,7 +75,7 @@ function draw() {
                 if (newcoord.y - 20 < 0) {
                     newcoord.y += 16;
                 }
-                bar.attr({opacity: .3});   
+                bar.attr({opacity: .3});
                 frame.show().animate({x: newcoord.x, y: newcoord.y}, 200 * is_label_visible);
                // bar_label.show();
                    bar_label.attr({text: label}).show().animate({x: newcoord.x + 25, y: newcoord.y + 10}, 200 * is_label_visible);
@@ -75,9 +83,9 @@ function draw() {
                 is_label_visible = true;
                 r.safari();
             }, function () {
-                    bar.attr({opacity: 1});   
+                    bar.attr({opacity: 1});
                 r.safari();
-                leave_timer = setTimeout(function () { 
+                leave_timer = setTimeout(function () {
                     frame.hide();
                     bar_label.hide();
                     is_label_visible = false;
@@ -86,21 +94,5 @@ function draw() {
             });
         })
             (x, y, data[i], data[i], bar);
-        }  
+        }
 };
-
-
-function get_links(newsletter_id){
-    $.post("/newsletter/get_links/",
-        {newsletter_id: newsletter_id},
-        function(data){
-            for (i in data){
-                label.push(data[i].fields.slug);
-                click.push(data[i].fields.click_count);
-                //alert(label[i]);
-                //alert(click[i]);
-                }
-        },
-        "json"
-    );
-}

@@ -52,7 +52,6 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.middleware.locale.LocaleMiddleware',
-    'django_authopenid.middleware.OpenIDMiddleware',
 )
 
 
@@ -62,7 +61,6 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.i18n",
     "django.core.context_processors.media",
     'django.core.context_processors.request',
-    'django_authopenid.context_processors.authopenid',
     'core.context_processors.static_url',
 )
 
@@ -86,7 +84,6 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.admin',
     'django.contrib.admindocs',
-    'django_authopenid',
     'core',
     'projects',
     'django_vcs',
