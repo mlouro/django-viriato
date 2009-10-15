@@ -27,11 +27,11 @@
 
 
 {% block content_id_links %}
-    {% url contract.views.contract as contract_add_url %}
-    {% get_link_if_allowed contract_add_url "Add Contract" "contract.contract" %}
+    {% url contract_add as contract_add_url %}
+    {% get_link_if_allowed contract_add_url "Add Contract" %}
 
-    {% url receipt.views.receipt as receipt_add_url %}
-    {% get_link_if_allowed receipt_add_url "Add Receipt" "receipt.receipt" %}
+    {% url receipt.views.receipt as receipt %}
+    {% get_link_if_allowed receipt "Add Receipt" "receipt.receipt" %}
 
 
 {% endblock %}
