@@ -6,9 +6,11 @@ function get_links(newsletter_id){
             click=[];
             link=[];
             for (i in data){
-                label.push(data[i].fields.label);
-                click.push(data[i].fields.click_count);
-                link.push(data[i].fields.link);
+                if (data[i].fields.label  != "unsubscribe"){
+                    label.push('%%.%% ' +(data[i].fields.label));
+                    click.push(data[i].fields.click_count);
+                    link.push(data[i].fields.link);
+                    };
                 };
             draw(label,click,link);
         },"json"
@@ -23,7 +25,7 @@ var r = Raphael("holder");
           r.g.text(320, 100, "Links").attr({"font-size": 20});
           
           //var pie = r.g.piechart(320, 240, 100, [55, 20, 13, 32, 5, 1, 2, 10], {legend: ["%%.%% – Enterprise Users", "IE Users"], legendpos: "west", href: ["http://raphaeljs.com", "http://g.raphaeljs.com"]});
-          var pie = r.g.piechart(320, 240, 100, clicks, {legend: labels, legendpos: "west", href: links});
+          var pie = r.g.piechart(320, 240, 100, clicks, {legend: labels, legendpos: "east", href: links});
           pie.hover(function () {
               this.sector.stop();
               this.sector.scale(1.1, 1.1, this.cx, this.cy);

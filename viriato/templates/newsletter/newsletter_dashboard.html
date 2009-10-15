@@ -8,11 +8,11 @@
 {% block content %}
 
 
-<div class="subscriber_activity">
+<div class="newsletter_activity">
 
-    {% for item in object_list %}
-    <div class="subscriber-row">
-        <h3><a href="{{ item.get_absolute_url }}">{{ item }}</a></h3>
+    {% for item in newsletter %}
+    <div class="newsletter-row">
+        <h3><a href="{{ item.get_absolute_url }}">{{ item.title }}</a></h3>
             <div class="actions hidden">
                 <span><a href="{{ item.get_absolute_url }}" class="edit">view</a>, </span>
                 <span><a href="{{ item.get_edit_url }}" class="edit">edit</a>,  </span>
@@ -21,13 +21,7 @@
     </div>
     <table class="activity">
         <tr>
-            <!--<td class="action"><span class="comment">:: type ::</span></td>-->
-            <td class="description">
-                <!--<div class="item_content">-->
-                    <!--<a href="/">:: description ::</a>-->
-                <!--</div>-->
-            </td>
-            <!--<td class="name">:: user ::</td>-->
+            <td class="description"></td>
             <td class="date">:: {{ item.created.date }} ::</td>
         </tr>
     </table>

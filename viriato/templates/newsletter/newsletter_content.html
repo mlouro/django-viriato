@@ -1,6 +1,6 @@
 {% extends "newsletter/base.html" %}
 {% load i18n %}
-{% load navigation_tags %}
+<!--{% load navigation_tags %}-->
 
 
 {% block content_id_title %}<h1>{{ newsletter }}</h1>{% endblock %}
@@ -10,12 +10,16 @@
     <ul>
     {% url newsletter_send newsletter.id as newsletter_send_url %}
     {% url newsletter_edit newsletter.id as newsletter_edit_url %}
+    {% url newsletter_links newsletter.id as newsletter_links_url %}
     {% url newsletter_analytics newsletter.id as newsletter_analytics_url %}
     {% url newsletter_delete newsletter.id as newsletter_delete_url %}
 
     {% get_link_if_allowed newsletter_send_url "Send" %}
-    {% get_link_if_allowed newsletter_edit_url "Edit" %}
+    <li><span style="float: left; padding-left: 30px;">&nbsp;</span></li>
+    {% get_link_if_allowed newsletter_edit_url "Edit Newsletter" %}
+    {% get_link_if_allowed newsletter_links_url "Edit Links" %}
     {% get_link_if_allowed newsletter_analytics_url "Analytics" %}
+    <li><span style="float: left; padding-left: 30px;">&nbsp;</span></li>
     {% get_link_if_allowed newsletter_delete_url "Delete" %}
     </ul>
 {% endblock %}
