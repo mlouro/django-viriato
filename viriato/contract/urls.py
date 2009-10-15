@@ -4,8 +4,8 @@ from django.conf.urls.defaults import *
 
 
 urlpatterns = patterns('',
-    url(r'^index/$', 'contract.views.index', name="contract_index"),
-    url(r'^$', 'contract.views.contract', name="contract"),
+    url(r'^/$', 'contract.views.index', name="contract_index"),
+    url(r'^add/$', 'contract.views.contract', name="contract_add"),
     url(r'^download_document/(?P<object_id>\d+)/$', 'contract.views.download_document', name="download_document"),
     url(r'^send_document/(?P<object_id>\d+)/$', 'contract.views.send_document', name="send_document"),
 

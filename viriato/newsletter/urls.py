@@ -102,7 +102,6 @@ urlpatterns = patterns('newsletter.views',
     #Extra
     url(r'^news/(?P<link_hash>\w+)/$', 'link_count', name='link_count'),
     url(r'^host', 'host', name='host'),
-
     #testing
     url(r'^display_meta/$', 'display_meta', name='display_meta'),
 

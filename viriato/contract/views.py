@@ -33,7 +33,7 @@ from invoices.sendmail import *
 from invoices.common import *
 
 from django.utils.translation import ugettext as _
-
+from invoices.decorators import have_company
 
 if 'projects' in INSTALLED_APPS:
     project = True
@@ -42,6 +42,7 @@ else:
 
 
 @login_required
+@have_company
 def index(request):
     contracts = Contract.objects.order_by('date').reverse()
     return render_to_response ("invoices/contract_index.html",
@@ -49,7 +50,8 @@ def index(request):
                                 context_instance=RequestContext(request)
                             )
 
-#@login_required
+@login_required
+@have_company
 def contract(request, object_id=0):
 
     try:
@@ -134,7 +136,8 @@ def contract(request, object_id=0):
                                     context_instance=RequestContext(request)
                                 )
 
-
+@login_required
+@have_company
 def project_ajax(request):
     """
         Ajax Request to be used in Project's project
@@ -148,7 +151,8 @@ def project_ajax(request):
         data = serializers.serialize('json', Project.objects.all(), ensure_ascii=False)
     return HttpResponse(data, mimetype='text/javascript')
 
-
+@login_required
+@have_company
 def milestone_ajax(request):
     """
         Ajax Request to be used in Project's project
@@ -158,13 +162,15 @@ def milestone_ajax(request):
     data = serializers.serialize('json', Milestone.objects.filter(project=project_id), ensure_ascii=False)
     return HttpResponse(data, mimetype='text/javascript')
 
-
+@login_required
+@have_company
 def contracts_ajax(request):
     #filter(approved=True)
     data = serializers.serialize('json', Contract.objects.filter(approved=True, finished=False), ensure_ascii=False)
     return HttpResponse(data, mimetype='text/javascript')
 
-
+@login_required
+@have_company
 def contract_details_ajax(request):
     contract_id = int(request.POST['contract_id'])
     if contract_id < 0:
@@ -174,19 +180,22 @@ def contract_details_ajax(request):
         data = serializers.serialize('json', ContractDetails.objects.filter(contract=contract_id, payed=False), ensure_ascii=False)
     return HttpResponse(data, mimetype='text/javascript')
 
-
+@login_required
+@have_company
 def contract_detail_line_ajax(request):
     selected_items = list(request.POST['selected_items'].split('|'))
     data = serializers.serialize('json', ContractDetails.objects.filter(pk__in=selected_items), ensure_ascii=False)
     return HttpResponse(data, mimetype='text/javascript')
 
-
+@login_required
+@have_company
 def get_contract_inf(request):
     id = request.POST['id']
     data = serializers.serialize('json', Contract.objects.filter(pk=id), ensure_ascii=False)
     return HttpResponse(data, mimetype='text/javascript')
 
-
+@login_required
+@have_company
 def new_contract_items(request):
     from django.db.models import Q
     from django import forms
@@ -198,7 +207,8 @@ def new_contract_items(request):
     data = serializers.serialize('json', ContractDetails.objects.filter(~Q(pk__in=ids), contract=contract_id, payed=False), ensure_ascii=False)
     return HttpResponse(data, mimetype='text/javascript')
 
-
+@login_required
+@have_company
 def download_document(request, object_id):
     contract = Contract.objects.get(pk=object_id)
 
@@ -210,15 +220,16 @@ def download_document(request, object_id):
     c.save()
     return response
 
+
 def send_document(request, object_id):
     from settings import ROOT_DIR
     path = ROOT_DIR+'/viriato/static/tmp/'
     filename = 'contract%s.pdf' % (object_id)
-    file_path = ('%s%s'%(path,filename))
+    file_path = [('%s%s'%(path,filename)),]
 
     contract = Contract.objects.get(pk=object_id)
 
-    c = canvas.Canvas(file_path)
+    c = canvas.Canvas(file_path[0])
     c = create_pdf(c, object_id)
     c.showPage()
     c.save()
