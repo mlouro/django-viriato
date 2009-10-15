@@ -3,7 +3,7 @@ from django.conf.urls.defaults import *
 
 
 urlpatterns = patterns('',
-    (r'^$', 'company.views.company'),
+    url(r'^$', 'company.views.company', name="company"),
     (r'^company_ajax/$', 'company.views.company_ajax'),
 )
 

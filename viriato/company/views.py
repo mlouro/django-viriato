@@ -29,7 +29,6 @@ def company(request):
             'im_formset' : ims_formset(instance=company, prefix='ims', data=request.POST),
             'address_formset' : addresses_formset(instance=company, prefix='addresses', data=request.POST),
             'website_formset' : websites_formset(instance=company, prefix='websites', data=request.POST),
-            'email_settings_formset': email_settings_formset(instance=company, prefix='email_settings', data=request.POST),
         }
 
         if company_form.is_valid():
@@ -77,7 +76,6 @@ def company(request):
             'im_formset' : ims_formset(instance=company, prefix='ims'),
             'address_formset' : addresses_formset(instance=company, prefix='addresses'),
             'website_formset' : websites_formset(instance=company, prefix='websites'),
-            'email_settings_formset': email_settings_formset(instance=company, prefix='email_settings'),
         }
 
         company_form = MyCompanyForm(instance=company)

@@ -44,10 +44,3 @@ ims_formset = inlineformset_factory(
                                         InstantMessaging,
                                         extra=1,
                                     )
-
-
-email_settings_formset = inlineformset_factory(
-                                        MyCompany,
-                                        EmailHostSettings,
-                                        extra=1,
-                                    )

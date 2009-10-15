@@ -60,7 +60,6 @@
                 {% url issue_dashboard as issue_dashboard_url %}
 
                 {% url invoices_index as invoices_index_url %}
-                {% url contract_index as contract_index_url %}
 
                 {% get_link_if_allowed home_url "Home" %}
                 <!--
@@ -72,7 +71,6 @@
                 {% get_link_if_allowed issue_dashboard_url "Helpdesk" %}
                 -->
                 {% get_link_if_allowed invoices_index_url "Invoices" %}
-                {% get_link_if_allowed contract_index_url "Contracts" %}
                 <!--
                 {% get_link_if_allowed schedule_url "Wiki" %}
                 -->

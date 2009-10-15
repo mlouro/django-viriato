@@ -34,18 +34,14 @@ class MyCompany(models.Model):
     retention = models.DecimalField(max_digits=15, decimal_places=2, default=0)
     photo = models.ImageField(blank=True, upload_to="fotos")
     info = models.TextField(blank=True,)
-
-    def __unicode__(self):
-        return self.title
-
-
-class EmailHostSettings(models.Model):
-    company = models.ForeignKey(MyCompany)
     host = models.EmailField()
     pwd = models.CharField(max_length=30)
     from_user = models.EmailField()
     server = models.URLField()
-    #host, pwd, from_user, server
+
+    def __unicode__(self):
+        return self.title
+
 
 class ContactTypes(models.Model):
     description = models.CharField(max_length=20,)

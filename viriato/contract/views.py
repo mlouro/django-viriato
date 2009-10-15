@@ -33,7 +33,7 @@ from invoices.sendmail import *
 from invoices.common import *
 
 from django.utils.translation import ugettext as _
-from invoices.decorators import login
+from invoices.decorators import have_company
 
 if 'projects' in INSTALLED_APPS:
     project = True
