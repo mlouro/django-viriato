@@ -38,15 +38,15 @@ def newsletter_content(request,newsletter_id):
 #----------------------------------------------------------------------
 def newsletter_add(request):
     if request.method == 'POST':
-        formset = NewsletterForm(request.POST)
+        form = NewsletterForm(request.POST)
 
-        if formset.is_valid():
-            formset.save()
+        if form.is_valid():
+            form.save()
 
             return HttpResponseRedirect('/newsletter/')
         else:
             return render_to_response('newsletter/newsletter_add.html',
-                                    {'form' : formset},
+                                    {'form' : form},
                                     context_instance=RequestContext(request))
     else:
         return render_to_response('newsletter/newsletter_add.html',
@@ -55,24 +55,31 @@ def newsletter_add(request):
 
 #----------------------------------------------------------------------
 def newsletter_edit(request, newsletter_id):
-    from django.forms.models import inlineformset_factory
+    #from django.forms.models import inlineformset_factory
     
     newsletter = Newsletter.objects.get(id=newsletter_id)
     if request.method == "POST":
-        form = NewsletterForm(request.POST, instance=newsletter, prefix="newsletter")
-        formset = LinkFormset(request.POST, request.FILES, instance=newsletter, prefix="links")
-        if form.is_valid() and formset.is_valid():
+        form = NewsletterForm(request.POST, instance=newsletter)
+        #form = NewsletterForm(request.POST, instance=newsletter, prefix="newsletter")
+        #formset = LinkFormset(request.POST, request.FILES, instance=newsletter, prefix="links")
+        if form.is_valid():
+        #and formset.is_valid():
+            #f = form.save(commit=False)
+            #f.save(True)
+            #form.save_m2m()
+            #formset.save()
             form.save()
-            formset.save()
             
             return HttpResponseRedirect('/newsletter/edit/%s'%(newsletter_id))
     else:
-        form = NewsletterForm(instance=newsletter, prefix="newsletter")
-        formset = LinkFormset(instance=newsletter, prefix="links")
+        form = NewsletterForm(instance=newsletter)
+        #form = NewsletterForm(instance=newsletter, prefix="newsletter")
+        #formset = LinkFormset(instance=newsletter, prefix="links")
         
     return render_to_response("newsletter/newsletter_edit.html",
                               {"form": form,"newsletter":newsletter,
-                               "formset": formset,},
+                               #"formset": formset,
+                               },
                               context_instance=RequestContext(request))
 
 #----------------------------------------------------------------------
@@ -95,24 +102,19 @@ def manage_links(request, object_id):
 
     return render_to_response("newsletter/manage_links.html",
                               {"formset": formset,
-                                "object_id": object_id,},
+                                "object_id": object_id,
+                                "newsletter":newsletter},
                               context_instance=RequestContext(request))
 
 #----------------------------------------------------------------------
 def newsletter_analytics(request,newsletter_id):
     newsletter = get_object_or_404(Newsletter,id=newsletter_id)
-    #import simplejson as json Acho q não é preciso
-    #l = Link.objects.get(newsletter=newsletter)
-    #dict = newsletter.get_links() não é preciso
-    #print dict
-    #js_data = json.dumps(dict, separators=(',',':'))
-    #return render_to_response('newsletter/newsletter_analytics.html',
-                              #{'newsletter' : newsletter,'js_data':js_data},
-                              #context_instance=RequestContext(request))
+
     return render_to_response('newsletter/newsletter_analytics.html',
                               {'newsletter' : newsletter,},
                               context_instance=RequestContext(request))
 
+#----------------------------------------------------------------------
 def links_ajax(request):
     #Created by Emanuel
     newsletter_id = int(request.POST['newsletter_id'])
@@ -183,12 +185,14 @@ def search(request):
     return render_to_response("newsletter/index.html",
         {"results": results, "query": query },
         context_instance=RequestContext(request))
+
 #----------------------------------------------------------------------
 def host(request):
     #return HttpResponse(request.META['HTTP_HOST'])
     import socket
     host = socket.gethostname()
     return HttpResponse(host)
+
 #----------------------------------------------------------------------
 def display_meta(request):
     values = request.META.items()

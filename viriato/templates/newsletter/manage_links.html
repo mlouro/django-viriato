@@ -2,6 +2,10 @@
 {% load i18n %}
 <!--{% load navigation_tags %}-->
 
+
+{% block content_id_title %}<h1>Edit Links "{{ newsletter }}"</h1>{% endblock %}
+
+
 {% block content %}
 
 <form method="POST" action="/newsletter/edit/links/{{ object_id }}/">
@@ -21,13 +25,10 @@
         {% endifnotequal %}
     {% endfor %}
 
-
     <p class="submit">
         <input type="submit" value="Save Newsletter" />
         <a href="javascript:history.back()">Cancel</a>
     </p>
-
 </form>
-
 
 {% endblock %}

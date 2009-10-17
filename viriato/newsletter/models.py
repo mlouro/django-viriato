@@ -100,15 +100,33 @@ class Newsletter(models.Model):
         """Return the delete url"""
         return('newsletter_delete',[str(self.id)])
     #----------------------------------------------------------------------
-    def save(self):
+    def save(self, edit=False, force_insert=False, force_update=False):
         """Override the save function to treat the html content"""
+        #if not edit:
+            #content = parse(self.url).getroot()
+            #content.make_links_absolute()
+            #self.content = tostring(content)
+            #self.view_count = 0
+            #super(Newsletter,self).save(force_insert, force_update)
+            #self.save_links()
+        #else:
+            #q = Newsletter.objects.get(id=self.id)
+            #if self.url != q.url:
+                #content = parse(self.url).getroot()
+                #content.make_links_absolute()
+                #self.content = tostring(content)
+                #self.view_count = 0
+                #super(Newsletter,self).save(force_insert, force_update)
+                #self.save_links()
+            #else:
+                #super(Newsletter,self).save(force_insert, force_update)
+
         content = parse(self.url).getroot()
         content.make_links_absolute()
         self.content = tostring(content)
         self.view_count = 0
-
-        super(Newsletter,self).save()
-        """save links"""
+        
+        super(Newsletter,self).save(force_insert, force_update)
         self.save_links()
     #----------------------------------------------------------------------
     def save_links(self):
@@ -155,47 +173,6 @@ class Newsletter(models.Model):
 
         self.content = rewrited
         super(Newsletter,self).save()
-    #----------------------------------------------------------------------
-    def  get_links(self):
-        """Get links"""
-        #from lxml.html import builder as E
-
-        links = Link.objects.filter(newsletter = self)
-        #html=[]
-        data=[]
-        labels=[]
-
-        #html.append('<table id="data_analytics"><tfoot><tr>')
-        #for el in links:
-            #if not el.label == 'unsubscribe':
-                #labels.append('<th>%s</th>'%(el.label))
-                #data.append('<td>%s</td>'%(el.click_count))
-
-        #for el in labels:
-            #html.append(el)
-        #html.append('</tr></tfoot><tbody><tr>')
-        #for el in data:
-            #html.append(el)
-        #html.append('</tr></tbody></table>')
-
-        ##print html
-        #doc=' '.join(html)
-        #test = fromstring(doc)
-        #print tostring(test)
-
-        ##html = E.HTML(
-            ##E.TABLE(E.CLASS("data_analytics")
-                    ##)
-        ##)
-        dict=[]
-        for el in links:
-            if not el.label == 'unsubscribe':
-                aux={}
-                aux['label']=el.label
-                aux['clicks']=el.click_count
-                dict.append(aux)
-
-        return dict
 
 
 ########################################################################
@@ -205,7 +182,7 @@ class Link(models.Model):
     newsletter = models.ForeignKey(Newsletter)
     created_hash = models.CharField(max_length=60)
     click_count = models.IntegerField(blank=True)
-    label = models.CharField(max_length=100)
+    label = models.CharField(max_length=250)
     #----------------------------------------------------------------------
     def __unicode__(self):
         """return the link hash"""
