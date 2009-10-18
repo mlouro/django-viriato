@@ -119,6 +119,26 @@ def links_ajax(request):
     #Created by Emanuel
     newsletter_id = int(request.POST['newsletter_id'])
     data = serializers.serialize('json', Link.objects.filter(newsletter=newsletter_id), ensure_ascii=False)
+    return HttpResponse(data,mimetype='application/json')
+
+#----------------------------------------------------------------------
+def dashboard_ajax(request):
+    from django.db.models import Q
+    aux =[]
+    info=[]
+    for el in Link.objects.all():
+        if not el.link == 'http://unsubscribe':
+            if not el.link in aux:
+                aux.append(el.link)
+                cont=0
+                for obj in Link.objects.filter(Q(link=el.link)):
+                    cont += obj.click_count
+                    
+                el.click_count=cont
+                info.append(el)
+
+    print info
+    data = serializers.serialize('json', info, ensure_ascii=False)
     return HttpResponse(data,mimetype='text/javascript')
 
 #----------------------------------------------------------------------

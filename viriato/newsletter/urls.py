@@ -66,11 +66,15 @@ newsletter_delete_dict = {
     'post_delete_redirect':'/newsletter/list/',
 }
 
+#Dashboard
+dashboard_dict = {
+    'template': 'newsletter/dashboard.html',
+    }
 
 urlpatterns = patterns('newsletter.views',
 
     #Dashboard
-    url(r'^dashboard','index', name='dashboard'),
+    url(r'^dashboard',direct_to_template, dashboard_dict, name='dashboard'),
 
     #Newsletters
     url(r'^add/$', 'newsletter_add', name='newsletter_add'),
@@ -84,6 +88,7 @@ urlpatterns = patterns('newsletter.views',
 
     #Ajax Call's
     url(r'^get_links/$', 'links_ajax', name = 'links_ajax'),
+    url(r'^get_dashboard/$', 'dashboard_ajax', name = 'dashboard_ajax'),
 
     #Subscribers
     url(r'^subscriber/add/$', create_object, subscriber_create_dict, name='subscriber_create'),
@@ -102,7 +107,7 @@ urlpatterns = patterns('newsletter.views',
     #Extra
     url(r'^news/(?P<link_hash>\w+)/$', 'link_count', name='link_count'),
     url(r'^host', 'host', name='host'),
-    
+
     #testing
     url(r'^display_meta/$', 'display_meta', name='display_meta'),
 

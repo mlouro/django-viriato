@@ -13,7 +13,7 @@
     {% for form in formset.forms %}
 
         {{ form.id }}
-        {% ifnotequal form.link.text "unsubscribe" %}
+        {% ifnotequal form.label.text "unsubscribe" %}
             <ul>
                 <li>
                     {{ form.link}} {{ form.link.errors }}
