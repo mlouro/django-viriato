@@ -149,7 +149,6 @@ def send_document(request, object_id):
     c = create_pdf(c, object_id)
     c.showPage()
     c.save()
-    print file_path
     if sendmail(file_path, object_id, MyCompany.objects.get(pk=1).title):
         return HttpResponse("Hello, world. You're at the poll index.")
     else:
@@ -183,7 +182,6 @@ def create_pdf(c, object_id):
 #@login_required
 #@have_company
 def sendmail(file_path, object_id, company_title):
-    print file_path
     host, pwd, from_user, server = get_email_data()
 
     to='costavitorino@gmail.com'

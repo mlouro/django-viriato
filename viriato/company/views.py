@@ -21,7 +21,7 @@ def company(request):
 
     if request.POST:
 
-        company_form = MyCompanyForm(request.POST, instance=company)
+        company_form = MyCompanyForm(request.POST, request.FILES, instance=company)
 
         formset_list = {
             'email_formset' : emails_formset(instance=company, prefix='emails', data=request.POST),
