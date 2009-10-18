@@ -6,7 +6,7 @@ function get_dashboard(newsletter_id){
             link=[];
             var info = JSON.parse(data);
             for (i in info){
-                    label.push(info[i].fields.label);
+                    label.push('%%.%%  ' +info[i].fields.label);
                     click.push(info[i].fields.click_count);
                     link.push(info[i].fields.link);
                 };

@@ -5,7 +5,6 @@ function get_links(newsletter_id){
             label=[];
             click=[];
             link=[];
-            alert(data)
             for (i in data){
                 if (data[i].fields.label  != "unsubscribe"){
                     label.push(data[i].fields.label);
