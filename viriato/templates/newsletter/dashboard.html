@@ -1,4 +1,4 @@
-{% extends "newsletter/newsletter_content.html" %}
+{% extends "newsletter/base.html" %}
 {% load i18n %}
 <!--{% load navigation_tags %}-->
 
@@ -8,17 +8,18 @@
 <script type="text/javascript" src="{{ MEDIA_URL }}js/libs/newsletters/g.raphael-min.js" charset="utf-8"></script>
 <script type="text/javascript" src="{{ MEDIA_URL }}js/libs/newsletters/g.pie-min.js" charset="utf-8"></script>
 <script type="text/javascript" src="{{ MEDIA_URL }}js/libs/newsletters/g.bar-min.js" charset="utf-8"></script>
-<script type="text/JavaScript" src="{{ MEDIA_URL }}js/newsletters/analytics.js" charset="utf-8"></script>
+<script type="text/JavaScript" src="{{ MEDIA_URL }}js/newsletters/dashboard.js" charset="utf-8"></script>
 <!--<script type="text/JavaScript" src="{{ MEDIA_URL }}js/newsletters/FusionCharts.js" charset="utf-8"></script>-->
 {% endblock %}
 
 
 {% block jquery %}
 
-    get_links({{ newsletter.id }});
+    get_dashboard();
 
 {% endblock jquery %}
 
+{% block content_id_title %}<h1>Dashboard</h1>{% endblock %}
 
 {% block content %}
 

@@ -1,5 +1,5 @@
 <form class="form" action="{{ newsletter.get_edit_url }}" method="post">
-
+<div id="edit_newsletter">
     <p class="field">
         <label>Title</label>
         {{ form.title }}
@@ -17,10 +17,31 @@
         {{ form.group }}
     </p>
     {{ form.group.errors }}
+</div>
 
+<div id="edit_links">
+{{ formset.management_form }}
+
+    {% for obj in formset.forms %}
+        {{ obj.id }}
+
+        <ul>
+            <li>
+                {{ obj.link}} {{ obj.link.errors }}
+                {{ obj.label }} {{ obj.label.errors }}
+                {{ obj.click_count }} {{ obj.click_count.errors }}
+                <!--{{ form.DELETE}}-->
+            </li>
+        </ul>
+
+    {% endfor %}
+
+</div>
+
+<div id="edit_submit" class="clear">
     <p class="submit">
         <input type="submit" value="Save Newsletter" />
         <a href="javascript:history.back()">Cancel</a>
     </p>
-    
+</div>
 </form>

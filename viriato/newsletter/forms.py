@@ -20,7 +20,7 @@ class GroupForm(ModelForm):
 class LinkForm(ModelForm):
     class Meta:
         model = Link
-        fields = ('link','slug')
+        fields = ('link','label')
 
 class LinkFormFormset(ModelForm):
     link = forms.CharField(widget=forms.TextInput(attrs={'readonly':'true',}))
@@ -30,7 +30,7 @@ class LinkFormFormset(ModelForm):
 
         fields = (
             'link',
-            'slug',
+            'label',
         )
 
 LinkFormset = inlineformset_factory(Newsletter,Link,extra=0,form=LinkFormFormset)

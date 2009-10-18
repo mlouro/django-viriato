@@ -31,7 +31,6 @@ def newsletter_content(request,newsletter_id):
 
     #l = Link.objects.get(newsletter=newsletter)
 
-
     return render_to_response('newsletter/newsletter_content.html',
                               {'newsletter' : newsletter},
                               context_instance=RequestContext(request))
@@ -39,58 +38,107 @@ def newsletter_content(request,newsletter_id):
 #----------------------------------------------------------------------
 def newsletter_add(request):
     if request.method == 'POST':
-        formset = NewsletterForm(request.POST)
-        print formset.errors
-        if formset.is_valid():
-            formset.save()
+        form = NewsletterForm(request.POST)
 
-            return HttpResponseRedirect('/newsletter/')
-        else:
-            return render_to_response('newsletter/newsletter_add.html',
-                                    {'form' : formset},
-                                    context_instance=RequestContext(request))
-    else:
-        return render_to_response('newsletter/newsletter_add.html',
-                                {'form'    : NewsletterForm()},
-                                context_instance=RequestContext(request))
-
-#----------------------------------------------------------------------
-def newsletter_edit(request, newsletter_id):
-    newsletter = Newsletter.objects.get(id=newsletter_id)
-    #BookInlineFormSet = inlineformset_factory(Author, Book)
-    if request.method == "POST":
-        form = NewsletterForm(request.POST, instance=newsletter)
         if form.is_valid():
             form.save()
 
             return HttpResponseRedirect('/newsletter/')
+        else:
+            return render_to_response('newsletter/newsletter_add.html',
+                                    {'form' : form},
+                                    context_instance=RequestContext(request))
     else:
-        #formset = BookInlineFormSet(instance=author)
+        return render_to_response('newsletter/newsletter_add.html',
+                                {'form': NewsletterForm()},
+                                context_instance=RequestContext(request))
+
+#----------------------------------------------------------------------
+def newsletter_edit(request, newsletter_id):
+    #from django.forms.models import inlineformset_factory
+    
+    newsletter = Newsletter.objects.get(id=newsletter_id)
+    if request.method == "POST":
+        form = NewsletterForm(request.POST, instance=newsletter)
+        #form = NewsletterForm(request.POST, instance=newsletter, prefix="newsletter")
+        #formset = LinkFormset(request.POST, request.FILES, instance=newsletter, prefix="links")
+        if form.is_valid():
+        #and formset.is_valid():
+            #f = form.save(commit=False)
+            #f.save(True)
+            #form.save_m2m()
+            #formset.save()
+            form.save()
+            
+            return HttpResponseRedirect('/newsletter/edit/%s'%(newsletter_id))
+    else:
         form = NewsletterForm(instance=newsletter)
+        #form = NewsletterForm(instance=newsletter, prefix="newsletter")
+        #formset = LinkFormset(instance=newsletter, prefix="links")
+        
     return render_to_response("newsletter/newsletter_edit.html",
-                              {"form": form,"newsletter":newsletter},
+                              {"form": form,"newsletter":newsletter,
+                               #"formset": formset,
+                               },
+                              context_instance=RequestContext(request))
+
+#----------------------------------------------------------------------
+def manage_links(request, object_id):
+    from django.forms.models import inlineformset_factory
+
+    newsletter = Newsletter.objects.get(pk=object_id)
+    if request.method == "POST":
+        formset = LinkFormset(request.POST, request.FILES, instance=newsletter)
+        if formset.is_valid():
+            formset.save()
+
+        else:
+            return render_to_response("newsletter/manage_links.html",
+                              {"formset": formset,
+                                "object_id": object_id,},
+                              context_instance=RequestContext(request))
+    else:
+        formset = LinkFormset(instance=newsletter)
+
+    return render_to_response("newsletter/manage_links.html",
+                              {"formset": formset,
+                                "object_id": object_id,
+                                "newsletter":newsletter},
                               context_instance=RequestContext(request))
 
 #----------------------------------------------------------------------
 def newsletter_analytics(request,newsletter_id):
     newsletter = get_object_or_404(Newsletter,id=newsletter_id)
-    #import simplejson as json Acho q não é preciso
-    #l = Link.objects.get(newsletter=newsletter)
-    #dict = newsletter.get_links() não é preciso
-    #print dict
-    #js_data = json.dumps(dict, separators=(',',':'))
-    #return render_to_response('newsletter/newsletter_analytics.html',
-                              #{'newsletter' : newsletter,'js_data':js_data},
-                              #context_instance=RequestContext(request))
+
     return render_to_response('newsletter/newsletter_analytics.html',
                               {'newsletter' : newsletter,},
                               context_instance=RequestContext(request))
 
+#----------------------------------------------------------------------
 def links_ajax(request):
     #Created by Emanuel
     newsletter_id = int(request.POST['newsletter_id'])
-    print newsletter_id
     data = serializers.serialize('json', Link.objects.filter(newsletter=newsletter_id), ensure_ascii=False)
+    return HttpResponse(data,mimetype='application/json')
+
+#----------------------------------------------------------------------
+def dashboard_ajax(request):
+    from django.db.models import Q
+    aux =[]
+    info=[]
+    for el in Link.objects.all():
+        if not el.link == 'http://unsubscribe':
+            if not el.link in aux:
+                aux.append(el.link)
+                cont=0
+                for obj in Link.objects.filter(Q(link=el.link)):
+                    cont += obj.click_count
+                    
+                el.click_count=cont
+                info.append(el)
+
+    print info
+    data = serializers.serialize('json', info, ensure_ascii=False)
     return HttpResponse(data,mimetype='text/javascript')
 
 #----------------------------------------------------------------------
@@ -104,29 +152,6 @@ def newsletter_send(request, object_id):
     
     return render_to_response('newsletter/newsletter_content.html',
                               {'newsletter' : newsletter},
-                              context_instance=RequestContext(request))
-
-#----------------------------------------------------------------------
-def manage_links(request, object_id):
-    from django.forms.models import inlineformset_factory
-
-    newsletter = Newsletter.objects.get(pk=object_id)
-    if request.method == "POST":
-        formset = LinkFormset(request.POST, request.FILES, instance=newsletter)
-        if formset.is_valid():
-            formset.save()
-            # Do something.
-        else:
-            return render_to_response("newsletter/manage_links.html",
-                              {"formset": formset,
-                                "object_id": object_id,},
-                              context_instance=RequestContext(request))
-    else:
-        formset = LinkFormset(instance=newsletter)
-
-    return render_to_response("newsletter/manage_links.html",
-                              {"formset": formset,
-                                "object_id": object_id,},
                               context_instance=RequestContext(request))
 
 #----------------------------------------------------------------------
@@ -151,7 +176,7 @@ def link_count(request,link_hash):
     edit = True
     link = Link.objects.get(created_hash = link_hash)
     link.save(edit)
-    if link.slug == 'unsubscribe':
+    if link.label == 'unsubscribe':
         if request.method == 'POST':
             form = UnsubscribeForm(request.POST)
             if form.is_valid():
@@ -178,14 +203,16 @@ def search(request):
         results = Newsletter.objects.filter(qset).distinct()
 
     return render_to_response("newsletter/index.html",
-        { "results": results, "query": query },
+        {"results": results, "query": query },
         context_instance=RequestContext(request))
+
 #----------------------------------------------------------------------
 def host(request):
     #return HttpResponse(request.META['HTTP_HOST'])
     import socket
     host = socket.gethostname()
     return HttpResponse(host)
+
 #----------------------------------------------------------------------
 def display_meta(request):
     values = request.META.items()
