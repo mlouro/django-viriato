@@ -1,3 +1,4 @@
 *.pyc
 *.db
+*.pdf
 local_settings.py

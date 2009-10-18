@@ -1,5 +1,4 @@
 h3{
-    margin-left: 30px;
     padding-bottom: 40px;
     color:#23238E;
 }
@@ -10,6 +9,10 @@ h3{
 
 p{
     margin:5px;
+}
+
+td.green_receipt{
+    padding-bottom: 10px;
 }
 
 tr.alt td{
@@ -59,6 +62,7 @@ tr.over td{
     width: 230px;
 }
 
+
 .image img{
     margin-left:20px;
 }
@@ -107,7 +111,6 @@ tr.over td{
     margin-bottom:50px;
     border-bottom:2px solid #8F8FBD;
     padding-bottom:20px;
-    padding-left:50px;
 }
 
 #document_header select{

@@ -53,7 +53,6 @@ def index(request):
 @login_required
 @have_company
 def contract(request, object_id=0):
-
     try:
         my_company = MyCompany.objects.get(pk=1)
         tax = my_company.tax
@@ -63,7 +62,6 @@ def contract(request, object_id=0):
         retention = 0
 
     if request.method == "POST":
-
         if object_id:
             contract = Contract.objects.get(pk=object_id)
             template_to_go = "edit_contract.html"
