@@ -1,3 +1,5 @@
+{% load i18n %}
+
 <form class="form" action="{{ newsletter.get_edit_url }}" method="post">
 
     <p class="field">
@@ -7,13 +9,13 @@
     {{ form.name.errors }}
 
     <p class="field">
-        <label> E-mail <span class="light">(Insert the Subscriber E-mail)</span></label>
+        <label> E-mail <span class="light"> ({%trans 'Insert the Subscriber E-mail' %}</span></label>
         {{ form.email }}
     </p>
     {{ form.email.errors }}
 
     <p class="field">
-        <label>{%trans 'Group' %}<span class="light">(Link User to Groups)</span></label>
+        <label>{%trans 'Group' %}<span class="light"> ({%trans 'Link User to Groups' %})</span></label>
         {{ form.group }}
     </p>
     {{ form.group.errors }}
