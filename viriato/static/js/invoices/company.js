@@ -44,6 +44,8 @@ $(document).ready(function(){
         show_div('email_settings');
     });
 
+    $("#tabs").tabs();
+
 });
 
 function show_div(id){

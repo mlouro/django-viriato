@@ -31,6 +31,8 @@ def company(request):
             'website_formset' : websites_formset(instance=company, prefix='websites', data=request.POST),
         }
 
+        ctf = contact_types_formset(prefix="ct", data=request.POST),
+
         if company_form.is_valid():
             company_form.save()
 
@@ -44,6 +46,7 @@ def company(request):
                                     {
                                         "form": company_form,
                                         'formsets' : formset_list,
+                                        'contact_types_formset': ctf,
                                         'there_are_errors': True,
                                     },
                                     context_instance = RequestContext(request)
@@ -54,7 +57,7 @@ def company(request):
                                         {
                                             "form": company_form,
                                             'formsets' : formset_list,
-
+                                            'contact_types_formset': ctf,
                                         },
                                         context_instance = RequestContext(request)
                                     )
@@ -65,6 +68,7 @@ def company(request):
                                     {
                                         "form": company_form,
                                         'formsets' : formset_list,
+                                        'contact_types_formset': ctf,
                                         'there_are_errors': True,
                                     },
                                     context_instance = RequestContext(request)
@@ -78,12 +82,15 @@ def company(request):
             'website_formset' : websites_formset(instance=company, prefix='websites'),
         }
 
+        ctf = contact_types_formset(prefix="ct"),
+        print ctf
         company_form = MyCompanyForm(instance=company)
         return render_to_response (
                                     "invoices/company.html",
                                     {
                                         "form": company_form,
                                         'formsets' : formset_list,
+                                        'contact_types_formset': ctf,
                                     },
                                     context_instance = RequestContext(request)
                                     )
