@@ -100,15 +100,33 @@ class Newsletter(models.Model):
         """Return the delete url"""
         return('newsletter_delete',[str(self.id)])
     #----------------------------------------------------------------------
-    def save(self):
+    def save(self, edit=False, force_insert=False, force_update=False):
         """Override the save function to treat the html content"""
+        #if not edit:
+            #content = parse(self.url).getroot()
+            #content.make_links_absolute()
+            #self.content = tostring(content)
+            #self.view_count = 0
+            #super(Newsletter,self).save(force_insert, force_update)
+            #self.save_links()
+        #else:
+            #q = Newsletter.objects.get(id=self.id)
+            #if self.url != q.url:
+                #content = parse(self.url).getroot()
+                #content.make_links_absolute()
+                #self.content = tostring(content)
+                #self.view_count = 0
+                #super(Newsletter,self).save(force_insert, force_update)
+                #self.save_links()
+            #else:
+                #super(Newsletter,self).save(force_insert, force_update)
+
         content = parse(self.url).getroot()
         content.make_links_absolute()
         self.content = tostring(content)
         self.view_count = 0
-
-        super(Newsletter,self).save()
-        """save links"""
+        
+        super(Newsletter,self).save(force_insert, force_update)
         self.save_links()
     #----------------------------------------------------------------------
     def save_links(self):
@@ -137,34 +155,11 @@ class Newsletter(models.Model):
                     link.newsletter = self
                     link.created_hash = hashlib.sha1(salt+el.get('href')).hexdigest()
                     link.click_count = 0
-                    link.slug = link.link
+                    link.label = link.link
                     if link.link == 'http://unsubscribe':
-                        link.slug = 'unsubscribe'
+                        link.label = 'unsubscribe'
                     link.save(edit)
                     self.rewrite_html()
-
-            #for el in doc.cssselect('a'):
-                #if not el.get('href') == 'http://unsubscribe':
-                    #rand = str(random.random())
-                    #salt = hashlib.sha1(rand).hexdigest()[:5]
-                    #link = Link()
-                    #link.link = el.get('href')
-                    #link.newsletter = self
-                    #link.created_hash = hashlib.sha1(salt+el.get('href')).hexdigest()
-                    #link.click_count = 0
-                    #link.save(edit)
-                    #self.rewrite_html()
-                #else:
-                    #if not Link.objects.filter(link='http://unsubscribe'):
-                        #rand = str(random.random())
-                        #salt = hashlib.sha1(rand).hexdigest()[:5]
-                        #link = Link()
-                        #link.link = el.get('href')
-                        #link.newsletter = self
-                        #link.created_hash = hashlib.sha1(salt+el.get('href')).hexdigest()
-                        #link.click_count = 0
-                        #link.save(edit)
-                        #self.rewrite_html()
 
     #----------------------------------------------------------------------
     def rewrite_html(self):
@@ -175,53 +170,9 @@ class Newsletter(models.Model):
         import re
         for el in links:
             rewrited = re.sub('%s'%(el.link),'http://%s:8000/newsletter/news/%s'%(host,el.created_hash),self.content)
-            #if not el.link == 'http://unsubscribe':
-                #rewrited = re.sub('%s'%(el.link),'http://%s:8000/newsletter/news/%s'%(host,el.created_hash),self.content,1)
-            #else:
-                #rewrited = re.sub('%s'%(el.link),'http://%s:8000/newsletter/news/%s'%(host,el.created_hash),self.content)
+
         self.content = rewrited
         super(Newsletter,self).save()
-    #----------------------------------------------------------------------
-    def  get_links(self):
-        """Get links"""
-        #from lxml.html import builder as E
-
-        links = Link.objects.filter(newsletter = self)
-        #html=[]
-        data=[]
-        labels=[]
-
-        #html.append('<table id="data_analytics"><tfoot><tr>')
-        #for el in links:
-            #if not el.slug == 'unsubscribe':
-                #labels.append('<th>%s</th>'%(el.slug))
-                #data.append('<td>%s</td>'%(el.click_count))
-
-        #for el in labels:
-            #html.append(el)
-        #html.append('</tr></tfoot><tbody><tr>')
-        #for el in data:
-            #html.append(el)
-        #html.append('</tr></tbody></table>')
-
-        ##print html
-        #doc=' '.join(html)
-        #test = fromstring(doc)
-        #print tostring(test)
-
-        ##html = E.HTML(
-            ##E.TABLE(E.CLASS("data_analytics")
-                    ##)
-        ##)
-        dict=[]
-        for el in links:
-            if not el.slug == 'unsubscribe':
-                aux={}
-                aux['label']=el.slug
-                aux['clicks']=el.click_count
-                dict.append(aux)
-
-        return dict
 
 
 ########################################################################
@@ -231,7 +182,7 @@ class Link(models.Model):
     newsletter = models.ForeignKey(Newsletter)
     created_hash = models.CharField(max_length=60)
     click_count = models.IntegerField(blank=True)
-    slug = models.SlugField()
+    label = models.CharField(max_length=250)
     #----------------------------------------------------------------------
     def __unicode__(self):
         """return the link hash"""
@@ -243,14 +194,6 @@ class Link(models.Model):
             self.click_count += 1
         super(Link, self).save(force_insert, force_update) # Call the "real" save() method.
 
-    #def save(self):
-        #print 'saving'
-        #"""save(self,edit=True) will increment the click_count field
-        #save(self,edit=False ) will save a new object with the click_count=0"""
-
-        #if edit:
-            #self.click_count += 1
-        #super(Link,self).save()
 
 ########################################################################
 class Submission(models.Model):

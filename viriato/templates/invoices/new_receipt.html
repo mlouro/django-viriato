@@ -41,7 +41,7 @@
     <input type="hidden" value="{% trans 'Select an Item' %}" id="select_item"/>
 
     {% block content_data_form %}
-        <form name="myForm" id="myForm" method="POST" action="/invoices/receipt/">
+        <form name="myForm" id="myForm" method="POST" action="/invoices/receipt/add/">
     {% endblock content_data_form %}
 
         {{ formset.management_form }}
@@ -49,7 +49,17 @@
         <div id="document_header">
             <h3>{% trans 'Receipt Information' %}</h3>
             {{ receipt_form.contract }}
+            {{ receipt_form.id }}
             <table>
+
+                <tr>
+                    <td class="green_receipt"><label for="green_receipt">{% trans 'Green receipt nr.' %} </label></td>
+                    <td class="green_receipt">
+                        {{ receipt_form.green_receipt}}
+                        <br/>
+                        {{ receipt_form.green_receipt.errors }}
+                    </td>
+                </tr>
 
                 <tr>
                     <td><label for="description">{% trans 'Receipt description' %} </label></td>
@@ -156,7 +166,8 @@
         <div class="submit">
             <p>
                 {% block content_data_submit %}
-                    <a onclick="save_receipt();" class="navbutton">{% trans 'Create' %}</a>
+                    <input type="submit" value="{% trans 'Create' %}" onclick="save();"/>
+                    <a href="javascript:history.back()">Cancel</a>
                 {% endblock content_data_submit %}
             </p>
         </div>

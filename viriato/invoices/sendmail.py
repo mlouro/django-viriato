@@ -23,11 +23,12 @@ def send_mail(send_from, send_to, subject, text, file_path, server, host, pwd):
 
     #Permite fazer o upload de qualquer tipo de ficheiro, e aloca tb à msg
     #Crias um "for" se mandares uma lista com varios endereços
-    part = MIMEBase('application', 'octet-stream')
-    part.set_payload(open(file_path, 'rb').read())
-    Encoders.encode_base64(part)
-    part.add_header('Content-Disposition','attachment; filename="%s"' % os.path.basename(file_path))
-    msg.attach(part)
+    for file in file_path:
+        part = MIMEBase('application', 'octet-stream')
+        part.set_payload(open(file, 'rb').read())
+        Encoders.encode_base64(part)
+        part.add_header('Content-Disposition','attachment; filename="%s"' % os.path.basename(file))
+        msg.attach(part)
 
     #faz a coneção com o servidor
     try:

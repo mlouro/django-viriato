@@ -41,6 +41,7 @@ def index(request):
                             )
 
 @login_required
+@have_company
 def receipt(request, object_id=0):
     try:
         my_company = MyCompany.objects.get(pk=1)
@@ -117,6 +118,8 @@ def receipt(request, object_id=0):
                                     context_instance=RequestContext(request)
                                 )
 
+#@login_required
+#@have_company
 def download_document(request, object_id):
     receipt = Receipt.objects.get(pk=object_id)
     if not receipt.sent:
@@ -130,27 +133,29 @@ def download_document(request, object_id):
     c.save()
     return response
 
+#@login_required
+#@have_company
 def send_document(request, object_id):
     from settings import ROOT_DIR
     path = ROOT_DIR+'/viriato/static/tmp/'
     filename = 'receipt%s.pdf' % (object_id)
-    file_path = ('%s%s'%(path,filename))
+    file_path = [('%s%s'%(path,filename)),]
 
     receipt = Receipt.objects.get(pk=object_id)
     if not receipt.sent:
         receipt.mark_as_sent()
 
-    c = canvas.Canvas(file_path)
+    c = canvas.Canvas(file_path[0])
     c = create_pdf(c, object_id)
     c.showPage()
     c.save()
-
     if sendmail(file_path, object_id, MyCompany.objects.get(pk=1).title):
         return HttpResponse("Hello, world. You're at the poll index.")
     else:
         return HttpResponse("false")
 
-
+#@login_required
+#@have_company
 def create_pdf(c, object_id):
     my_company = MyCompany.objects.get(pk=1)
     set_states(c, author=my_company.title, title="My Receipt")
@@ -174,7 +179,8 @@ def create_pdf(c, object_id):
 
     return c
 
-
+#@login_required
+#@have_company
 def sendmail(file_path, object_id, company_title):
     host, pwd, from_user, server = get_email_data()
 

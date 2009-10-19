@@ -16,7 +16,7 @@
 {% endblock jquery %}
 
 {% block content %}
-    <form action="/invoices/company/" method="POST">
+    <form action="/invoices/company/" method="POST" enctype="multipart/form-data">
         <h2 class="headline">{% trans 'Legal Information' %}</h2>
         <table>
             <tr>
@@ -57,6 +57,14 @@
                     {{ form.retention }}
                 <br>
                     {{ form.retention.errors }}
+                </td>
+            </tr>
+            <tr>
+                <td><label for="photo">{% trans 'Logo' %}</label></td>
+                <td>
+                    {{ form.photo }}
+                <br>
+                    {{ form.photo.errors }}
                 </td>
             </tr>
         </table>

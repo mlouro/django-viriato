@@ -4,43 +4,53 @@
 {% block extra_head %}
     {{ block.super }}
     <link type="text/css" rel="Stylesheet" media="screen" href="{{ MEDIA_URL }}css/invoices/index.css"/>
+    <link type="text/css" rel="Stylesheet" media="screen" href="{{ MEDIA_URL }}css/invoices/index_2.css"/>
+
 {% endblock extra_head %}
 
+{% block content_id_title %}
+    <h1>
+        {% trans 'Receipts overview' %}
+    </h1>
+{% endblock %}
 
 {% block content %}
-    <div id="receipts">
-        <h2>{% trans 'Receipts' %}</h2>
+    <div class="list_items" id="receipts">
+       <h2>{% trans 'Last receipts' %}<a href="/invoices/receipt/"> ({% trans 'Show all' %})</a></h2>
         {% if receipts %}
-            <table class="stripes" id="list_table" style="width:100%">
-                <tr>
-                    <th class="center">{% trans "Description" %}</th>
-                    <th class="center">{% trans "Contract" %}</th>
-                    <th class="center">{% trans "Client" %}</th>
-                    <th class="center">{% trans "Total" %}</th>
-                    <th class="center">{% trans "Sent" %}</th>
-                </tr>
-                {% for receipt in receipts %}
+            {% for receipt in receipts %}
+                <h3><a href="{{ receipt.get_absolute_url }}">{{ receipt.description }}</a></h3>
+                <table class="activity">
                     <tr>
-                        <td><a href="{{receipt.get_absolute_url }}">{{ receipt.description }}</a></td>
-                        <td><a href="{{receipt.contract.get_absolute_url }}">
-                            {% if receipt.contract %}
-                                {{ receipt.contract.description }}
-                            {% else %}
-                                {% trans 'No' %}
-                            {% endif %}
-                        </a></td>
-                        <td><a href="{{receipt.get_absolute_url }}">{{ receipt.company }}</a></td>
-                        <td class="number"><a href="{{receipt.get_absolute_url }}">{{ receipt.total }}</a></td>
-                        <td class="center"><a href="{{receipt.get_absolute_url }}">
-                            {% if receipt.sent %}
-                                {% trans 'at' %} {{ receipt.sent_date }}
-                            {% else %}
-                                {% trans 'No' %}
-                            {% endif %}
-                        </a></td>
+                        <td class="description">
+                            <div class="item_content">
+                                <p>
+                                    <label>{% trans 'Contract' %}: </label>
+                                    {% if receipt.contract %}
+                                        <a href="{{receipt.contract.get_absolute_url }}">
+                                            {{ receipt.contract.description }}
+                                        </a>
+                                    {% else %}
+                                        {% trans 'No' %}
+                                    {% endif %}
+                                </p>
+                                <p><label>{% trans 'Client' %}: </label>{{ receipt.company }}</p>
+                                <p><label>{% trans 'Total' %}: </label>{{ receipt.total }}</p>
+                                <p>
+                                    <label>{% trans 'Sent' %}: </label>
+                                    {% if receipt.sent %}
+                                        {% trans 'at' %} {{ receipt.sent_date }}
+                                    {% else %}
+                                        {% trans 'No' %}
+                                    {% endif %}
+                                </p>
+                                <p id="spacing"></p>
+                            </div>
+                        </td>
                     </tr>
-                {% endfor %}
-            </table>
+                </table>
+            {% endfor %}
+            <h3 class="show_more"><a href="/invoices/receipt/index/">{% trans 'Show all' %}...</a></h3>
         {% else %}
             {% trans "There aren't receipts" %}
         {% endif %}

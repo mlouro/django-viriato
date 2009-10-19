@@ -1,33 +1,34 @@
 {% extends "newsletter/newsletter_content.html" %}
 {% load i18n %}
-{% load navigation_tags %}
+<!--{% load navigation_tags %}-->
+
+
+{% block content_id_title %}<h1>Edit Links "{{ newsletter }}"</h1>{% endblock %}
+
 
 {% block content %}
 
-<form method="POST" action="/newsletter/links/{{ object_id }}/">
+<form method="POST" action="/newsletter/edit/links/{{ object_id }}/">
   {{ formset.management_form }}
     {% for form in formset.forms %}
 
         {{ form.id }}
-        {% ifnotequal form.link.text "unsubscribe" %}
+        {% ifnotequal form.label.text "unsubscribe" %}
             <ul>
                 <li>
                     {{ form.link}} {{ form.link.errors }}
-                    {{ form.slug }} {{ form.slug.errors }}
+                    {{ form.label }} {{ form.label.errors }}
                     {{ form.click_count }} {{ form.click_count.errors }}
-                    {{ form.DELETE}}
+                    <!--{{ form.DELETE}}-->
                 </li>
             </ul>
         {% endifnotequal %}
     {% endfor %}
 
-
     <p class="submit">
         <input type="submit" value="Save Newsletter" />
         <a href="javascript:history.back()">Cancel</a>
     </p>
-
 </form>
-
 
 {% endblock %}

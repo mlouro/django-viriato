@@ -31,10 +31,9 @@ class Contract(models.Model):
         return "/invoices/contract/%s/" % (self.id)
 
     def __unicode__(self):
-        return "%s %s %s" % ( self.id, self.description, self.company)
+        return "%s %s %s" % ( self.id, self.description, self.company )
 
     def save(self, force_insert=False, force_update=False):
-
         self.date = datetime.datetime.now()
         super(Contract, self).save(force_insert, force_update) # Call the "real" save() method.
 
@@ -46,12 +45,11 @@ class Contract(models.Model):
         self.total = contract.aggregate(Sum('total'))['total__sum']
         try:
             self.total = self.total_impact_value + self.total_tax_value - self.total_retention_value
-        except TypeError: # Preventing deletion of all bill details
+        except: # Preventing deletion of all bill details
             self.total_impact_value = 0
             self.total_tax_value = 0
             self.total_retention_value = 0
-            self.total_bill = 0
-
+            self.total = 0
         self.save()
 
     def to_pay(self):

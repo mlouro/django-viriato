@@ -37,7 +37,7 @@ class MyCompany(models.Model):
     host = models.EmailField()
     pwd = models.CharField(max_length=30)
     from_user = models.EmailField()
-    server = models.URLField()
+    server = models.CharField(max_length=50)
 
     def __unicode__(self):
         return self.title
