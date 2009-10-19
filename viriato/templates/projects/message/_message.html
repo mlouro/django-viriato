@@ -1,3 +1,4 @@
+{% load i18n %}
 <div class="message {% if not forloop or forloop.first %}first{% endif %}">
     <h2><a href="{{ message.get_absolute_url }}">{{ message.title }}</a></h2>
     <div class="text">{{ message.message|linebreaksbr }}</div>

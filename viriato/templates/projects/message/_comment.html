@@ -1,3 +1,4 @@
+{% load i18n %}
 <div class="comment">
     <div class="comment_user"><strong>{{ comment.user }}</strong> {% trans "on" %} {{ message.created|date:"F d, Y, h:iA" }}</div>
     {{ comment }}
