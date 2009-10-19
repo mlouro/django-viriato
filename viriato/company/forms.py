@@ -2,7 +2,7 @@
 from django.forms.models import inlineformset_factory
 from django import forms
 from django.forms import ModelForm
-
+from django.forms.models import modelformset_factory
 from company.models import *
 
 class MyCompanyForm(ModelForm):
@@ -43,4 +43,8 @@ ims_formset = inlineformset_factory(
                                         MyCompany,
                                         InstantMessaging,
                                         extra=1,
+                                    )
+
+contact_types_formset = modelformset_factory(
+                                        ContactTypes,
                                     )
