@@ -55,8 +55,6 @@
                 {% url task_dashboard as task_dashboard_url %}
                 {% url schedule as schedule_url %}
                 {% url project_index as project_index_url %}
-                {% url project_trashcan "bla" "can" as project_trashcan_url %}
-                {% url project_trashboard "bla" as project_trashboard_url %}
                 {% url issue_dashboard as issue_dashboard_url %}
                 {% url newsletter_index as newsletter_index_url %}
 
@@ -65,18 +63,8 @@
                 {% url invoices_index as invoices_index_url %}
 
                 {% get_link_if_allowed home_url "Home" %}
-                <!--
-                {% get_link_if_allowed schedule_url "Calendar" %}
-                -->
                 {% get_link_if_allowed project_index_url "Projects" "projects.view_project" %}
-                <!--
-                {% get_link_if_allowed schedule_url "Contacts" %}
-                {% get_link_if_allowed issue_dashboard_url "Helpdesk" %}
-                -->
                 {% get_link_if_allowed invoices_index_url "Invoices" %}
-                <!--
-                {% get_link_if_allowed schedule_url "Wiki" %}
-                -->
                 {% get_link_if_allowed newsletter_index_url "Newsletters" %}
             </ul>
         {% endif %}

@@ -67,7 +67,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 
 ugettext = lambda s: s
 LOGIN_REDIRECT_URL = "/"
-LOGIN_URL = '/%s%s' % (ugettext('account/'), ugettext('signin/'))
+LOGIN_URL = '/admin/'
 
 
 ROOT_URLCONF = 'viriato.urls'
