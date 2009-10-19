@@ -17,7 +17,12 @@ DATABASE_HOST       = ''
 DATABASE_PORT       = ''
 
 TIME_ZONE = 'Europe/Lisbon'
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'en'
+LANGUAGES = (
+    ('pt', 'Portuguese'),
+    ('en', 'English'),
+)
+
 SITE_ID = 1
 USE_I18N = True
 
@@ -67,7 +72,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 
 ugettext = lambda s: s
 LOGIN_REDIRECT_URL = "/"
-LOGIN_URL = '/%s%s' % (ugettext('account/'), ugettext('signin/'))
+LOGIN_URL = '/admin/'
 
 
 ROOT_URLCONF = 'viriato.urls'
@@ -93,6 +98,8 @@ INSTALLED_APPS = (
     'company',
     'newsletter',
     'invoices',
+    'rosetta',
+    'django_extensions'
 )
 
 try:
@@ -100,3 +107,6 @@ try:
 except ImportError:
     import sys
     sys.stderr.write("local_settings.py not set; using default settings\n")
+
+
+NEWSLETTERS_URL = "http://viriato.reactivelab.com/"

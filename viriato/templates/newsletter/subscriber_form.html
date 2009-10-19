@@ -1,26 +1,28 @@
+{% load i18n %}
+
 <form class="form" action="{{ newsletter.get_edit_url }}" method="post">
 
     <p class="field">
-        <label>Name</label>
+        <label>{%trans 'Name' %}</label>
         {{ form.name }}
     </p>
     {{ form.name.errors }}
 
     <p class="field">
-        <label> Email <span class="light">(Insert the Newsletter Url)</span></label>
+        <label> E-mail <span class="light"> ({%trans 'Insert the Subscriber E-mail' %}</span></label>
         {{ form.email }}
     </p>
     {{ form.email.errors }}
 
     <p class="field">
-        <label>Group <span class="light">(Link User to Groups)</span></label>
+        <label>{%trans 'Group' %}<span class="light"> ({%trans 'Link User to Groups' %})</span></label>
         {{ form.group }}
     </p>
     {{ form.group.errors }}
 
     <p class="submit">
-        <input type="submit" value="Save Subscriber" />
-        <a href="javascript:history.back()">Cancel</a>
+        <input type="submit" value="{%trans 'Save Subscriber' %}" />
+        <a href="javascript:history.back()">{%trans 'Cancel' %}</a>
     </p>
 
 </form>

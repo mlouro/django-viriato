@@ -1,0 +1,1193 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-10-19 14:41+0100\n"
+"PO-Revision-Date: 2009-10-19 14:59\n"
+"Last-Translator: <m@m.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Translated-Using: django-rosetta 0.4.8\n"
+
+#: contract/views.py:250 projects/models/project.py:10
+#: projects/models/task.py:18 projects/models/time.py:14 receipt/views.py:168
+#: templates/invoices/new_contract.html:89
+#: templates/invoices/new_receipt.html:100
+#: templates/invoices/new_receipt.html:199
+#: templates/invoices/old/bill_configuration.html:19
+#: templates/invoices/old/bills_index.html:20
+#: templates/invoices/old/editbill.html:36
+#: templates/invoices/old/editreceipt.html:33
+#: templates/invoices/old/newbill.html:34
+#: templates/invoices/old/newreceipt.html:34
+#: templates/invoices/old/receipts_index.html:20
+msgid "Description"
+msgstr "Descrição"
+
+#: contract/views.py:250 receipt/views.py:168
+#: templates/invoices/new_contract.html:91
+#: templates/invoices/new_receipt.html:102
+#: templates/invoices/old/editbill.html:38
+#: templates/invoices/old/newbill.html:36
+msgid "Quantity"
+msgstr "Quantidade"
+
+#: contract/views.py:250 receipt/views.py:168
+#: templates/invoices/new_receipt.html:101
+msgid "Unity Cost"
+msgstr "Custo unitário"
+
+#: contract/views.py:250 receipt/views.py:168
+msgid "Imp. Value"
+msgstr "Imp. Valor"
+
+#: contract/views.py:250 receipt/views.py:168
+#: templates/invoices/company.html:47 templates/invoices/old/company.html:24
+msgid "Tax"
+msgstr "Imposto"
+
+#: contract/views.py:250 receipt/views.py:168
+#: templates/invoices/new_contract.html:123
+#: templates/invoices/new_receipt.html:140
+msgid "Tax Value"
+msgstr "Imposto sobre o Valor"
+
+#: contract/views.py:250 receipt/views.py:168
+#: templates/invoices/company.html:55 templates/invoices/old/company.html:26
+msgid "Retention"
+msgstr "Retenção"
+
+#: contract/views.py:250 receipt/views.py:168
+msgid "Ret. Value"
+msgstr "Ret. Valor"
+
+#: contract/views.py:250 receipt/views.py:168
+#: templates/invoices/contract_index.html:27 templates/invoices/index.html:26
+#: templates/invoices/index.html.py:75
+#: templates/invoices/new_contract.html:139
+#: templates/invoices/new_receipt.html:103
+#: templates/invoices/new_receipt.html:156
+#: templates/invoices/receipt_index.html:38
+#: templates/invoices/old/bills_index.html:22
+#: templates/invoices/old/receipts_index.html:22
+msgid "Total"
+msgstr "Total"
+
+#: contract/views.py:261 receipt/views.py:175
+msgid "Totals"
+msgstr "Totais"
+
+#: contract/views.py:273
+#, python-format
+msgid "Contract from %s"
+msgstr "Contrato de %s"
+
+#: contract/views.py:274
+#, python-format
+msgid "Sending contract number %s"
+msgstr "Número de envio do contrato %s"
+
+#: invoices/pdf_gen.py:20 templates/invoices/new_contract.html:63
+#: templates/invoices/new_contract.html:166
+#: templates/invoices/new_receipt.html:74
+#: templates/invoices/old/company.html:11
+#: templates/invoices/old/newreceipt.html:25
+msgid "Company"
+msgstr "Empresa"
+
+#: invoices/pdf_gen.py:50
+msgid "Visit at"
+msgstr "Visite a"
+
+#: invoices/pdf_gen.py:65 templates/invoices/old/receipts_index.html:18
+msgid "Receipt nr."
+msgstr "Recibo nr."
+
+#: invoices/pdf_gen.py:67
+msgid "Contract nr."
+msgstr "Contrato nr."
+
+#: invoices/pdf_gen.py:71 templates/invoices/contract_index.html:26
+#: templates/invoices/index.html:25 templates/invoices/index.html.py:74
+#: templates/invoices/receipt_index.html:37
+#: templates/invoices/old/bills_index.html:19
+#: templates/invoices/old/receipts_index.html:19
+msgid "Client"
+msgstr "Cliente"
+
+#: projects/models/project.py:39
+msgid "Summary"
+msgstr "Resumo"
+
+#: projects/models/task.py:17 templates/newsletter/group_form.html:6
+#: templates/newsletter/subscriber_form.html:6
+msgid "Name"
+msgstr "Nome"
+
+#: receipt/forms.py:45
+msgid "Green receipt already exists"
+msgstr "Recibo verde já existe"
+
+#: receipt/views.py:188
+#, python-format
+msgid "Receipt from %s"
+msgstr "Recibo de% s"
+
+#: receipt/views.py:189
+#, python-format
+msgid "Sending receipt number %s"
+msgstr "Número de envio de recibo %s"
+
+#: templates/authopenid/associate.html:19
+msgid "Add a new OpenID URL"
+msgstr "Adicionar um novo OpenID URL"
+
+#: templates/authopenid/associate.html:25 templates/authopenid/signin.html:60
+msgid "OpenId URL :"
+msgstr "OpenID URL:"
+
+#: templates/authopenid/associate.html:26
+msgid "Add OpenID"
+msgstr "Adicionar OpenID"
+
+#: templates/authopenid/complete.html:12
+msgid "Your OpenID is verified! "
+msgstr "Seu OpenID é verificada!"
+
+#: templates/authopenid/complete.html:13
+msgid ""
+"\n"
+"\t<p>Your OpenID can now be associated with a new or existing membership. You can change the association later in your preferences.</p>\n"
+"\t"
+msgstr ""
+"\n"
+"<p> Seu OpenID pode agora ser associada a uma nova inscrição ou registro. Você pode alterar a associação mais tarde nas suas preferências. </p>"
+
+#: templates/authopenid/complete.html:17
+msgid "Associate your OpenID"
+msgstr "Associar seu OpenID"
+
+#: templates/authopenid/complete.html:18
+msgid ""
+"\n"
+"\t<p>If you're joining <strong>Sitename</strong>, associate your OpenID with a new account. If you're already a member, associate with your existing account.</p>\n"
+"\t"
+msgstr ""
+"\n"
+"<p> Se você está juntando <strong>sitename,</strong> associar o OpenID com uma nova conta. Se você já for um membro, associado à sua conta existente. </p>"
+
+#: templates/authopenid/complete.html:26 templates/authopenid/complete.html:36
+#: templates/authopenid/signin.html:14
+msgid "Please correct errors below:"
+msgstr "Por favor, corrigir os erros abaixo:"
+
+#: templates/authopenid/complete.html:50
+msgid "A new account"
+msgstr "Uma nova conta"
+
+#: templates/authopenid/complete.html:51 templates/authopenid/complete.html:67
+#: templates/authopenid/signin.html:41
+msgid "Username"
+msgstr "Nome de Utilizador"
+
+#: templates/authopenid/complete.html:52
+msgid "Email"
+msgstr "Email"
+
+#: templates/authopenid/complete.html:66
+msgid "An exisiting account"
+msgstr "Uma conta existente"
+
+#: templates/authopenid/complete.html:68 templates/authopenid/signin.html:42
+#: templates/invoices/company.html:194
+msgid "Password"
+msgstr "Senha"
+
+#: templates/authopenid/dissociate.html:21
+msgid "Dissociate OpenID URL"
+msgstr "Dissociar OpenID URL"
+
+#: templates/authopenid/dissociate.html:23
+msgid "Dissociate OpenID"
+msgstr "Dissociar OpenID"
+
+#: templates/authopenid/password_change_form.html:11
+msgid "Set password"
+msgstr "Definir senha"
+
+#: templates/authopenid/password_change_form.html:12
+msgid "Please enter your new password twice so we can verify you typed it in correctly."
+msgstr "Por favor, digite a nova senha duas vezes para que possamos verificar se você digitou corretamente."
+
+#: templates/authopenid/password_change_form.html:16
+#: templates/authopenid/password_change_form.html:32
+msgid "New password:"
+msgstr "Nova senha:"
+
+#: templates/authopenid/password_change_form.html:18
+#: templates/authopenid/password_change_form.html:34
+msgid "Confirm password:"
+msgstr ""
+
+#: templates/authopenid/password_change_form.html:19
+#: templates/authopenid/password_change_form.html:36
+msgid "Change my password"
+msgstr ""
+
+#: templates/authopenid/password_change_form.html:24
+msgid "Password change"
+msgstr ""
+
+#: templates/authopenid/password_change_form.html:25
+msgid "Please enter your old password, for security's sake, and then enter your new password twice so we can verify you typed it in correctly."
+msgstr ""
+
+#: templates/authopenid/password_change_form.html:30
+msgid "Old password:"
+msgstr ""
+
+#: templates/authopenid/signin.html:40
+#: templates/registration/registration_form.html:24
+msgid "Sign In Using Your Account ID"
+msgstr ""
+
+#: templates/authopenid/signin.html:43
+msgid "Sign in"
+msgstr ""
+
+#: templates/authopenid/signin.html:54
+msgid "Sign In Using Your OpenID URL"
+msgstr ""
+
+#: templates/authopenid/signin.html:62
+msgid "Sign in with OpenID"
+msgstr ""
+
+#: templates/invoices/company.html:10
+msgid "Configure your company"
+msgstr ""
+
+#: templates/invoices/company.html:20 templates/invoices/old/company.html:17
+msgid "Legal Information"
+msgstr "Informação Legal"
+
+#: templates/invoices/company.html:23 templates/invoices/old/company.html:18
+#: templates/newsletter/newsletter_form.html:6
+#: templates/projects/milestone/form.html:14
+msgid "Title"
+msgstr "Título"
+
+#: templates/invoices/company.html:31 templates/invoices/old/company.html:20
+msgid "Legal Name"
+msgstr "Nome Legal"
+
+#: templates/invoices/company.html:39 templates/invoices/old/company.html:22
+msgid "Nif"
+msgstr "Nif"
+
+#: templates/invoices/company.html:63
+msgid "Logo"
+msgstr "Logo"
+
+#: templates/invoices/company.html:72 templates/invoices/old/company.html:113
+msgid "Extra information"
+msgstr "Extra information"
+
+#: templates/invoices/company.html:75 templates/invoices/old/company.html:34
+msgid "Email addresses"
+msgstr "Os endereços de email"
+
+#: templates/invoices/company.html:81 templates/invoices/company.html:100
+#: templates/invoices/company.html:135 templates/invoices/company.html:154
+#: templates/invoices/company.html:173 templates/invoices/new_contract.html:88
+#: templates/invoices/new_receipt.html:99
+#: templates/invoices/old/editbill.html:35
+#: templates/invoices/old/editreceipt.html:31
+#: templates/invoices/old/newbill.html:33
+#: templates/invoices/old/newreceipt.html:32
+#: templates/projects/issue/delete.html:4
+#: templates/projects/task/delete.html:4 templates/projects/time/delete.html:4
+msgid "Delete"
+msgstr "Excluir"
+
+#: templates/invoices/company.html:87 templates/invoices/company.html:122
+#: templates/invoices/company.html:141 templates/invoices/company.html:160
+#: templates/invoices/company.html:179
+msgid "Contact type"
+msgstr "Tipo de contato"
+
+#: templates/invoices/company.html:94 templates/invoices/old/company.html:91
+msgid "Addresses"
+msgstr "Endereços"
+
+#: templates/invoices/company.html:102
+msgid "Street"
+msgstr ""
+
+#: templates/invoices/company.html:106
+msgid "City"
+msgstr ""
+
+#: templates/invoices/company.html:110
+msgid "State"
+msgstr ""
+
+#: templates/invoices/company.html:114
+msgid "Zip Code"
+msgstr ""
+
+#: templates/invoices/company.html:118
+msgid "Country"
+msgstr ""
+
+#: templates/invoices/company.html:129
+msgid "Phone Numbers"
+msgstr ""
+
+#: templates/invoices/company.html:137
+msgid "Number"
+msgstr ""
+
+#: templates/invoices/company.html:148
+msgid "Websites"
+msgstr ""
+
+#: templates/invoices/company.html:156
+msgid "URL"
+msgstr ""
+
+#: templates/invoices/company.html:167 templates/invoices/old/company.html:63
+msgid "Instant Messaging"
+msgstr ""
+
+#: templates/invoices/company.html:186
+msgid "Email Host Settings"
+msgstr ""
+
+#: templates/invoices/company.html:190
+msgid "Host"
+msgstr ""
+
+#: templates/invoices/company.html:198
+msgid "From User"
+msgstr ""
+
+#: templates/invoices/company.html:202
+msgid "Server"
+msgstr ""
+
+#: templates/invoices/company.html:215
+#: templates/invoices/edit_contract.html:27
+#: templates/invoices/edit_receipt.html:43
+#: templates/invoices/old/bill_configuration.html:33
+#: templates/invoices/old/company.html:124
+#: templates/invoices/old/editbill.html:59
+#: templates/invoices/old/editreceipt.html:59
+#: templates/invoices/old/newbill.html:57
+msgid "Save"
+msgstr ""
+
+#: templates/invoices/contract_index.html:12
+msgid "Contract overview"
+msgstr ""
+
+#: templates/invoices/contract_index.html:18 templates/invoices/index.html:17
+msgid "Last contracts"
+msgstr ""
+
+#: templates/invoices/contract_index.html:18
+#: templates/invoices/contract_index.html:50 templates/invoices/index.html:17
+#: templates/invoices/index.html.py:49 templates/invoices/index.html:56
+#: templates/invoices/index.html.py:90
+#: templates/invoices/receipt_index.html:19
+#: templates/invoices/receipt_index.html:53
+msgid "Show all"
+msgstr ""
+
+#: templates/invoices/contract_index.html:28 templates/invoices/index.html:27
+msgid "To pay"
+msgstr ""
+
+#: templates/invoices/contract_index.html:30 templates/invoices/index.html:29
+#: templates/invoices/new_contract.html:43
+msgid "Approved"
+msgstr ""
+
+#: templates/invoices/contract_index.html:32
+#: templates/invoices/contract_index.html:40 templates/invoices/index.html:31
+#: templates/invoices/index.html.py:39 templates/invoices/new_receipt.html:185
+msgid "Yes"
+msgstr ""
+
+#: templates/invoices/contract_index.html:34
+#: templates/invoices/contract_index.html:42 templates/invoices/index.html:33
+#: templates/invoices/index.html.py:41 templates/invoices/index.html:71
+#: templates/invoices/index.html.py:81 templates/invoices/new_receipt.html:186
+#: templates/invoices/receipt_index.html:34
+#: templates/invoices/receipt_index.html:44
+msgid "No"
+msgstr ""
+
+#: templates/invoices/contract_index.html:38 templates/invoices/index.html:37
+msgid "Finished"
+msgstr ""
+
+#: templates/invoices/contract_index.html:52 templates/invoices/index.html:51
+msgid "There aren't contracts"
+msgstr ""
+
+#: templates/invoices/edit_contract.html:14
+msgid "Viewing contract nr."
+msgstr ""
+
+#: templates/invoices/edit_contract.html:16
+msgid "Editing contract nr."
+msgstr ""
+
+#: templates/invoices/edit_contract.html:32
+msgid "Download Contract"
+msgstr ""
+
+#: templates/invoices/edit_contract.html:33
+msgid "Send Contract"
+msgstr ""
+
+#: templates/invoices/edit_receipt.html:18
+msgid "Viewing receipt nr. "
+msgstr ""
+
+#: templates/invoices/edit_receipt.html:20
+msgid "Editing receipt nr. "
+msgstr ""
+
+#: templates/invoices/edit_receipt.html:48
+msgid "Download Receipt"
+msgstr ""
+
+#: templates/invoices/edit_receipt.html:49
+msgid "Send Receipt"
+msgstr ""
+
+#: templates/invoices/index.html:11
+msgid "Overview"
+msgstr ""
+
+#: templates/invoices/index.html:56 templates/invoices/receipt_index.html:19
+msgid "Last receipts"
+msgstr ""
+
+#: templates/invoices/index.html:65 templates/invoices/new_receipt.html:195
+#: templates/invoices/receipt_index.html:28
+msgid "Contract"
+msgstr ""
+
+#: templates/invoices/index.html:77 templates/invoices/receipt_index.html:40
+#: templates/invoices/old/bills_index.html:25
+msgid "Sent"
+msgstr ""
+
+#: templates/invoices/index.html:79 templates/invoices/receipt_index.html:42
+msgid "at"
+msgstr ""
+
+#: templates/invoices/index.html:92 templates/invoices/receipt_index.html:55
+msgid "There aren't receipts"
+msgstr ""
+
+#: templates/invoices/new_contract.html:30
+msgid "Create a new Contract"
+msgstr ""
+
+#: templates/invoices/new_contract.html:41
+msgid "Contract Information"
+msgstr ""
+
+#: templates/invoices/new_contract.html:47
+msgid "Contract description"
+msgstr ""
+
+#: templates/invoices/new_contract.html:55
+#: templates/invoices/old/newreceipt.html:23
+msgid "Date"
+msgstr ""
+
+#: templates/invoices/new_contract.html:65
+#: templates/invoices/new_receipt.html:76
+#: templates/invoices/old/editbill.html:23
+#: templates/invoices/old/editreceipt.html:23
+#: templates/invoices/old/newbill.html:21
+#: templates/invoices/old/newreceipt.html:25
+msgid "Add New Company"
+msgstr ""
+
+#: templates/invoices/new_contract.html:73
+#: templates/invoices/new_contract.html:167
+#: templates/invoices/new_receipt.html:84
+msgid "Project"
+msgstr ""
+
+#: templates/invoices/new_contract.html:75
+#: templates/invoices/new_receipt.html:86
+#: templates/invoices/old/editbill.html:26
+#: templates/invoices/old/newbill.html:24
+msgid "Add New Project"
+msgstr ""
+
+#: templates/invoices/new_contract.html:85
+#: templates/invoices/new_receipt.html:96
+msgid "Document Details"
+msgstr ""
+
+#: templates/invoices/new_contract.html:90
+#: templates/invoices/old/editbill.html:37
+#: templates/invoices/old/newbill.html:35
+msgid "Unity cost"
+msgstr ""
+
+#: templates/invoices/new_contract.html:92
+#: templates/invoices/new_receipt.html:105
+#: templates/invoices/old/editbill.html:40
+#: templates/invoices/old/newbill.html:38
+msgid "Tax (%)"
+msgstr ""
+
+#: templates/invoices/new_contract.html:93
+#: templates/invoices/new_receipt.html:106
+#: templates/invoices/old/editbill.html:41
+#: templates/invoices/old/newbill.html:39
+msgid "Retention (%)"
+msgstr ""
+
+#: templates/invoices/new_contract.html:112
+#: templates/invoices/new_receipt.html:129
+msgid "Document Totals"
+msgstr ""
+
+#: templates/invoices/new_contract.html:115
+#: templates/invoices/new_receipt.html:132
+msgid "Impact Value"
+msgstr ""
+
+#: templates/invoices/new_contract.html:131
+#: templates/invoices/new_receipt.html:148
+msgid "Retention Value"
+msgstr ""
+
+#: templates/invoices/new_contract.html:152
+#: templates/invoices/new_receipt.html:169
+#: templates/invoices/old/newreceipt.html:62
+msgid "Create"
+msgstr ""
+
+#: templates/invoices/new_contract.html:165
+msgid "Milestones Import"
+msgstr ""
+
+#: templates/invoices/new_contract.html:172
+#: templates/invoices/new_receipt.html:198
+msgid "Select all"
+msgstr ""
+
+#: templates/invoices/new_contract.html:173
+#: templates/projects/task/detail.html:16
+msgid "Milestone"
+msgstr ""
+
+#: templates/invoices/new_contract.html:185
+msgid "Import"
+msgstr ""
+
+#: templates/invoices/new_contract.html:186
+#: templates/newsletter/newsletter_form.html:46
+#: templates/newsletter/subscriber_delete.html:14
+#: templates/newsletter/subscriber_form.html:25
+#: templates/projects/project_form.html:20
+#: templates/projects/issue/delete.html:17
+#: templates/projects/issue/form.html:26
+#: templates/projects/message/form.html:21
+#: templates/projects/milestone/form.html:41
+#: templates/projects/project/form.html:18
+#: templates/projects/task/delete.html:17 templates/projects/task/form.html:66
+#: templates/projects/time/delete.html:17 templates/projects/time/form.html:36
+msgid "Cancel"
+msgstr ""
+
+#: templates/invoices/new_contract.html:197
+#: templates/invoices/new_receipt.html:221
+msgid "Import Milestones"
+msgstr ""
+
+#: templates/invoices/new_receipt.html:36
+msgid "Create a new Receipt"
+msgstr ""
+
+#: templates/invoices/new_receipt.html:41
+msgid "Select an Item"
+msgstr ""
+
+#: templates/invoices/new_receipt.html:50
+msgid "Receipt Information"
+msgstr ""
+
+#: templates/invoices/new_receipt.html:56
+msgid "Green receipt nr."
+msgstr ""
+
+#: templates/invoices/new_receipt.html:65
+msgid "Receipt description"
+msgstr ""
+
+#: templates/invoices/new_receipt.html:104
+#: templates/invoices/old/editreceipt.html:36
+#: templates/invoices/old/newreceipt.html:37
+msgid "To Pay"
+msgstr ""
+
+#: templates/invoices/new_receipt.html:125
+msgid "Add another item:"
+msgstr ""
+
+#: templates/invoices/new_receipt.html:182
+msgid "Does this receipt belongs to a contract?"
+msgstr ""
+
+#: templates/invoices/new_receipt.html:194
+msgid "Choose a contract"
+msgstr ""
+
+#: templates/invoices/new_receipt.html:211
+msgid "Ok"
+msgstr ""
+
+#: templates/invoices/new_receipt.html:212
+msgid "Close"
+msgstr ""
+
+#: templates/invoices/receipt_index.html:13
+msgid "Receipts overview"
+msgstr ""
+
+#: templates/invoices/old/bill_configuration.html:5
+msgid "Bills Configuration"
+msgstr ""
+
+#: templates/invoices/old/bill_configuration.html:12
+#: templates/invoices/old/company.html:131
+msgid "Bill States Configuration"
+msgstr ""
+
+#: templates/invoices/old/bill_configuration.html:15
+msgid "States"
+msgstr ""
+
+#: templates/invoices/old/bill_configuration.html:20
+msgid "Default"
+msgstr ""
+
+#: templates/invoices/old/bills_index.html:17
+#: templates/invoices/old/receipts_index.html:17
+msgid "Select"
+msgstr ""
+
+#: templates/invoices/old/bills_index.html:18
+msgid "Bill nr."
+msgstr ""
+
+#: templates/invoices/old/bills_index.html:21
+#: templates/invoices/old/receipts_index.html:21
+msgid "Emission Date"
+msgstr ""
+
+#: templates/invoices/old/bills_index.html:23
+#: templates/invoices/old/editreceipt.html:35
+#: templates/invoices/old/newreceipt.html:36
+msgid "Payed"
+msgstr ""
+
+#: templates/invoices/old/bills_index.html:24
+#: templates/projects/issue/index.html:14
+msgid "Status"
+msgstr "Estado"
+
+#: templates/invoices/old/bills_index.html:26
+#: templates/invoices/old/receipts_index.html:23
+#: templates/invoices/old/receipts_index.html:34
+#: templates/projects/issue/form.html:6 templates/projects/time/form.html:6
+msgid "Edit"
+msgstr ""
+
+#: templates/invoices/old/bills_index.html:36
+msgid "There aren't emitted bills"
+msgstr ""
+
+#: templates/invoices/old/bills_index.html:42
+#: templates/invoices/old/receipts_index.html:46
+msgid "Send Bills"
+msgstr ""
+
+#: templates/invoices/old/bills_index.html:43
+#: templates/invoices/old/receipts_index.html:47
+msgid "Send Receipts"
+msgstr ""
+
+#: templates/invoices/old/company.html:28
+msgid "Name for Bills"
+msgstr ""
+
+#: templates/invoices/old/company.html:31
+msgid "Contact information"
+msgstr ""
+
+#: templates/invoices/old/company.html:49
+msgid "Phone numbers"
+msgstr ""
+
+#: templates/invoices/old/editbill.html:5
+msgid "Editing Bill nr."
+msgstr ""
+
+#: templates/invoices/old/editbill.html:39
+#: templates/invoices/old/newbill.html:37
+msgid "Discount (%)"
+msgstr ""
+
+#: templates/invoices/old/editbill.html:60
+#: templates/invoices/old/newbill.html:58
+msgid "Send"
+msgstr ""
+
+#: templates/invoices/old/editbill.html:66
+#: templates/invoices/old/newbill.html:65
+msgid "Add New Line"
+msgstr ""
+
+#: templates/invoices/old/editbill.html:67
+#: templates/invoices/old/editbill.html:68
+#: templates/invoices/old/newbill.html:67
+msgid "Remove Selected Rows"
+msgstr ""
+
+#: templates/invoices/old/editbill.html:69
+#: templates/invoices/old/newbill.html:69
+msgid "Change Taxes Values"
+msgstr ""
+
+#: templates/invoices/old/editbill.html:70
+msgid "Save Bill"
+msgstr ""
+
+#: templates/invoices/old/editbill.html:71
+msgid "Send Bill"
+msgstr ""
+
+#: templates/invoices/old/editreceipt.html:10
+#: templates/invoices/old/newreceipt.html:5
+#: templates/invoices/old/receipts_index.html:45
+msgid "New Receipt"
+msgstr ""
+
+#: templates/invoices/old/editreceipt.html:32
+#: templates/invoices/old/newreceipt.html:33
+msgid "Bill"
+msgstr ""
+
+#: templates/invoices/old/editreceipt.html:34
+#: templates/invoices/old/newreceipt.html:35
+msgid "Value"
+msgstr ""
+
+#: templates/invoices/old/newbill.html:5
+#: templates/invoices/old/receipts_index.html:44
+msgid "New Bill"
+msgstr ""
+
+#: templates/invoices/old/newreceipt.html:21
+msgid "Receipt Description"
+msgstr ""
+
+#: templates/invoices/old/receipts_index.html:10
+msgid "Receipts"
+msgstr ""
+
+#: templates/invoices/old/receipts_index.html:39
+msgid "There aren't emitted receipts"
+msgstr ""
+
+#: templates/newsletter/create.html:8
+msgid "Name:"
+msgstr ""
+
+#: templates/newsletter/dashboard.html:23
+msgid "Dashboard"
+msgstr ""
+
+#: templates/newsletter/dashboard.html:27
+msgid "Sent Newsletters"
+msgstr ""
+
+#: templates/newsletter/group_add.html:4
+msgid "Add Group"
+msgstr ""
+
+#: templates/newsletter/group_delete.html:4
+#: templates/newsletter/group_delete.html:14
+msgid "Delete Group"
+msgstr ""
+
+#: templates/newsletter/group_edit.html:4
+msgid "Update Group"
+msgstr ""
+
+#: templates/newsletter/group_list.html:5
+#: templates/newsletter/newsletter_form.html:18
+#: templates/newsletter/subscriber_by_group.html:12
+msgid "Groups"
+msgstr ""
+
+#: templates/newsletter/group_list.html:16
+#: templates/newsletter/newsletter_dashboard.html:17
+#: templates/newsletter/newsletter_list.html:17
+#: templates/newsletter/subscriber_list.html:17
+#: templates/projects/milestone/_list_detail.html:9
+msgid "view"
+msgstr ""
+
+#: templates/newsletter/group_list.html:17
+#: templates/newsletter/newsletter_dashboard.html:18
+#: templates/newsletter/newsletter_list.html:18
+#: templates/newsletter/subscriber_list.html:18
+#: templates/projects/milestone/_list_detail.html:10
+msgid "edit"
+msgstr ""
+
+#: templates/newsletter/group_list.html:18
+#: templates/newsletter/newsletter_dashboard.html:19
+#: templates/newsletter/newsletter_list.html:19
+#: templates/newsletter/subscriber_list.html:19
+#: templates/projects/milestone/_list_detail.html:11
+msgid "delete"
+msgstr ""
+
+#: templates/newsletter/index.html:13
+msgid "Newsletter"
+msgstr ""
+
+#: templates/newsletter/index.html:14 templates/projects/task/detail.html:7
+msgid "Created"
+msgstr ""
+
+#: templates/newsletter/index.html:15
+msgid "Viewed"
+msgstr ""
+
+#: templates/newsletter/manage_links.html:6
+msgid "Edit Links "
+msgstr ""
+
+#: templates/newsletter/manage_links.html:29
+msgid "Save Newsletter"
+msgstr ""
+
+#: templates/newsletter/newsletter_add.html:5
+msgid "Add Newsletter"
+msgstr ""
+
+#: templates/newsletter/newsletter_dashboard.html:6
+#: templates/newsletter/newsletter_list.html:6
+#: templates/newsletter/subscriber_list.html:6
+msgid "Newsletters"
+msgstr ""
+
+#: templates/newsletter/newsletter_delete.html:4
+#: templates/newsletter/newsletter_delete.html:14
+msgid "Delete Newsletters"
+msgstr ""
+
+#: templates/newsletter/newsletter_delete.html:10
+msgid "Do you want to delete the newsletter"
+msgstr ""
+
+#: templates/newsletter/newsletter_edit.html:6
+msgid "Update Newsletters"
+msgstr ""
+
+#: templates/newsletter/newsletter_form.html:12
+msgid "Url"
+msgstr ""
+
+#: templates/newsletter/newsletter_form.html:45
+msgid "Save Newsletters"
+msgstr ""
+
+#: templates/newsletter/subscriber_add.html:5
+msgid "Add Subscriber"
+msgstr ""
+
+#: templates/newsletter/subscriber_by_group.html:5
+msgid "Subscriber by Group"
+msgstr ""
+
+#: templates/newsletter/subscriber_by_group.html:26
+msgid "Subscribers"
+msgstr ""
+
+#: templates/newsletter/subscriber_delete.html:4
+#: templates/newsletter/subscriber_delete.html:13
+msgid "Delete Subscriber"
+msgstr ""
+
+#: templates/newsletter/subscriber_delete.html:10
+msgid "Do you want to delete the subscriber "
+msgstr ""
+
+#: templates/newsletter/subscriber_edit.html:5
+msgid "Update Subscriber"
+msgstr ""
+
+#: templates/newsletter/subscriber_form.html:12
+msgid "Insert the Subscriber E-mail"
+msgstr ""
+
+#: templates/newsletter/subscriber_form.html:18
+msgid "Group"
+msgstr ""
+
+#: templates/newsletter/subscriber_form.html:18
+msgid "Link User to Groups"
+msgstr ""
+
+#: templates/newsletter/subscriber_form.html:24
+msgid "Save Subscriber"
+msgstr ""
+
+#: templates/newsletter/unsubscribe.html:6
+#: templates/newsletter/unsubscribe.html:27
+#: templates/newsletter/unsubscribe_tks.html:6
+msgid "Unsubscribe"
+msgstr ""
+
+#: templates/newsletter/unsubscribe.html:16
+msgid "To Unsubscribe this Newsletter please insert your E-mail:"
+msgstr ""
+
+#: templates/newsletter/unsubscribe_tks.html:16
+msgid "Thanks for being part of our Newsletter List."
+msgstr "Obrigado por fazer parte de nossa lista de envio."
+
+#: templates/projects/project_list.html:15
+#: templates/projects/message/details.html:4
+msgid "Messages"
+msgstr "Mensagens"
+
+#: templates/projects/project_list.html:18
+msgid "Users:"
+msgstr "Utilizadores:"
+
+#: templates/projects/project_list.html:21
+msgid "Tasks:"
+msgstr "Tarefas:"
+
+#: templates/projects/project_list.html:24
+msgid "Issues:"
+msgstr "Assuntos:"
+
+#: templates/projects/issue/delete.html:9
+#: templates/projects/task/delete.html:9
+msgid "Are you sure you want to delete task"
+msgstr "Tem certeza de que deseja excluir"
+
+#: templates/projects/issue/delete.html:13
+#: templates/projects/issue/delete.html:15
+#: templates/projects/task/delete.html:13
+#: templates/projects/task/delete.html:15
+#: templates/projects/time/delete.html:13
+#: templates/projects/time/delete.html:15
+msgid "Delete task"
+msgstr "Apagar tarefa"
+
+#: templates/projects/issue/form.html:8 templates/projects/time/form.html:8
+msgid "New"
+msgstr "Novo"
+
+#: templates/projects/issue/form.html:25
+msgid "Save issue"
+msgstr "Gravar Issue"
+
+#: templates/projects/issue/index.html:4
+msgid "Issue"
+msgstr "Issue"
+
+#: templates/projects/issue/index.html:13
+msgid "Type"
+msgstr "Tipo"
+
+#: templates/projects/issue/index.html:15
+msgid "Priority"
+msgstr "Prioridade"
+
+#: templates/projects/issue/index.html:16
+msgid "Subject"
+msgstr "Assunto"
+
+#: templates/projects/issue/index.html:17
+msgid "Assigned To"
+msgstr "Atribuído a"
+
+#: templates/projects/issue/index.html:18
+msgid "Updated"
+msgstr "Actualizado"
+
+#: templates/projects/message/_comment.html:2
+msgid "on"
+msgstr "em"
+
+#: templates/projects/message/_message.html:5
+msgid "Posted by"
+msgstr "Enviado por"
+
+#: templates/projects/message/_message.html:8
+msgid "comment"
+msgstr "comentário"
+
+#: templates/projects/message/details.html:16
+msgid "Leave a comment"
+msgstr "Deixar um comentário"
+
+#: templates/projects/message/details.html:18
+msgid "Add this comment"
+msgstr "Adicionar este comentário"
+
+#: templates/projects/message/form.html:17
+msgid "Save message"
+msgstr "Gravar mensagem"
+
+#: templates/projects/message/form.html:19
+msgid "Create message"
+msgstr "Criar mensagem"
+
+#: templates/projects/milestone/_list_detail.html:18
+msgid "Todo list"
+msgstr "Lista de tarefas"
+
+#: templates/projects/milestone/form.html:4
+msgid "Create a milestone"
+msgstr "Criar uma Meta"
+
+#: templates/projects/milestone/form.html:20
+msgid "End date"
+msgstr "End date"
+
+#: templates/projects/milestone/form.html:37
+msgid "Save milestone"
+msgstr "Gravar Meta"
+
+#: templates/projects/milestone/form.html:39
+msgid "Create milestone"
+msgstr "Criar Meta"
+
+#: templates/projects/milestone/index.html:4
+msgid "Milestones"
+msgstr "Metas"
+
+#: templates/projects/project/form.html:4
+msgid "Create a new project"
+msgstr "Criar um novo projeto"
+
+#: templates/projects/project/form.html:17
+msgid "Create Project"
+msgstr "Criar Projeto"
+
+#: templates/projects/task/_index.html:5
+msgid "Tasks"
+msgstr "Tarefas"
+
+#: templates/projects/task/detail.html:7
+msgid "ago by"
+msgstr "atrás por"
+
+#: templates/projects/task/detail.html:10
+msgid "Last modified"
+msgstr "Última modificação"
+
+#: templates/projects/task/detail.html:10
+msgid "ago"
+msgstr "atrás"
+
+#: templates/projects/task/detail.html:11 templates/projects/time/form.html:32
+#: templates/projects/time/form.html:34
+msgid "Log time"
+msgstr "Registar Tempo"
+
+#: templates/projects/task/detail.html:17
+msgid "Assigned to"
+msgstr "Atribuído a"
+
+#: templates/projects/task/detail.html:18
+msgid "Start date"
+msgstr "Data de início"
+
+#: templates/projects/task/detail.html:19
+msgid "Due date"
+msgstr "Data Final"
+
+#: templates/projects/task/detail.html:20 templates/projects/time/index.html:4
+msgid "Time"
+msgstr "Tempo"
+
+#: templates/projects/task/detail.html:34
+msgid "Subtasks"
+msgstr "Subtarefas"
+
+#: templates/projects/task/detail.html:39
+msgid "There are no subtasks for this task"
+msgstr "Não há subtarefas para esta tarefa"
+
+#: templates/projects/task/form.html:62
+msgid "Save task"
+msgstr "Gravar tarefa"
+
+#: templates/projects/task/form.html:64
+msgid "Create task"
+msgstr "Criar tarefa"
+
+#: templates/projects/task/index.html:20
+msgid "create task"
+msgstr "Criar Tarefa"
+
+#: templates/projects/task/index.html:20
+msgid "create one now"
+msgstr "criar uma"
+
+#: templates/projects/task/index.html:25
+msgid "There are no tasks created for this project"
+msgstr "Não existem tarefas criadas para este projecto"
+
+#: templates/registration/activate.html:12
+msgid ""
+"\n"
+"<h1>Activation</h1>\n"
+"<p>Your account is now activated. Go <a href=\"/\">here</a> to continue.</p>\n"
+"\n"
+msgstr ""
+"\n"
+"<h1> Ativação </h1><p> Sua conta já está ativado. Vá <a href=\"/\">aqui</a> para continuar. </p>\n"
+
+#: templates/registration/registration_complete.html:12
+msgid ""
+"\n"
+"<h1>Thank you</h1>\n"
+"<p>An email has been sent to you. You need to click link in it to activate your account.</p>\n"
+msgstr ""
+"\n"
+"<h1> Obrigado </h1><p> Um email foi enviado a você. Você precisa clicar no link para ativar sua conta. </p>\n"
+
+#: templates/registration/registration_form.html:28
+msgid "Sign up"
+msgstr "Cadastre-se"

@@ -6,7 +6,7 @@
 {% block content %}
 <form class="form" action="{% url task_delete project.id, object.id %}" method="post">
     <input type="hidden" name="task_id" value="{{ object.id }}" />
-    <p>Are you sure you want to delete task <strong>{{ object }}</strong></p>
+    <p>{% trans "Are you sure you want to delete task" %} <strong>{{ object }}</strong></p>
 
     <p class="submit">
         {% if task %}

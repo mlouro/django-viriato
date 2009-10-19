@@ -1,19 +1,21 @@
+{% load i18n %}
+
 <form class="form" action="{{ newsletter.get_edit_url }}" method="post">
 <div id="edit_newsletter">
     <p class="field">
-        <label>Title</label>
+        <label>{% trans  'Title' %}</label>
         {{ form.title }}
     </p>
     {{ form.title.errors }}
 
     <p class="field">
-        <label> Url </span></label>
+        <label> {% trans  'Url' %} </span></label>
         {{ form.url }}
     </p>
     {{ form.url.errors }}
     
     <p class="field">
-        <label>Groups <span class="light">(Link group users)</span></label>
+        <label>{% trans  'Groups' %} <span class="light">(Link group users)</span></label>
         {{ form.group }}
     </p>
     {{ form.group.errors }}
@@ -40,8 +42,8 @@
 
 <div id="edit_submit" class="clear">
     <p class="submit">
-        <input type="submit" value="Save Newsletter" />
-        <a href="javascript:history.back()">Cancel</a>
+        <input type="submit" value="{% trans  'Save Newsletters' %}" />
+        <a href="javascript:history.back()">{% trans 'Cancel' %}</a>
     </p>
 </div>
 </form>

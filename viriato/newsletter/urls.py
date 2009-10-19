@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
 from django.conf.urls.defaults import *
-from newsletter.models import Newsletter, Subscriber, Group
+from newsletter.models import Newsletter, Subscriber, Group, Submission
 from newsletter.forms import NewsletterForm, SubscriberForm,GroupForm
 from django.views.generic import list_detail, date_based
 from django.views.generic.simple import direct_to_template
 from django.views.generic.create_update import create_object,update_object,delete_object
+from django.contrib.auth.decorators import login_required, permission_required
 
 #Subscribers dict's
 subscriber_create_dict = {
@@ -67,20 +68,23 @@ newsletter_delete_dict = {
 }
 
 #Dashboard
+#dashboard_dict = {
+    #'template': 'newsletter/dashboard.html',
+    #}
 dashboard_dict = {
-    'template': 'newsletter/dashboard.html',
+    'queryset':Submission.objects.all(),
+    'date_field': 'sent_date',
+    'num_latest':3,
+    'template_name': 'newsletter/dashboard.html',
     }
 
 urlpatterns = patterns('newsletter.views',
-
-    #Dashboard
-    url(r'^dashboard',direct_to_template, dashboard_dict, name='dashboard'),
 
     #Newsletters
     url(r'^add/$', 'newsletter_add', name='newsletter_add'),
     url(r'^list/$','index', name='newsletter_list'),
     url(r'^edit/(?P<newsletter_id>\w+)/$', 'newsletter_edit', name='newsletter_edit'),
-    url(r'^delete/(?P<object_id>\w+)/$', delete_object, newsletter_delete_dict, name='newsletter_delete'),
+    url(r'^delete/(?P<object_id>\w+)/$', login_required(delete_object), newsletter_delete_dict, name='newsletter_delete'),
     url(r'^content/(?P<newsletter_id>\w+)/$', 'newsletter_content', name = 'newsletter_content'),
     url(r'^analytics/(?P<newsletter_id>\w+)/$', 'newsletter_analytics', name = 'newsletter_analytics'),
     url(r'^edit/links/(?P<object_id>\w+)/$', 'manage_links', name='newsletter_links'),
@@ -91,18 +95,18 @@ urlpatterns = patterns('newsletter.views',
     url(r'^get_dashboard/$', 'dashboard_ajax', name = 'dashboard_ajax'),
 
     #Subscribers
-    url(r'^subscriber/add/$', create_object, subscriber_create_dict, name='subscriber_create'),
-    url(r'^subscriber/list/$', list_detail.object_list, subscriber_list_dict, name='subscriber_list'),
-    url(r'^subscriber/update/(?P<object_id>\d+)/$', update_object, subscriber_update_dict, name='subscriber_update'),
-    url(r'^subscriber/delete/(?P<object_id>\d+)/$', delete_object, subscriber_delete_dict, name='subscriber_delete'),
-    url(r'^subscriber/by-group/$', list_detail.object_list, subscriber_by_group_list_dict, name='subscriber_by_group_list'), # with a generic view in view.py
+    url(r'^subscriber/add/$', login_required(create_object), subscriber_create_dict, name='subscriber_create'),
+    url(r'^subscriber/list/$', login_required(list_detail.object_list), subscriber_list_dict, name='subscriber_list'),
+    url(r'^subscriber/update/(?P<object_id>\d+)/$', login_required(update_object), subscriber_update_dict, name='subscriber_update'),
+    url(r'^subscriber/delete/(?P<object_id>\d+)/$', login_required(delete_object), subscriber_delete_dict, name='subscriber_delete'),
+    url(r'^subscriber/by-group/$', login_required(list_detail.object_list), subscriber_by_group_list_dict, name='subscriber_by_group_list'), # with a generic view in view.py
     url(r'^subscriber/by-group/(?P<object_id>\d+)/$', 'subscriber_by_group', name='subscriber_by_group'), # with a generic view in view.py
 
     #Groups
-    url(r'^group/add/$', create_object, group_create_dict, name='group_create'),
-    url(r'^group/list/$', list_detail.object_list, group_list_dict, name='group_list'),
-    url(r'^group/update/(?P<object_id>\d+)/$', update_object, group_update_dict, name='group_update'),
-    url(r'^group/delete/(?P<object_id>\d+)/$', delete_object, group_delete_dict, name='group_delete'),
+    url(r'^group/add/$', login_required(create_object), group_create_dict, name='group_create'),
+    url(r'^group/list/$', login_required(list_detail.object_list), group_list_dict, name='group_list'),
+    url(r'^group/update/(?P<object_id>\d+)/$', login_required(update_object), group_update_dict, name='group_update'),
+    url(r'^group/delete/(?P<object_id>\d+)/$', login_required(delete_object), group_delete_dict, name='group_delete'),
 
     #Extra
     url(r'^news/(?P<link_hash>\w+)/$', 'link_count', name='link_count'),
@@ -111,6 +115,10 @@ urlpatterns = patterns('newsletter.views',
     #testing
     url(r'^display_meta/$', 'display_meta', name='display_meta'),
 
+    #Dashboard
+    url(r'^dashboard',login_required(date_based.archive_index), dashboard_dict, name='dashboard'),
+    
     #Index
-    url(r'^$', 'index', name="newsletter_index"),
+    #url(r'^$', 'index', name="newsletter_index"),
+    url(r'^$',login_required(date_based.archive_index), dashboard_dict, name="newsletter_index"),
 )

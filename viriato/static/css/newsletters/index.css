@@ -67,3 +67,9 @@ div#edit_newsletter{position: relative;float:left; width:50%}
 div#edit_links{position: relative; float:left;} 
 /*div#edit_submit{clear:both;}*/
 .clear {clear:both;}
+
+/* Sent Newsletters
+----------------------------------------------- */
+#sent  {float:left; width:200px; background:#EFEFEF; margin-top:15px;}
+.sent_newsletters h3 { padding: 5px 10px; background: #CCC; font-weight: normal; width:200px;}
+.sent_newsletters h3 a { text-decoration: none; color: #000; }

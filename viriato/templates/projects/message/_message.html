@@ -1,11 +1,12 @@
+{% load i18n %}
 <div class="message {% if not forloop or forloop.first %}first{% endif %}">
     <h2><a href="{{ message.get_absolute_url }}">{{ message.title }}</a></h2>
     <div class="text">{{ message.message|linebreaksbr }}</div>
     <div class="comment_count">
-        Posted by {{ message.user }} on {{ message.created|date:"F d, Y, h:iA" }}
+        {% trans "Posted by" %} {{ message.user }} on {{ message.created|date:"F d, Y, h:iA" }}
         {% if messages %} |
             <a href="{{ message.get_absolute_url }}" title="comment{{ message.get_comment_count|pluralize }}">
-                {{ message.get_comment_count }} comment{{ message.get_comment_count|pluralize }}
+                {{ message.get_comment_count }} {% trans "comment" %}{{ message.get_comment_count|pluralize }}
             </a>
         {% endif %}
     </div>

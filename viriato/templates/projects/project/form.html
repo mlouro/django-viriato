@@ -1,7 +1,7 @@
 {% extends "projects/base.html" %}
 {% load i18n %}
 
-{% block content_id_title %}<h1>Create a new project</h1>{% endblock %}
+{% block content_id_title %}<h1>{% trans "Create a new project" %}</h1>{% endblock %}
 
 {% block content %}
 <form class="form inline_form" action="{% url project_add %}" method="post">
@@ -14,8 +14,8 @@
     {% endfor %}
 
     <p class="submit-row">
-        <input type="submit" value="Create Project" />
-        <a href="javascript:history.back()">Cancel</a>
+        <input type="submit" value="{% trans "Create Project" %}" />
+        <a href="javascript:history.back()">{% trans "Cancel" %}</a>
     </p>
 
 

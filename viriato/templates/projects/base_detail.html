@@ -24,6 +24,7 @@
     {% url repo_list project.id as repo_index_url %}
     {% url projects.views.time.index project.id as time_index_url %}
 
+
     {% get_link_if_allowed project_dashboard_url "Dashboard" %}
     {% get_link_if_allowed message_index_url "Messages" "projects.view_message" %}
     {% get_link_if_allowed milestone_index_url "Milestones" "projects.view_milestone" %}

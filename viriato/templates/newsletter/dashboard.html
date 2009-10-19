@@ -3,6 +3,7 @@
 <!--{% load navigation_tags %}-->
 
 {% block extra_head %}
+<link type="text/css" rel="stylesheet" href="{{ MEDIA_URL }}css/newsletters/index.css" charset="utf-8" />
 <script type="text/javascript" src="{{ MEDIA_URL }}js/libs/json.class.js" charset="utf-8"></script>
 <script src="http://raphaeljs.com/raphael.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript" src="{{ MEDIA_URL }}js/libs/newsletters/g.raphael-min.js" charset="utf-8"></script>
@@ -19,69 +20,25 @@
 
 {% endblock jquery %}
 
-{% block content_id_title %}<h1>Dashboard</h1>{% endblock %}
+{% block content_id_title %}<h1>{% trans 'Dashboard' %}</h1>{% endblock %}
 
 {% block content %}
 
+    <h2>{% trans 'Sent Newsletters' %}</h2><br/>
+    <div id="sent" class="sent_newsletters" >
 
-<!--<table width="98%" border="0" cellspacing="0" cellpadding="3" align="center">-->
-    <!--<tr>-->
-        <!--<td valign="top" class="text" align="center">-->
-            <!--<div id="chartdiv" align="center">-->
-            <!--FusionCharts.-->
-            <!--</div>-->
-            <!--<script type="text/javascript">-->
-                <!--var chart = new FusionCharts("{{ MEDIA_URL }}charts/FCF_Column3D.swf", "ChartId", "600", "350");-->
-                <!--chart.setDataURL("{{ MEDIA_URL }}data/Column3D.xml");-->
-                <!--chart.render("chartdiv");-->
-            <!--</script>-->
-        <!--</td>-->
-    <!--</tr>-->
-    <!--<tr>-->
-        <!--<td valign="top" class="text" align="center">&nbsp;</td>-->
-     <!--</tr>-->
-<!--</table>-->
-
-
-
-<!--<style type="text/css" media="screen">-->
-            <!--#holder {-->
-                <!--height: 250px;-->
-                <!--width: 800px;-->
-            <!--}-->
-        <!--</style>-->
-    <!--</head><body>-->
-        <!--<table id="data">-->
-            <!--<tfoot>-->
-                <!--<tr>-->
-                    <!--<th>1</th>-->
-                    <!--<th>2</th>-->
-                    <!--<th>3</th>-->
-                    <!--<th>4</th>-->
-                    <!--<th>5</th>-->
-                    <!--<th>6</th>-->
-                    <!--<th>7</th>-->
-                    <!--<th>8</th>-->
-                    <!--<th>9</th>-->
-                    <!--<th>10</th>-->
-                <!--</tr>-->
-            <!--</tfoot>-->
-            <!--<tbody>-->
-                <!--<tr>-->
-                    <!--<td>8</td>-->
-                    <!--<td>25</td>-->
-                    <!--<td>27</td>-->
-                    <!--<td>25</td>-->
-                    <!--<td>54</td>-->
-                    <!--<td>59</td>-->
-                    <!--<td>79</td>-->
-                    <!--<td>47</td>-->
-                    <!--<td>27</td>-->
-                    <!--<td>44</td>-->
-                    <!--</tr>-->
-            <!--</tbody>-->
-        <!--</table>-->
-<div id="holder" style="height:500px"></div>
-<div id="holder2" style="height:500px"></div>
+            {% for item in latest %}
+            <div class="newsletter-row">
+                <h3><!--<a href="{{ item.get_absolute_url }}">-->{{ item.get_time}}</a></h3>
+            </div>
+            <table class="activity">
+                <tr>
+                    <td >:: Newsletter {{ item.newsletter }} ::</td>
+                </tr>
+            </table>
+            {% endfor %}
+    </div>
+    
+<div id="holder" style="float:right; height: 400px; width: 500px;"></div>
 
 {% endblock %}

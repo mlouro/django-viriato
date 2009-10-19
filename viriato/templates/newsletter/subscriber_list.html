@@ -3,7 +3,7 @@
 <!--{% load navigation_tags %}-->
 
 
-{% block content_id_title %}<h1>Newsletters</h1>{% endblock %}
+{% block content_id_title %}<h1>{%trans 'Newsletters' %}</h1>{% endblock %}
 
 {% block content %}
 
@@ -14,9 +14,9 @@
     <div class="subscriber-row">
         <h3><a href="{{ item.get_absolute_url }}">{{ item }}</a></h3>
             <div class="actions hidden">
-                <span><a href="{{ item.get_absolute_url }}" class="edit">view</a>, </span>
-                <span><a href="{{ item.get_edit_url }}" class="edit">edit</a>,  </span>
-                <span><a href="{{ item.get_delete_url }}" class="delete">delete</a> </span>
+                <span><a href="{{ item.get_absolute_url }}" class="edit">{%trans 'view' %}</a>, </span>
+                <span><a href="{{ item.get_edit_url }}" class="edit">{%trans 'edit' %}</a>,  </span>
+                <span><a href="{{ item.get_delete_url }}" class="delete">{%trans 'delete' %}</a> </span>
             </div>
     </div>
     <table class="activity">

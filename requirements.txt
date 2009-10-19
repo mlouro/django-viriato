@@ -1,16 +1,18 @@
 # TODOS
 
 # Django
-django
+#django
 
 # user stuff
-django_registration
-lxml
-httplib2
-simplejson
+#django_registration
+#lxml
+#httplib2
+#simplejson
 
 # code browser
-pygments
--e git://github.com/alex/pyvcs.git#egg=pyvcs
--e git://github.com/jelmer/dulwich.git#egg=dulwich
--e git://github.com/mlouro/django-vcs.git#egg=django-vcs
+#pygments
+#-e git://github.com/alex/pyvcs.git#egg=pyvcs
+#-e git://github.com/jelmer/dulwich.git#egg=dulwich
+#-e git://github.com/mlouro/django-vcs.git#egg=django-vcs
+-e svn+http://django-rosetta.googlecode.com/svn/trunk/#egg=django-rosetta
+django_extensions

@@ -86,7 +86,7 @@ table.activity { width: 100%; }
         table.activity .name { border-right: 1px solid #EFEFEF; }
 
 .project_activity h3 { padding: 5px 10px; background: #EFEFEF; font-weight: normal; }
-.project_activity h3 a { text-decoration: none; color: #000; }
+.project_activity h3 a { text-decoration: underline; color: #000; }
 .project_activity .item_content p { padding: 2px 0; font-size: 13px; }
 .project_activity .item_content label { float: left; width: 90px; padding: 0 10px 0 0; text-align: right; }
 

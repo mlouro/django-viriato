@@ -1,3 +1,4 @@
+{% load i18n %}
 <div class="milestone">
     <div class="milestone-details">
         <h3>{{ milestone.title }}</h3>
@@ -6,16 +7,14 @@
         </p>
 
         <div class="actions hidden">
-            <span><a href="/milestone/save/{{ milestone.id }}/" class="edit">view</a>, </span>
-            <span><a href="{% url projects.views.milestone.save project.id, milestone.id %}" class="edit">edit</a>,  </span>
-            <span><a href="" class="delete">delete</a> </span>
+            <span><a href="{% url projects.views.milestone.save project.id, milestone.id %}" class="edit">{% trans "edit" %}</a></span>
         </div>
     </div>
     {% if milestone.todo_set.all.count %}
         <ul class="mile-item-list">
         {% for todo in milestone.todo_set.all %}
             <li>
-                <p><a href="/todo/{{ todo.id }}/">{{ todo.title }}</a> <em>(Todo list)</em></p>
+                <p><a href="/todo/{{ todo.id }}/">{{ todo.title }}</a> <em>({% trans "Todo list" %})</em></p>
             </li>
         {% endfor %}
         </ul>

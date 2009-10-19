@@ -164,12 +164,13 @@ class Newsletter(models.Model):
     #----------------------------------------------------------------------
     def rewrite_html(self):
         """rewrite the self.content with the newlinks"""
-        import socket
-        host = socket.gethostname()
+        #import socket
+        #host = socket.gethostname()
+        from settings import NEWSLETTERS_URL
         links = Link.objects.filter(newsletter=self)
         import re
         for el in links:
-            rewrited = re.sub('%s'%(el.link),'http://%s:8000/newsletter/news/%s'%(host,el.created_hash),self.content)
+            rewrited = re.sub('%s'%(el.link),'%snewsletter/news/%s'%(NEWSLETTERS_URL,el.created_hash),self.content)
 
         self.content = rewrited
         super(Newsletter,self).save()
@@ -198,13 +199,17 @@ class Link(models.Model):
 ########################################################################
 class Submission(models.Model):
     """Store the letters send date"""
+    #group = models.ManyToManyField(Group)
+    sent_date = models.DateTimeField(default=datetime.datetime.today)
     newsletter = models.ForeignKey(Newsletter)
-    group = models.ManyToManyField(Group)
-    sent_date = models.DateTimeField("Sent date")
-
     #----------------------------------------------------------------------
     def __unicode__(self):
         """return newsletter name and send date"""
-        return self.newsletter + ' ' + self.send_date
+        from django.utils.encoding import smart_unicode
+        return smart_unicode(str(self.newsletter), encoding='utf-8', strings_only=False, errors='strict') + self.sent_date.strftime(' %Y %b %d')
+    #----------------------------------------------------------------------
+    def get_time(self):
+        """return the sent date formated"""
+        return self.sent_date.strftime('%H:%m - %Y %b %d')
 
 #Talvez criar mais classes para guardar servidores de mail e contar os links por subscritor

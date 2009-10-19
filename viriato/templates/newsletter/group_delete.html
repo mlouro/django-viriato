@@ -1,7 +1,7 @@
 {% extends "newsletter/subscriber_list.html" %}
 {% load i18n %}
 
-{% block content_id_title %}<h1>Delete Group "{{object.name}}"</h1>{% endblock %}
+{% block content_id_title %}<h1>{% trans  'Delete Group' %} "{{object.name}}"</h1>{% endblock %}
 
 {% block content %}
 
@@ -11,7 +11,7 @@
 
     
         <p class="submit">
-            <input type="submit" value="Delete Group" />
+            <input type="submit" value="{% trans 'Delete Group' %}" />
             <a href="javascript:history.back()">Cancel</a>
         </p>
     
