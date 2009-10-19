@@ -15,7 +15,7 @@
                             <label>{% trans "Messages" %}:</label> {{ object.message_set.all.count }}
                         </p>
                         <p>
-                            <label>{% trans "Users:" %}</label> {% for user in object.users.all %}{{ user }}{% endfor %}
+                            <label>{% trans "Users:" %}</label> {% for user in object.users.all %} {{ user }} {% endfor %}
                         </p>
                         <p>
                             <label>{% trans "Tasks:" %}</label> {{ object.task_set.all.count }}
