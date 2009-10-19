@@ -21,7 +21,7 @@ def create_header(c, instance):
     s2 = instance.title
     content.append ('%s: %s' % (s1,s2))
     s1 = 'Nif'
-    s1 = instance.nif
+    s2 = instance.nif
     content.append ('%s: %s' %(s1, s2))
     p = c.beginText()
     p.setTextOrigin(x= inch, y= h-inch)

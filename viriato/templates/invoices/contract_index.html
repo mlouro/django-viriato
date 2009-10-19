@@ -15,7 +15,6 @@
 
 {% block content %}
     <div class="list_items" id="contracts">
-       <h2>{% trans 'Last contracts' %}<a href="/invoices/contract/"> ({% trans 'Show all' %})</a></h2>
         {% if contracts %}
             {% for contract in contracts %}
                 <h3><a href="{{ contract.get_absolute_url }}">{{ contract.description }}</a></h3>

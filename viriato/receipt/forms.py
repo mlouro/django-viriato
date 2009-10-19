@@ -44,7 +44,9 @@ class ReceiptForm(ModelForm):
 
     def clean(self):
         data = self.cleaned_data
-        if Receipt.objects.filter( green_receipt = data["green_receipt"]):#.exclude(id = data["id"])
+        #
+        print data["green_receipt"]
+        if Receipt.objects.filter( green_receipt = data["green_receipt"]).exclude(id = data["id"]):
             msg = _(u"Green receipt already exists")
             self._errors["green_receipt"] = ErrorList([msg])
             del data["green_receipt"]
