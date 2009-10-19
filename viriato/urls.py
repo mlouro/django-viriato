@@ -7,6 +7,7 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
 
+    (r'^admin/translations/', include('rosetta.urls')),
     (r'^admin/doc/', include('django.contrib.admindocs.urls')),
     (r'^admin/(.*)', admin.site.root),
 
@@ -21,6 +22,7 @@ urlpatterns = patterns('',
 
 
     (r'^newsletter/', include('newsletter.urls')),
+
     (r'^$',         include('core.urls')),
 )
 

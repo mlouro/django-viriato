@@ -17,7 +17,12 @@ DATABASE_HOST       = ''
 DATABASE_PORT       = ''
 
 TIME_ZONE = 'Europe/Lisbon'
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'en'
+LANGUAGES = (
+    ('pt', 'Portuguese'),
+    ('en', 'English'),
+)
+
 SITE_ID = 1
 USE_I18N = True
 
@@ -93,6 +98,7 @@ INSTALLED_APPS = (
     'company',
     'newsletter',
     'invoices',
+    'rosetta'
 )
 
 try:
