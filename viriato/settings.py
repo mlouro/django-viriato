@@ -92,12 +92,12 @@ INSTALLED_APPS = (
     'core',
     'projects',
     'django_vcs',
-    #'contact',
-    #'contract',
-    #'receipt',
-    #'company',
-    #'newsletter',
-    #'invoices',
+    'contact',
+    'contract',
+    'receipt',
+    'company',
+    'newsletter',
+    'invoices',
     'rosetta',
     'django_extensions'
 )
