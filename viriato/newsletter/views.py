@@ -44,9 +44,11 @@ def newsletter_add(request):
         form = NewsletterForm(request.POST)
 
         if form.is_valid():
+            #newsl = 
             form.save()
 
-            return HttpResponseRedirect('/newsletter/')
+            #return HttpResponseRedirect('/newsletter/edit/%s'%(newsl.id))
+            return HttpResponseRedirect('/newsletter/list')
         else:
             return render_to_response('newsletter/newsletter_add.html',
                                     {'form' : form},
