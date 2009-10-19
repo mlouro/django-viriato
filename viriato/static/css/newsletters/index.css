@@ -67,3 +67,16 @@ div#edit_newsletter{position: relative;float:left; width:50%}
 div#edit_links{position: relative; float:left;} 
 /*div#edit_submit{clear:both;}*/
 .clear {clear:both;}
+
+/* Sent Newsletters
+----------------------------------------------- */
+#sent  {float:left; width:150px; background:#CCC;}
+.sent_newsletters h3 { padding: 5px 10px; background: #EFEFEF; font-weight: normal; width:150px;}
+.sent_newsletters h3 a { text-decoration: none; color: #000; }
+
+.sent_newsletters .newsletter-row .actions a { padding: 6px 3px; }
+.sent_newsletters .newsletter-row .actions { position: absolute; padding: 5px 5px 5px 5px; font-size: 1.2em; }
+.sent_newsletters .newsletter-row .actions span { margin: 0 2px; }
+.sent_newsletters .newsletter-row .actions a:hover { color: #000; }
+
+.sent_newsletters .newsletter-row.focused h3{ background-color: #FFF9DF }

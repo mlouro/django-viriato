@@ -1,17 +1,17 @@
 {% extends "newsletter/subscriber_list.html" %}
 {% load i18n %}
 
-{% block content_id_title %}<h1>Delete Subscriber "{{object}}"</h1>{% endblock %}
+{% block content_id_title %}<h1>{%trans 'Delete Subscriber' %} "{{object}}"</h1>{% endblock %}
 
 {% block content %}
 
     <form class="form" action="" method="post">
     
-        <p> Do you want to delete the "{{object}}" subscriber ? </p>
+        <p> {%trans 'Do you want to delete the subscriber ' %} "{{object}}" ? </p>
 
         <p class="submit">
-            <input type="submit" value="Delete Subcriber" />
-            <a href="javascript:history.back()">Cancel</a>
+            <input type="submit" value="{%trans 'Delete Subscriber' %}" />
+            <a href="javascript:history.back()">{%trans 'Cancel' %}</a>
         </p>
     
     </form>

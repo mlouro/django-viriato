@@ -3,7 +3,7 @@
 <!--{% load navigation_tags %}-->
 
 
-{% block content_id_title %}<h1>Edit Links "{{ newsletter }}"</h1>{% endblock %}
+{% block content_id_title %}<h1>{% trans 'Edit Links ' %}"{{ newsletter }}"</h1>{% endblock %}
 
 
 {% block content %}
@@ -26,7 +26,7 @@
     {% endfor %}
 
     <p class="submit">
-        <input type="submit" value="Save Newsletter" />
+        <input type="submit" value="{% trans 'Save Newsletter' %}" />
         <a href="javascript:history.back()">Cancel</a>
     </p>
 </form>
