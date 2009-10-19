@@ -164,12 +164,13 @@ class Newsletter(models.Model):
     #----------------------------------------------------------------------
     def rewrite_html(self):
         """rewrite the self.content with the newlinks"""
-        import socket
-        host = socket.gethostname()
+        #import socket
+        #host = socket.gethostname()
+        from settings import NEWSLETTERS_URL
         links = Link.objects.filter(newsletter=self)
         import re
         for el in links:
-            rewrited = re.sub('%s'%(el.link),'http://%s:8000/newsletter/news/%s'%(host,el.created_hash),self.content)
+            rewrited = re.sub('%s'%(el.link),'%snewsletter/news/%s'%(NEWSLETTERS_URL,el.created_hash),self.content)
 
         self.content = rewrited
         super(Newsletter,self).save()

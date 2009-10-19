@@ -107,3 +107,6 @@ try:
 except ImportError:
     import sys
     sys.stderr.write("local_settings.py not set; using default settings\n")
+
+
+NEWSLETTERS_URL = "http://viriato.reactivelab.com/"
