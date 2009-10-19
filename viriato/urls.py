@@ -27,8 +27,22 @@ urlpatterns = patterns('',
 )
 
 
+urlpatterns += patterns('',
+    url(r'^set_language/(?P<lang_code>\w+)/$', 'urls.set_language', name="set_language"),
+)
+
 
 if getattr(settings, 'LOCAL_DEV', True):
     urlpatterns += patterns('django.views.static',
         (r'^static/(?P<path>.*)', 'serve', {'document_root': settings.MEDIA_ROOT}),
     )
+
+
+# -*- coding: utf-8 -*-
+from django.shortcuts import render_to_response, get_object_or_404
+from django.http import HttpResponseRedirect
+from django.template import RequestContext
+
+def set_language(request, lang_code):
+    request.session['django_language'] = lang_code
+    return HttpResponseRedirect("/")
