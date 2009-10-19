@@ -7,9 +7,7 @@
         </p>
 
         <div class="actions hidden">
-            <span><a href="/milestone/save/{{ milestone.id }}/" class="edit">{% trans "view" %}</a>, </span>
-            <span><a href="{% url projects.views.milestone.save project.id, milestone.id %}" class="edit">{% trans "edit" %}</a>,  </span>
-            <span><a href="" class="delete">{% trans "delete" %}</a> </span>
+            <span><a href="{% url projects.views.milestone.save project.id, milestone.id %}" class="edit">{% trans "edit" %}</a></span>
         </div>
     </div>
     {% if milestone.todo_set.all.count %}
