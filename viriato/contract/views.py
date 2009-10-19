@@ -232,10 +232,18 @@ def send_document(request, object_id):
     c.showPage()
     c.save()
 
-    if sendmail(file_path, object_id, MyCompany.objects.get(pk=1).title):
-        return HttpResponse("Hello, world. You're at the poll index.")
+    client = Company.objects.get(pk=contract.company)
+
+    if sendmail(file_path, object_id, MyCompany.objects.get(pk=1), client):
+        message=_('Contract sent with success!')
     else:
-        return HttpResponse("false")
+        message = _('Errors while sending the contract!')
+    return render_to_response ("invoices/last_output.html",
+                                    {
+                                        'message': message,
+                                    },
+                                    context_instance=RequestContext(request)
+                                )
 
 
 def create_pdf(c, object_id):
@@ -265,12 +273,13 @@ def create_pdf(c, object_id):
 
     return c
 
-
-def sendmail(file_path, object_id, company_title):
+def sendmail(file_path, object_id, company, client):
     host, pwd, from_user, server = get_email_data()
 
-    to='costavitorino@gmail.com'
-    subj=_('Contract from %s' % (company_title))
+    length = len(str(client.emails.all()[:1]))
+    to = str(client.emails.all()[:1])[9:length-2]
+
+    subj=_('Contract from %s' % (company.title))
     msg=_('Sending contract number %s' % (object_id))
 
     answer = send_mail(send_from=from_user, send_to=to, subject=subj, text=msg, file_path=file_path, server=server, host=host, pwd=pwd)

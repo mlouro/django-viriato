@@ -52,7 +52,6 @@ def receipt(request, object_id=0):
         retention = 0
 
     if request.method == "POST":
-
         if object_id:
             receipt = Receipt.objects.get(pk=object_id)
             template_to_go = "edit_receipt.html"
@@ -62,7 +61,7 @@ def receipt(request, object_id=0):
 
         receipt_form = ReceiptForm(request.POST, prefix="con", instance=receipt)
         formset = receipt_formset(request.POST, request.FILES, instance=receipt, prefix="details")
-
+        print receipt_form.errors
         if receipt_form.is_valid() and formset.is_valid():
             new_receipt = receipt_form.save()
             formset.save()
@@ -149,10 +148,19 @@ def send_document(request, object_id):
     c = create_pdf(c, object_id)
     c.showPage()
     c.save()
-    if sendmail(file_path, object_id, MyCompany.objects.get(pk=1).title):
-        return HttpResponse("Hello, world. You're at the poll index.")
+
+    client = Company.objects.get(pk=receipt.company)
+
+    if sendmail(file_path, object_id, MyCompany.objects.get(pk=1), client):
+        message=_('Receipt sent with success!')
     else:
-        return HttpResponse("false")
+        message = _('Errors while sending the receipt!')
+    return render_to_response ("invoices/last_output.html",
+                                    {
+                                        'message': message,
+                                    },
+                                    context_instance=RequestContext(request)
+                                )
 
 #@login_required
 #@have_company
@@ -181,11 +189,13 @@ def create_pdf(c, object_id):
 
 #@login_required
 #@have_company
-def sendmail(file_path, object_id, company_title):
+def sendmail(file_path, object_id, company, client):
     host, pwd, from_user, server = get_email_data()
 
-    to='costavitorino@gmail.com'
-    subj=_('Receipt from %s' % (company_title))
+    length = len(str(client.emails.all()[:1]))
+    to = str(client.emails.all()[:1])[9:length-2]
+
+    subj=_('Receipt from %s' % (company.title))
     msg=_('Sending receipt number %s' % (object_id))
 
     answer = send_mail(send_from=from_user, send_to=to, subject=subj, text=msg, file_path=file_path, server=server, host=host, pwd=pwd)

@@ -19,7 +19,10 @@ class ReceiptForm(ModelForm):
                                 widget=forms.HiddenInput,
                                 required=False,
             )
-    id = forms.CharField(widget=forms.HiddenInput)
+    id = forms.CharField(
+        widget=forms.HiddenInput,
+        required = False,
+    )
 
     class Meta:
         model = Receipt
@@ -41,7 +44,7 @@ class ReceiptForm(ModelForm):
 
     def clean(self):
         data = self.cleaned_data
-        if Receipt.objects.filter( green_receipt = data["green_receipt"]).exclude(id = data["id"]):
+        if Receipt.objects.filter( green_receipt = data["green_receipt"]):#.exclude(id = data["id"])
             msg = _(u"Green receipt already exists")
             self._errors["green_receipt"] = ErrorList([msg])
             del data["green_receipt"]
