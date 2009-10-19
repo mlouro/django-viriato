@@ -12,16 +12,16 @@
                 <td class="description">
                     <div class="item_content">
                         <p>
-                            <label>Messages:</label> {{ object.message_set.all.count }}
+                            <label>{% trans "Messages" %}:</label> {{ object.message_set.all.count }}
                         </p>
                         <p>
-                            <label>Users:</label> {% for user in object.users.all %}{{ user }}{% endfor %}
+                            <label>{% trans "Users:" %}</label> {% for user in object.users.all %}{{ user }}{% endfor %}
                         </p>
                         <p>
-                            <label>Tasks:</label> {{ object.task_set.all.count }}
+                            <label>{% trans "Tasks:" %}</label> {{ object.task_set.all.count }}
                         </p>
                         <p>
-                            <label>Issues:</label> {{ object.issue_set.all.count }}
+                            <label>{% trans "Issues:" %}</label> {{ object.issue_set.all.count }}
                         </p>
 
                     </div>

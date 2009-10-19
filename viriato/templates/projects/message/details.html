@@ -13,9 +13,9 @@
     </div>
     <div class="inline-form comment_form">
         <form class="form" action="" method="POST">
-            <p><strong>Leave a comment...</strong></p>
+            <p><strong>{% trans "Leave a comment" %}...</strong></p>
             {{ comment_form.comment }}
-            <p><input type="submit" name="submit" class="submit-post" value="Add this comment"></p>
+            <p><input type="submit" name="submit" class="submit-post" value="{% trans "Add this comment" %}"></p>
         </form>
     </div>
 </div>
