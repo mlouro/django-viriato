@@ -5,7 +5,7 @@
 {% block conttent %}
 <form method="post" action="">
   <p>
-    <label for="id_name">Name:</label> {{ form.name }}
+    <label for="id_name">{% trans 'Name:' %}</label> {{ form.name }}
   </p>
   <input type="submit" />
 </form>

@@ -7,6 +7,7 @@ from django.db.models import Q
 from newsletter.forms import NewsletterForm, LinkFormset, UnsubscribeForm
 from django.views.generic.create_update import create_object, update_object
 from django.views.generic import list_detail
+from django.contrib.auth.decorators import login_required, permission_required
 
 import httplib2, urllib2, lxml
 from lxml.html import fromstring, iterlinks, make_links_absolute
@@ -14,7 +15,7 @@ from settings import ROOT_DIR, PROJECT_ROOT
 
 from django.core import serializers #added by Emanuel
 
-
+@login_required
 def index(request):
     """Present the index newsletter page
     and send the newsletter data to the template """
@@ -25,6 +26,7 @@ def index(request):
                               context_instance=RequestContext(request))
 
 #----------------------------------------------------------------------
+@login_required
 def newsletter_content(request,newsletter_id):
     """return the newsletter content"""
     newsletter = get_object_or_404(Newsletter,id=newsletter_id)
@@ -36,6 +38,7 @@ def newsletter_content(request,newsletter_id):
                               context_instance=RequestContext(request))
 
 #----------------------------------------------------------------------
+@login_required
 def newsletter_add(request):
     if request.method == 'POST':
         form = NewsletterForm(request.POST)
@@ -54,6 +57,7 @@ def newsletter_add(request):
                                 context_instance=RequestContext(request))
 
 #----------------------------------------------------------------------
+@login_required
 def newsletter_edit(request, newsletter_id):
     #from django.forms.models import inlineformset_factory
     
@@ -83,6 +87,7 @@ def newsletter_edit(request, newsletter_id):
                               context_instance=RequestContext(request))
 
 #----------------------------------------------------------------------
+@login_required
 def manage_links(request, object_id):
     from django.forms.models import inlineformset_factory
 
@@ -107,6 +112,7 @@ def manage_links(request, object_id):
                               context_instance=RequestContext(request))
 
 #----------------------------------------------------------------------
+@login_required
 def newsletter_analytics(request,newsletter_id):
     newsletter = get_object_or_404(Newsletter,id=newsletter_id)
 
@@ -123,7 +129,7 @@ def links_ajax(request):
 
 #----------------------------------------------------------------------
 def dashboard_ajax(request):
-    from django.db.models import Q
+
     aux =[]
     info=[]
     for el in Link.objects.all():
@@ -133,7 +139,6 @@ def dashboard_ajax(request):
                 cont=0
                 for obj in Link.objects.filter(Q(link=el.link)):
                     cont += obj.click_count
-                    
                 el.click_count=cont
                 info.append(el)
 
@@ -142,6 +147,7 @@ def dashboard_ajax(request):
     return HttpResponse(data,mimetype='text/javascript')
 
 #----------------------------------------------------------------------
+@login_required
 def newsletter_send(request, object_id):
     import os
 
@@ -150,11 +156,17 @@ def newsletter_send(request, object_id):
 
     os.system('python %s -n %s'%(path,str(object_id)))
     
+    from newsletter.models import Submission
+
+    sub = Submission(newsletter=newsletter)
+    sub.save()
+
     return render_to_response('newsletter/newsletter_content.html',
                               {'newsletter' : newsletter},
                               context_instance=RequestContext(request))
 
 #----------------------------------------------------------------------
+@login_required
 def subscriber_by_group(request, object_id):
     """It sorts subscribers by group"""
     #look up the group

@@ -67,7 +67,7 @@ function draw(labels,clicks,links) {
 
     r.g.text(360, 30, "Links");
 
-    r.g.barchart(30, 60, 600, 320, clicks,{type: "soft"}).label(labels, true).hover(fin, fout).attr({stroke: "", fill:"hsb(.6, .6, .9)"});
+    r.g.barchart(30, 60, 600, 320, clicks,{type: "soft"}).label(labels, true).hover(fin, fout);//.attr({stroke: "", fill:"hsb(.6, .6, .9)"});
     
     //r.g.hbarchart(330, 10, 300, 220, [[55, 20, 13, 32, 5, 1, 2, 10], [10, 2, 1, 5, 32, 13, 20, 55]], {stacked: true}).hover(fin, fout);
     //r.g.hbarchart(10, 250, 300, 220, [[55, 20, 13, 32, 5, 1, 2, 10], [10, 2, 1, 5, 32, 13, 20, 55]]).hover(fin, fout);

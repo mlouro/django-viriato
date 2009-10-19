@@ -1,17 +1,17 @@
 {% extends "newsletter/newsletter_list.html" %}
 {% load i18n %}
 
-{% block content_id_title %}<h1>Delete Newsletter "{{object}}"</h1>{% endblock %}
+{% block content_id_title %}<h1>{% trans  'Delete Newsletters' %} "{{object}}"</h1>{% endblock %}
 
 {% block content %}
 
     <form class="form" action="" method="post">
     
-        <p> Do you want to delete the "{{object}}" newsletter ? </p>
+        <p> {% trans  'Do you want to delete the newsletter' %} "{{object}}" ? </p>
 
     
         <p class="submit">
-            <input type="submit" value="Delete Newsletter" />
+            <input type="submit" value="{% trans  'Delete Newsletters' %}" />
             <a href="javascript:history.back()">Cancel</a>
         </p>
     

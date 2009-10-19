@@ -1,7 +1,9 @@
+{% load i18n %}
+
 <form class="form" action="" method="post">
 
     <p class="field">
-        <label>Name</label>
+        <label>{% trans 'Name' %}</label>
         {{form.name}}
     </p>
     {{form.name.errors}}

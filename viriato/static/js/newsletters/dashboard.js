@@ -43,32 +43,32 @@ function get_dashboard(newsletter_id){
 
 
 function draw(labels,clicks,links) {
-    var r = Raphael("holder"),
-        fin = function () {
-            this.flag = r.g.popup(this.bar.x, this.bar.y, this.bar.value || "0").insertBefore(this);
-        },
-        fout = function () {
-            this.flag.animate({opacity: 0}, 300, function () {this.remove();});
-        },
-        fin2 = function () {
-            var y = [], res = [];
-            for (var i = this.bars.length; i--;) {
-                y.push(this.bars[i].y);
-                res.push(this.bars[i].value || "0");
-            }
-            this.flag = r.g.popup(this.bars[0].x, Math.min.apply(Math, y), res.join(", ")).insertBefore(this);
-        },
-        fout2 = function () {
-            this.flag.animate({opacity: 0}, 300, function () {this.remove();});
-        };
+    var r = Raphael("holder");
+    //,
+        //fin = function () {
+            //this.flag = r.g.popup(this.bar.x, this.bar.y, this.bar.value || "0").insertBefore(this);
+        //},
+        //fout = function () {
+            //this.flag.animate({opacity: 0}, 300, function () {this.remove();});
+        //},
+        //fin2 = function () {
+            //var y = [], res = [];
+            //for (var i = this.bars.length; i--;) {
+                //y.push(this.bars[i].y);
+                //res.push(this.bars[i].value || "0");
+            //}
+            //this.flag = r.g.popup(this.bars[0].x, Math.min.apply(Math, y), res.join(", ")).insertBefore(this);
+        //},
+        //fout2 = function () {
+            //this.flag.animate({opacity: 0}, 300, function () {this.remove();});
+        //};
     r.g.txtattr.font = "12px 'Fontin Sans', Fontin-Sans, sans-serif";
 
     //r.g.text(360, 30, "Links");
     
+        r.g.text(150, 50, "Links Statistics").attr({"font-size": 14});
 
-        r.g.text(320, 100, "Links Statistics").attr({"font-size": 20});
-        
-        var pie = r.g.piechart(320, 240, 100, clicks, {legend:labels, legendpos: "east", href: link});
+        var pie = r.g.piechart(150, 180, 80, clicks, {legend:labels, legendpos: "east", href: link});
         pie.hover(function () {
             this.sector.stop();
             this.sector.scale(1.1, 1.1, this.cx, this.cy);
@@ -85,14 +85,6 @@ function draw(labels,clicks,links) {
             }
         });
 
-    
-
-    
-    
-    
-    
-    
-    
 
     //r.g.barchart(30, 60, 600, 320, clicks,{type: "soft"}).label(labels, true).hover(fin, fout).attr({stroke: "", fill:"hsb(.6, .6, .9)"});
     
@@ -127,7 +119,5 @@ function draw(labels,clicks,links) {
 
     //r.g.dropNote(400, 240, 444, "", 50, 45);
     //r.g.dropNote(320, 240, 12, 0, 0, -90);
-
-
 
     };
