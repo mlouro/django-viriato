@@ -18,8 +18,8 @@ parser.add_option('-n', '--newsletter', dest='newsletter', metavar='NEWSLETTER',
 if not options.newsletter:
     parser.error("You must specifiy a Newsletter ID")
 
-sys.path.append('/opt/webapps/viriato.reactivelab.com/src/viriato-trunk/viriato')
-os.environ['DJANGO_SETTINGS_MODULE'] ='settings'
+sys.path.append('/opt/webapps/viriato.reactivelab.com/src/viriato-trunk/viriato, /opt/webapps/viriato.reactivelab.com/lib/python2.6/site-packages')
+os.environ['DJANGO_SETTINGS_MODULE'] ='viriato.settings'
 
 from django.core.management import setup_environ
 import settings
