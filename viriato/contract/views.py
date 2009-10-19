@@ -173,7 +173,7 @@ def contract_details_ajax(request):
     contract_id = int(request.POST['contract_id'])
     if contract_id < 0:
         first_contract = Contract.objects.filter(approved=True, finished=False)[:1]
-        data = serializers.serialize('json', ContractDetails.objects.filter(contract=first_contract[0].id), ensure_ascii=False)
+        data = serializers.serialize('json', ContractDetails.objects.filter(contract=first_contract[0].id, payed=False), ensure_ascii=False)
     else:
         data = serializers.serialize('json', ContractDetails.objects.filter(contract=contract_id, payed=False), ensure_ascii=False)
     return HttpResponse(data, mimetype='text/javascript')
