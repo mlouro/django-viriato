@@ -18,7 +18,10 @@ parser.add_option('-n', '--newsletter', dest='newsletter', metavar='NEWSLETTER',
 if not options.newsletter:
     parser.error("You must specifiy a Newsletter ID")
 
-sys.path.append('/opt/webapps/viriato.reactivelab.com/src/viriato-trunk/viriato, /opt/webapps/viriato.reactivelab.com/lib/python2.6/site-packages')
+sys.path.append('/opt/webapps/viriato.reactivelab.com/src/viriato-trunk/viriato')
+sys.path.append('/opt/webapps/viriato.reactivelab.com/lib/python2.6/site-packages')
+os.environ['DJANGO_SETTINGS_MODULE'] ='viriato.settings'
+
 os.environ['DJANGO_SETTINGS_MODULE'] ='viriato.settings'
 
 from django.core.management import setup_environ
@@ -39,7 +42,7 @@ class mailx:
         self.mail= MIMEMultipart('alternative')
     #----------------------------------------------------------------------
     def htmlprep(self,subject,alias,html):
-        """It attach the newsletter to the  mail instance """ 
+        """It attach the newsletter to the  mail instance """
 
         self.mail['Subject'] = subject
         self.mail['From'] = alias
@@ -66,50 +69,50 @@ class mailx:
                 print e
                 raise
         self.mailServer.close()
-        
+
 ########################################################################
 
 
 if __name__ == "__main__":
     from newsletter.models import Subscriber,Group,Newsletter
     from django.db.models import Q
-    
+
     newsletter = Newsletter.objects.get(id=options.newsletter)
     html = newsletter.content
     subject =  newsletter.title
-    
+
     to = []
     groups=[]
-    
+
     for gr in newsletter.group.all():
         groups.append(gr)
         for subs in Subscriber.objects.filter(Q(group=gr)):
             if not subs in to and subs.subscribed == True:
                 to.append(subs)
-        
+
     server = "smtp.gmail.com"
     #port = 587
     port = 25
-    
+
     gmail_user = "viriatoletter@gmail.com"   #Username
     gmail_pwd  = "<alexandre>"                   #Password
     gmail_alt  = "Viriato"                               #Alias ID
     gmail_alias = "Newsletter "+gmail_alt   #nickname
-    
+
     #mailto   =  ' ',' '
     #mailtoBcc=  ' '
-    
-    
+
+
     ########################################################################
     newmail = mailx()
-    
+
     #newmail.mailprep(gmail_alias,subject)
     newmail.htmlprep(subject,gmail_alias,html)
     #for el in to:
     newmail.sendmail(server,port,to,gmail_user,gmail_pwd)
         #print 'Sent to %s - %s'%(el.name,el.email)
-        
-        
-        
-        
-        
+
+
+
+
+
