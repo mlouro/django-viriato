@@ -33,7 +33,7 @@
     <input type="hidden" value={{ tax }} id="tax"/>
     <input type="hidden" value={{ retention }} id="retention"/>
     {% block content_data_form %}
-        <form name="myForm" id="myForm" method="POST" action="/invoices/contract/">
+        <form name="myForm" id="myForm" method="POST" action="/invoices/contract/add/">
     {% endblock content_data_form %}
         {{ formset.management_form }}
 
@@ -149,7 +149,8 @@
         <div class="submit">
             <p>
                 {% block content_data_submit %}
-                    <a class="navbutton">{% trans 'Create' %}</a>
+                    <input type="submit" value="{% trans 'Create' %}" onclick="save();"/>
+                    <a href="javascript:history.back()">Cancel</a>
                 {% endblock content_data_submit %}
             </p>
         </div>

@@ -15,6 +15,7 @@ if "projects" in INSTALLED_APPS:
 class Receipt(models.Model):
     company = models.ForeignKey(Company)
     contract = models.ForeignKey(Contract, blank=True, null=True)
+    green_receipt = models.IntegerField()
     description = models.CharField(max_length=255)
     creation_date = models.DateField(blank=True, null=True)
     total_impact_value = models.DecimalField(max_digits=15, decimal_places=2, default=0)

@@ -5,6 +5,9 @@ from receipt.models import *
 from settings import INSTALLED_APPS
 from django.forms.models import inlineformset_factory
 from django import forms
+from django.utils.translation import ugettext as _
+from django.forms.util import ErrorList
+
 
 if 'projects' in INSTALLED_APPS:
     from projects.models.project import Project
@@ -16,12 +19,15 @@ class ReceiptForm(ModelForm):
                                 widget=forms.HiddenInput,
                                 required=False,
             )
+    id = forms.CharField(widget=forms.HiddenInput)
 
     class Meta:
         model = Receipt
 
         fields = (
+                'id',
                 'contract',
+                'green_receipt',
                 'description',
                 'company',
                 'total_impact_value',
@@ -33,6 +39,14 @@ class ReceiptForm(ModelForm):
         if "projects" in INSTALLED_APPS:
             fields = fields + ('project',)
 
+    def clean(self):
+        data = self.cleaned_data
+        if Receipt.objects.filter( green_receipt = data["green_receipt"]).exclude(id = data["id"]):
+            msg = _(u"Green receipt already exists")
+            self._errors["green_receipt"] = ErrorList([msg])
+            del data["green_receipt"]
+
+        return data
 
 class ReceiptDetailsFormset(ModelForm):
     contract_detail = forms.ModelChoiceField(

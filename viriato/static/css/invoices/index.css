@@ -1,23 +1,26 @@
-
-
 #receipts{
-/*     border-bottom: 2px solid #8F8FBD; */
     padding-bottom: 10px;
+    width: 45%;
+    float: left;
+    margin-left: 10%;
 }
 
 #contracts{
-/*     border-bottom: 2px solid #8F8FBD; */
     padding-bottom: 10px;
+    width: 45%;
+    float: left;
 }
 
 a{
     text-decoration: none;
 }
 
-h2{ padding: 10px;}
-
 h3{
     font-size: 17px;
+}
+
+h2 a{
+    font-size: 10px;
 }
 
 table.activity { width: 30%; }
@@ -27,7 +30,11 @@ table.activity { width: 30%; }
         table.activity .description { width: 100%; }
         table.activity .name { border-right: 1px solid #EFEFEF; }
 
-.items h3 { padding: 5px 10px; background: #EFEFEF; font-weight: normal; }
-.items h3 a { text-decoration: none; color: #000; }
-.items .item_content p { padding: 2px 0; font-size: 13px; text-align: left; }
-.items .item_content label { float: left; width: 90px; padding: 0 5px 0 0; text-align: right; }
+.list_items h3 { padding: 5px 10px; background: #EFEFEF; font-weight: normal; }
+.list_items h3 a { text-decoration: none; color: #000; }
+.list_items .item_content p { padding: 2px 0; font-size: 13px; text-align: left; }
+.list_items .item_content label { float: left; width: 90px; padding: 0 5px 0 0; text-align: right; }
+
+#spacing{
+    padding: 10px;
+}
