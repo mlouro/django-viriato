@@ -83,7 +83,7 @@
                     <tr>
                         <td><label for="project">{% trans 'Project' %} </label></td>
                         <td>
-                            {{ receipt_form.project }}<a href=""><img title="{% trans 'Add New Project' %}" src="{{ MEDIA_URL }}images/invoices/add.png"></a>
+                            {{ receipt_form.project }}<a href="/projects/add/"><img title="{% trans 'Add New Project' %}" src="{{ MEDIA_URL }}images/invoices/add.png"></a>
                             <br/>
                             {{ receipt_form.project.errors }}
                         </td>

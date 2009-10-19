@@ -81,7 +81,6 @@
                 <li><a href="#tabs-4">{% trans 'Websites' %}</a></li>
                 <li><a href="#tabs-5">{% trans 'Instant Messaging' %}</a></li>
                 <li><a href="#tabs-6">{% trans 'Email Host Settings' %}</a></li>
-                <li><a href="#tabs-7">{% trans 'Contact Types' %}</a></li>
             </ul>
 
             <div id="contact_information" >
@@ -211,28 +210,6 @@
                         </tr>
                     </table>
                 </div>
-
-                <div id="tabs-7">
-                    {% if contact_types
-_formset %}
-                        <p>sadas</p>
-                        {{ contact_types_formset.as_table }}
-                    {% else %}
-                        <p>oii</p>
-                    {% endif %}
-                    {{ contact_types_formset.management_form }}
-                    <table>
-                        {% for form in contact_types_formset.forms %}
-                            {{ form.id }}
-                            <tr>
-                                <td>{% trans 'Delete' %}</td><td>{{ form.DELETE }}</td></tr>
-                                <td>{% trans 'Type' %}: </td>
-                                <td>{{ form.description }}<br/>{{ form.description.errors }}</td>
-                            </tr>
-                        {% endfor %}
-                    </table>
-                </div>
-
             </div>
         </div>
 
