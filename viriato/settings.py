@@ -85,7 +85,7 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.admindocs',
     'core',
-    'projects',
+    #'projects',
     'django_vcs',
     'contact',
     'contract',
