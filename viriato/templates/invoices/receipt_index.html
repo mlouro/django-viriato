@@ -16,7 +16,6 @@
 
 {% block content %}
     <div class="list_items" id="receipts">
-       <h2>{% trans 'Last receipts' %}<a href="/invoices/receipt/"> ({% trans 'Show all' %})</a></h2>
         {% if receipts %}
             {% for receipt in receipts %}
                 <h3><a href="{{ receipt.get_absolute_url }}">{{ receipt.description }}</a></h3>
