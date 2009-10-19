@@ -167,9 +167,11 @@ def send_document(request, object_id):
 def create_pdf(c, object_id):
     my_company = MyCompany.objects.get(pk=1)
     set_states(c, author=my_company.title, title="My Receipt")
-    create_header(c, my_company)
-    create_footer(c, my_company)
     receipt = Receipt.objects.get(pk=object_id)
+    green_receipt = receipt.green_receipt
+    create_header(c, my_company, green_receipt=green_receipt)
+    create_footer(c, my_company)
+
     receipt_details = ReceiptDetails.objects.filter(receipt=object_id)
     client = Company.objects.get(pk=receipt.company)
 

@@ -12,7 +12,7 @@ def set_states(c, author='Emanuel', title='My Document'):
     c.setAuthor(author)
     c.setTitle(title)
 
-def create_header(c, instance):
+def create_header(c, instance, green_receipt=0):
     w, h = A4
     c.beginForm("header")
     c.drawImage('static/%s' % (str(instance.photo)), x= w-inch, y= h-inch,width=50, height=50)
@@ -23,6 +23,10 @@ def create_header(c, instance):
     s1 = 'Nif'
     s2 = instance.nif
     content.append ('%s: %s' %(s1, s2))
+    if green_receipt:
+        s1 = _('Receipt belongs to green receipt nr. ')
+        s2 = str(green_receipt)
+        content.append ('%s %s' %(s1, s2))
     p = c.beginText()
     p.setTextOrigin(x= inch, y= h-inch)
     for line in content:
